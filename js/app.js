@@ -6,7 +6,6 @@ require('../routes/tenant-user.route');
 
 // services
 require('../services/auth.service');
-require('../services/util.service');
 
 // views
 require('../views/login/login');

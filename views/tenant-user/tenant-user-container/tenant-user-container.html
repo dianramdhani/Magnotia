@@ -8,24 +8,34 @@
         <div class="collapse navbar-collapse justify-content-between" id="navcol-1">
             <ul class="nav navbar-nav">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link active" ui-sref="tenantUser.appSuite">Application Suite</a>
+                    <a class="nav-link" ui-sref="tenantUser.appSuite"
+                        ng-class="{active: stateNow === 'tenantUser.appSuite'}"
+                        ng-click="stateNow='tenantUser.appSuite'">Application Suite</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" href="#">Data Browser</a></li>
+                    <a class="nav-link" ui-sref="tenantUser.dataBrowser"
+                        ng-class="{active: stateNow === 'tenantUser.dataBrowser'}"
+                        ng-click="stateNow='tenantUser.dataBrowser'">Data Browser</a></li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" href="#">Data Visualization</a>
+                    <a class="nav-link" ui-sref="tenantUser.dataVisualization"
+                        ng-class="{active: stateNow === 'tenantUser.dataVisualization'}"
+                        ng-click="stateNow='tenantUser.dataVisualization'">Data Visualization</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" href="#">Data Explorer</a>
+                    <a class="nav-link" ui-sref="tenantUser.dataExplorer"
+                        ng-class="{active: stateNow === 'tenantUser.dataExplorer'}"
+                        ng-click="stateNow='tenantUser.dataExplorer'">Data Explorer</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" href="#">User Management</a>
+                    <a class="nav-link" ui-sref="tenantUser.userManagement"
+                        ng-class="{active: stateNow === 'tenantUser.userManagement'}"
+                        ng-click="stateNow='tenantUser.userManagement'">User Management</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav">
                 <li class="nav-item dropdown">
                     <span class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
-                        user_name
+                        {{username}}
                     </span>
                     <div class="dropdown-menu" role="menu">
                         <span class="dropdown-item" role="presentation" ng-click="logout()">
