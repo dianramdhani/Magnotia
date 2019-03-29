@@ -7,8 +7,8 @@
     // 
 
     window.app
-        .component('tenantUserDefault', {
-            template: require('./tenant-user-default.html'),
+        .component('tenantUserAppSuite', {
+            template: require('./tenant-user-app-suite.html'),
             controller: tenantUserDefaultController,
         });
 
@@ -17,6 +17,6 @@
     function tenantUserDefaultController() {
         var $ctrl = this;
 
-        $ctrl.$onInit = function () {};
+        $ctrl.$onInit = function () { };
     }
 })();

@@ -12,11 +12,30 @@
             controller: loginController,
         });
 
-    loginController.$inject = [];
+    loginController.$inject = ['$scope', '$state', '$rootScope', 'AuthService'];
 
-    function loginController() {
+    function loginController($scope, $state, $rootScope, AuthService) {
         var $ctrl = this;
 
-        $ctrl.$onInit = function () {};
+        $ctrl.$onInit = function () {
+            if ($rootScope.globals.currentUser) {
+                gotoStateByRole($rootScope.globals.currentUser.role);
+            }
+
+            $scope.login = (username, password) => {
+                AuthService.login(username, password)
+                    .then(resLogin => {
+                        gotoStateByRole(resLogin.role);
+                    });
+            };
+
+            function gotoStateByRole(role) {
+                switch (role) {
+                    case 'TENANT_USER':
+                        $state.go('tenantUser');
+                        break;
+                }
+            }
+        };
     }
 })();

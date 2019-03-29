@@ -12,11 +12,14 @@
             controller: tenantUserContainerController,
         });
 
-    tenantUserContainerController.$inject = [];
+    tenantUserContainerController.$inject = ['$scope', '$state', 'AuthService'];
 
-    function tenantUserContainerController() {
+    function tenantUserContainerController($scope, $state, AuthService) {
         var $ctrl = this;
 
-        $ctrl.$onInit = function () {};
+        $ctrl.$onInit = function () {
+            $state.go('tenantUser.appSuite');
+            $scope.logout = AuthService.logout;
+        };
     }
 })();

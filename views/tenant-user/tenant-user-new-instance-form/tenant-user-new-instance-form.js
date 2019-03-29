@@ -17,6 +17,6 @@
     function tenantUserNewInstanceFormController() {
         var $ctrl = this;
 
-        $ctrl.$onInit = function () {};
+        $ctrl.$onInit = function () { };
     }
 })();
