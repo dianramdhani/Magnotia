@@ -16,8 +16,6 @@
     function searchController($scope) {
         var $ctrl = this;
 
-        $ctrl.$onInit = function () {
-            $scope.setFocus = () => document.querySelector('#search').focus();
-        };
+        $ctrl.$onInit = () => $scope.setFocus = () => angular.element(`#search-${$scope.$id}`).focus();
     }
 })();
