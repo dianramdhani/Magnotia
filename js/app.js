@@ -8,6 +8,9 @@ require('../routes/tenant-user.route');
 require('../services/auth.service');
 require('../services/application-pool.service');
 
+// components
+require('../components/search/search');
+
 // views
 require('../views/login/login');
 require('../views/tenant-user/tenant-user-container/tenant-user-container');
