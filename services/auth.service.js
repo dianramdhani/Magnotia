@@ -9,7 +9,7 @@
         this.login = login;
         this.logout = logout;
 
-        const url = 'http://mercury.tritronik.com:9003/tenant-management-service';
+        const url = $rootScope.config.tenant;
 
         function login(username, password) {
             let q = $q.defer();

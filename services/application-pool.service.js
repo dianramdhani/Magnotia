@@ -6,7 +6,14 @@
 
     applicationPoolService.$inject = ['$http', '$q', '$rootScope'];
     function applicationPoolService($http, $q, $rootScope) {
+        this.getApplicationSuiteList = getApplicationSuiteList;
+        this.getApplicationInstanceList = getApplicationInstanceList;
+
         const url = $rootScope.config.apppool;
+        const removeEmpty = (obj) => {
+            Object.keys(obj).forEach((key) => (obj[key] == null) && delete obj[key]);
+            return obj;
+        }
 
         // APPLICATION
         function getApplicationList(id = null, name = null, description = null, orchestratorId = null) { }
@@ -20,7 +27,12 @@
         function getApplicationProperties(applicationId) { }
         function getApplicationTemplates(applicationId) { }
         function removeApplicationProperty(applicationPropertyId) { }
-        function getApplicationInstanceList(applicationSuiteId) { }
+        function getApplicationInstanceList(applicationSuiteId) {
+            let q = $q.defer(),
+                params = { applicationSuiteId };
+            $http.get(`${url}/applicationInstance/list`, { params }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
         function saveApplicationInstance(instance) { }
 
         // APPLICATION INSTANCE
@@ -43,7 +55,12 @@
         function saveOrchestratorService(orchestratorId, orchestratorService) { }
         function getOrchestratorService(orchestratorServiceId) { }
         function removeOrchestratorService(orchestratorServiceId) { }
-        function getApplicationSuiteList(tenant, applicationSuiteName = null) { }
+        function getApplicationSuiteList(tenant, applicationSuiteName = null) {
+            let q = $q.defer(),
+                params = removeEmpty({ tenant, applicationSuiteName });
+            $http.get(`${url}/applicationSuite/list`, { params }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
         function saveApplicationSuite(applicationSuite) { }
         function getApplicationSuite(applicationSuiteId) { }
         function removeApplicationSuite(applicationSuiteId) { }
@@ -65,5 +82,9 @@
         function startInstanceScheduler(scheduleId) { }
         function stopInstanceScheduler(scheduleId) { }
         function isInstanceSchedulerRunning(scheduleId) { }
+
+        // testing
+        // getApplicationSuiteList($rootScope.globals.currentUser.tenant)
+        //     .then(res => console.log(res));
     }
 })();

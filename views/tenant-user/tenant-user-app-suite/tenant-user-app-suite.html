@@ -1,3 +1,4 @@
+<button ng-click="$log.log(applicationSuiteNow)">tes</button>
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-4 col-xl-4">
@@ -13,12 +14,10 @@
                     <div class="table-responsive">
                         <table class="table table-hover table-sm">
                             <tbody>
-                                <tr>
-                                    <td>Fraud Perspective Data Source</td>
-                                    <td class="text-right"><i class="far fa-trash-alt"></i></td>
-                                </tr>
-                                <tr class="text-white bg-primary">
-                                    <td>Fraud</td>
+                                <tr ng-repeat="_applicationSuiteList in applicationSuiteList track by $index"
+                                    ng-class="{'bg-primary': applicationSuiteNow === _applicationSuiteList}"
+                                    ng-click="setApplicationSuiteNow($index)">
+                                    <td>{{_applicationSuiteList.applicationSuiteName}}</td>
                                     <td class="text-right"><i class="far fa-trash-alt"></i></td>
                                 </tr>
                             </tbody>
@@ -50,9 +49,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>M16 Collector</td>
-                                    <td>Collect and decode M16 CDR </td>
+                                <tr ng-repeat="_applicationInstanceList in applicationInstanceList track by $index">
+                                    <td>{{_applicationInstanceList.name}}</td>
+                                    <td>{{_applicationInstanceList.description}}</td>
                                     <td>STOPPED</td>
                                     <td>
                                         <div class="dropdown">
