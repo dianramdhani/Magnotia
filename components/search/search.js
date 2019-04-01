@@ -12,6 +12,7 @@
             controller: searchController,
             bindings: {
                 position: '@',
+                filter: '='
             }
         });
 
@@ -19,6 +20,10 @@
     function searchController($scope) {
         var $ctrl = this;
 
-        $ctrl.$onInit = () => $scope.setFocus = () => angular.element(`#search-${$scope.$id}`).focus();
+        $ctrl.$onInit = function () {
+            $scope.id = $scope.$id;
+            $scope.setFocusLeft = () => angular.element(`#search-left-${$scope.id}`).focus();
+            $scope.setFocusRight = () => angular.element(`#search-right-${$scope.id}`).focus();
+        };
     }
 })();

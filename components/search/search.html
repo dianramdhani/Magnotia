@@ -1,14 +1,18 @@
 <span ng-if="$ctrl.position === 'left'" style="position: relative">
-    <input type="text" id="search-{{::$id}}" class="form-control-sm"
+    <input type="text" ng-attr-id="{{'search-left-'+id}}" class="form-control-sm"
         style="position: absolute; right: 35px; top: 50%; transform: translate(0, -50%); transition: width 1s ease;"
-        ng-style="{width: showInput? '200px': 0, opacity: showInput? 1: 0}" ng-model="search" />
-    <i class="fas fa-search" style="margin-right: 10px;" ng-hide="showInput" ng-click="showInput=true; setFocus()"></i>
-    <i class="fas fa-times" style="margin-right: 10px;" ng-show="showInput" ng-click="showInput=false; search=''"></i>
+        ng-style="{width: showInput? '200px': 0, opacity: showInput? 1: 0}" ng-model="$ctrl.filter" />
+    <i class="fas fa-search" style="margin-right: 10px;" ng-hide="showInput"
+        ng-click="showInput=true; setFocusLeft()"></i>
+    <i class="fas fa-times" style="margin-right: 10px;" ng-show="showInput"
+        ng-click="showInput=false; $ctrl.filter=''"></i>
 </span>
 <span ng-if="$ctrl.position === 'right'" style="position: relative">
-    <i class="fas fa-search" style="margin-left: 10px;" ng-hide="showInput" ng-click="showInput=true; setFocus()"></i>
-    <i class="fas fa-times" style="margin-left: 10px;" ng-show="showInput" ng-click="showInput=false; search=''"></i>
-    <input type="text" id="search-{{::$id}}" class="form-control-sm"
+    <i class="fas fa-search" style="margin-left: 10px;" ng-hide="showInput"
+        ng-click="showInput=true; setFocusRight()"></i>
+    <i class="fas fa-times" style="margin-left: 10px;" ng-show="showInput"
+        ng-click="showInput=false; $ctrl.filter=''"></i>
+    <input type="text" ng-attr-id="{{'search-left-'+id}}" class="form-control-sm"
         style="position: absolute; left: 35px; top: 50%; transform: translate(0, -50%); transition: width 1s ease;"
-        ng-style="{width: showInput? '200px': 0, opacity: showInput? 1: 0}" ng-model="search" />
+        ng-style="{width: showInput? '200px': 0, opacity: showInput? 1: 0}" ng-model="$ctrl.filter" />
 </span>

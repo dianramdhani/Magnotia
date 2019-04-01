@@ -1,4 +1,3 @@
-<button ng-click="$log.log(applicationSuiteNow)">tes</button>
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-4 col-xl-4">
@@ -7,14 +6,14 @@
                     <h6 class="d-flex justify-content-between">
                         Application Suite
                         <span>
-                            <search position="left"></search>
+                            <search filter="filterApplicationSuiteList" position="left"></search>
                             <i class="fas fa-plus"></i>
                         </span>
                     </h6>
                     <div class="table-responsive">
                         <table class="table table-hover table-sm">
                             <tbody>
-                                <tr ng-repeat="_applicationSuiteList in applicationSuiteList track by $index"
+                                <tr ng-repeat="_applicationSuiteList in applicationSuiteList | filter: filterApplicationSuiteList track by $index"
                                     ng-class="{'bg-primary': applicationSuiteNow === _applicationSuiteList}"
                                     ng-click="setApplicationSuiteNow($index)">
                                     <td>{{_applicationSuiteList.applicationSuiteName}}</td>
