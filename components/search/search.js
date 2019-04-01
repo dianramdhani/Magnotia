@@ -10,6 +10,9 @@
         .component('search', {
             template: require('./search.html'),
             controller: searchController,
+            bindings: {
+                position: '@',
+            }
         });
 
     searchController.$inject = ['$scope'];

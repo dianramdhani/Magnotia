@@ -6,7 +6,7 @@
 
     applicationPoolService.$inject = ['$http', '$q', '$rootScope'];
     function applicationPoolService($http, $q, $rootScope) {
-        const url = 'http://mercury.tritronik.com:9001/application-pool';
+        const url = $rootScope.config.apppool;
 
         // APPLICATION
         function getApplicationList(id = null, name = null, description = null, orchestratorId = null) { }

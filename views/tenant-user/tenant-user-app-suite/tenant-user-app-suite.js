@@ -12,9 +12,9 @@
             controller: tenantUserDefaultController,
         });
 
-    tenantUserDefaultController.$inject = [];
+    tenantUserDefaultController.$inject = ['applicationPoolService'];
 
-    function tenantUserDefaultController() {
+    function tenantUserDefaultController(applicationPoolService) {
         var $ctrl = this;
 
         $ctrl.$onInit = function () { };
