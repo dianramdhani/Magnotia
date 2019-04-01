@@ -15,7 +15,7 @@
                             <tbody>
                                 <tr ng-repeat="_applicationSuiteList in applicationSuiteList | filter: filterApplicationSuiteList track by $index"
                                     ng-class="{'bg-primary': applicationSuiteNow === _applicationSuiteList}"
-                                    ng-click="setApplicationSuiteNow($index)">
+                                    ng-click="setApplicationSuiteNow(_applicationSuiteList)">
                                     <td>{{_applicationSuiteList.applicationSuiteName}}</td>
                                     <td class="text-right"><i class="far fa-trash-alt"></i></td>
                                 </tr>
@@ -31,7 +31,7 @@
                     <h5 class="d-flex justify-content-between">
                         Application Instance
                         <span>
-                            <search position="left"></search>
+                            <search filter="filterApplicationInstanceList" position="left"></search>
                             <a ui-sref="tenantUser.appSuiteNew({idApplicationSuite:applicationSuiteNow.id})">
                                 <i class="fas fa-plus"></i>
                             </a>
@@ -50,7 +50,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="_applicationInstanceList in applicationInstanceList track by $index">
+                                <tr ng-repeat="_applicationInstanceList in applicationInstanceList | filter: filterApplicationInstanceList track by $index">
                                     <td>{{_applicationInstanceList.name}}</td>
                                     <td>{{_applicationInstanceList.description}}</td>
                                     <td>{{_applicationInstanceList.dataExecuteInstanceOperation.notes}}</td>
