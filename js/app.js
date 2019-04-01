@@ -35,4 +35,3 @@ require('../views/login/login');
 require('../views/tenant-user/tenant-user-container/tenant-user-container');
 require('../views/tenant-user/tenant-user-app-suite/tenant-user-app-suite');
 require('../views/tenant-user/tenant-user-new-instance-form/tenant-user-new-instance-form');
-require('../views/tenant-user/tenant-user-add-application/tenant-user-add-application');

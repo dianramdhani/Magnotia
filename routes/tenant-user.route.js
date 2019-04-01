@@ -8,6 +8,7 @@
     function TenantUserRoute($stateProvider) {
         let states = [
             { name: 'tenantUser.appSuite', url: '/appsuite', component: 'tenantUserAppSuite' },
+            { name: 'tenantUser.appSuiteNew', url: '/appsuite/new/{idApplicationSuite}', component: 'tenantUserNewInstanceForm' },
             { name: 'tenantUser.dataBrowser', url: '/browser', template: 'dataBrowser' },
             { name: 'tenantUser.dataVisualization', url: '/visual', template: 'dataVisualization' },
             { name: 'tenantUser.dataExplorer', url: '/explorer', template: 'dataExplorer' },
