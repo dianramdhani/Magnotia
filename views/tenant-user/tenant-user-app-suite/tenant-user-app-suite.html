@@ -52,7 +52,7 @@
                                 <tr ng-repeat="_applicationInstanceList in applicationInstanceList track by $index">
                                     <td>{{_applicationInstanceList.name}}</td>
                                     <td>{{_applicationInstanceList.description}}</td>
-                                    <td>STOPPED</td>
+                                    <td>{{_applicationInstanceList.dataExecuteInstanceOperation.notes}}</td>
                                     <td>
                                         <div class="dropdown">
                                             <button class="btn btn-primary btn-sm dropdown-toggle"

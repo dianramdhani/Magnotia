@@ -8,8 +8,12 @@
     function applicationPoolService($http, $q, $rootScope) {
         this.getApplicationSuiteList = getApplicationSuiteList;
         this.getApplicationInstanceList = getApplicationInstanceList;
+        this.executeInstanceOperation = executeInstanceOperation;
+        this.getOrchestratorServiceList = getOrchestratorServiceList;
+        this.getApplication = getApplication;
 
-        const url = $rootScope.config.apppool;
+
+        const url = $rootScope.globals.config.apppool;
         const removeEmpty = (obj) => {
             Object.keys(obj).forEach((key) => (obj[key] == null) && delete obj[key]);
             return obj;
@@ -19,7 +23,12 @@
         function getApplicationList(id = null, name = null, description = null, orchestratorId = null) { }
         function getListByOrchestrator(orchestratorId) { }
         function saveApplication(application) { }
-        function getApplication(applicationId) { }
+        function getApplication(applicationId) {
+            let q = $q.defer(),
+                params = { applicationId };
+            $http.get(`${url}/application/get`, { params }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
         function removeApplication(applicationId) { }
         function executeApplication(applicationId, orchestratorServiceId) { }
         function executeApplicationCustom(applicationId, orchestratorServiceId, serviceName) { }
@@ -38,7 +47,12 @@
         // APPLICATION INSTANCE
         function getApplicationInstance(applicationInstanceId) { }
         function removeApplicationInstance(applicationInstanceId) { }
-        function executeInstanceOperation(applicationInstanceId, orchestratorServiceId, noalert) { }
+        function executeInstanceOperation(applicationInstanceId, orchestratorServiceId) {
+            let q = $q.defer(),
+                params = { applicationInstanceId, orchestratorServiceId };
+            $http.get(`${url}/applicationInstance/execute`, { params }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
         function addApplicationInstanceProperties(applicationInstanceId, properties) { }
         function getApplicationInstanceProperties(applicationInstanceId) { }
         function removeApplicationInstanceProperty(applicationInstancePropertyId) { }
@@ -51,7 +65,12 @@
         function executeOrchestrator(orchestratorServiceId) { }
 
         // ORCHESTRATOR SERVICE
-        function getOrchestratorServiceList(orchestratorId, applicationService = null, instanceService = null, name = null) { }
+        function getOrchestratorServiceList(orchestratorId, applicationService = null, instanceService = null, name = null) {
+            let q = $q.defer(),
+                params = removeEmpty({ orchestratorId, applicationService, instanceService, name });
+            $http.get(`${url}/orchestratorService/list`, { params }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
         function saveOrchestratorService(orchestratorId, orchestratorService) { }
         function getOrchestratorService(orchestratorServiceId) { }
         function removeOrchestratorService(orchestratorServiceId) { }
@@ -82,9 +101,5 @@
         function startInstanceScheduler(scheduleId) { }
         function stopInstanceScheduler(scheduleId) { }
         function isInstanceSchedulerRunning(scheduleId) { }
-
-        // testing
-        // getApplicationSuiteList($rootScope.globals.currentUser.tenant)
-        //     .then(res => console.log(res));
     }
 })();

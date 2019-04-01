@@ -32,8 +32,19 @@
                 if (typeof (nowVal) !== 'undefined') {
                     applicationPoolService.getApplicationInstanceList(nowVal.id)
                         .then(resGetApplicationInstanceList => {
-                            console.log(nowVal, resGetApplicationInstanceList);
                             $scope.applicationInstanceList = resGetApplicationInstanceList;
+                            angular.forEach($scope.applicationInstanceList, _applicationInstanceList => {
+                                applicationPoolService.getApplication(_applicationInstanceList.applicationId)
+                                    .then(resGetApplication => {
+                                        _applicationInstanceList['dataGetApplication'] = resGetApplication;
+                                        applicationPoolService.getOrchestratorServiceList(resGetApplication.orchestratorId, null, null, 'checkRunningStatus')
+                                            .then(resGetOrchestratorServiceList => {
+                                                _applicationInstanceList.dataGetApplication['dataGetOrchestratorServiceList'] = resGetOrchestratorServiceList[0];
+                                                applicationPoolService.executeInstanceOperation(_applicationInstanceList.id, resGetOrchestratorServiceList[0].id)
+                                                    .then(resExecuteInstanceOperation => _applicationInstanceList['dataExecuteInstanceOperation'] = resExecuteInstanceOperation);
+                                            });
+                                    });
+                            });
                         });
                 }
             });

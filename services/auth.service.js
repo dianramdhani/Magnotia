@@ -9,7 +9,7 @@
         this.login = login;
         this.logout = logout;
 
-        const url = $rootScope.config.tenant;
+        const url = $rootScope.globals.config.tenant;
 
         function login(username, password) {
             let q = $q.defer();
