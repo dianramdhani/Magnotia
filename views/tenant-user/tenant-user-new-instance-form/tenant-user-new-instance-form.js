@@ -12,11 +12,16 @@
             controller: tenantUserNewInstanceFormController,
         });
 
-    tenantUserNewInstanceFormController.$inject = [];
+    tenantUserNewInstanceFormController.$inject = ['$scope', 'applicationPoolService'];
 
-    function tenantUserNewInstanceFormController() {
+    function tenantUserNewInstanceFormController($scope, applicationPoolService) {
         var $ctrl = this;
 
-        $ctrl.$onInit = function () { };
+        $ctrl.$onInit = function () {
+            applicationPoolService.getApplicationList()
+                .then(resGetApplicationList => $scope.applicationList = resGetApplicationList);
+
+            $scope.setApplicationNow = (application) => $scope.applicationNow = application;
+        };
     }
 })();

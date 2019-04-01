@@ -24,9 +24,7 @@
                     $scope.applicationSuiteList = resGetApplicationSuiteList;
                     $scope.applicationSuiteNow = $scope.applicationSuiteList[0];
                 });
-            $scope.setApplicationSuiteNow = (applicationSuite) => {
-                $scope.applicationSuiteNow = applicationSuite;
-            };
+            $scope.setApplicationSuiteNow = (applicationSuite) => $scope.applicationSuiteNow = applicationSuite;
 
             $scope.$watch('applicationSuiteNow', (nowVal) => {
                 if (typeof (nowVal) !== 'undefined') {

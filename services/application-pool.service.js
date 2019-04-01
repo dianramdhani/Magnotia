@@ -11,6 +11,7 @@
         this.executeInstanceOperation = executeInstanceOperation;
         this.getOrchestratorServiceList = getOrchestratorServiceList;
         this.getApplication = getApplication;
+        this.getApplicationList = getApplicationList;
 
 
         const url = $rootScope.globals.config.apppool;
@@ -20,7 +21,12 @@
         }
 
         // APPLICATION
-        function getApplicationList(id = null, name = null, description = null, orchestratorId = null) { }
+        function getApplicationList(id = null, name = null, description = null, orchestratorId = null) {
+            let q = $q.defer(),
+                params = removeEmpty({ id, name, description, orchestratorId });
+            $http.get(`${url}/application/list`, { params }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
         function getListByOrchestrator(orchestratorId) { }
         function saveApplication(application) { }
         function getApplication(applicationId) {

@@ -32,9 +32,8 @@
                         Application Instance
                         <span>
                             <search filter="filterApplicationInstanceList" position="left"></search>
-                            <a ui-sref="tenantUser.appSuiteNew({idApplicationSuite:applicationSuiteNow.id})">
-                                <i class="fas fa-plus"></i>
-                            </a>
+                            <i class="fas fa-plus"
+                                ui-sref="tenantUser.appSuiteNew({idApplicationSuite:applicationSuiteNow.id})"></i>
                         </span>
                     </h5>
                     <div class="table-responsive">
@@ -50,7 +49,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="_applicationInstanceList in applicationInstanceList | filter: filterApplicationInstanceList track by $index">
+                                <tr
+                                    ng-repeat="_applicationInstanceList in applicationInstanceList | filter: filterApplicationInstanceList track by $index">
                                     <td>{{_applicationInstanceList.name}}</td>
                                     <td>{{_applicationInstanceList.description}}</td>
                                     <td>{{_applicationInstanceList.dataExecuteInstanceOperation.notes}}</td>
