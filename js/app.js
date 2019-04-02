@@ -28,10 +28,13 @@ require('../routes/tenant-user.route');
 require('../routes/application-suite.route');
 
 // services
+// AuthService
 require('../services/auth.service');
+// applicationPoolService
 require('../services/application-pool.service');
 
 // components
+// search
 require('../components/search/search');
 
 // views
