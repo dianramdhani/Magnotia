@@ -7,14 +7,14 @@
     // 
 
     window.app
-        .component('tenantUserAppSuite', {
-            template: require('./tenant-user-app-suite.html'),
-            controller: tenantUserDefaultController,
+        .component('tenantUserApplicationSuiteHome', {
+            template: require('./home.html'),
+            controller: tenantUserApplicationSuiteHomeController,
         });
 
-    tenantUserDefaultController.$inject = ['$scope', '$log', '$rootScope', 'applicationPoolService'];
+    tenantUserApplicationSuiteHomeController.$inject = ['$scope', '$log', '$rootScope', 'applicationPoolService'];
 
-    function tenantUserDefaultController($scope, $log, $rootScope, applicationPoolService) {
+    function tenantUserApplicationSuiteHomeController($scope, $log, $rootScope, applicationPoolService) {
         var $ctrl = this;
         $scope.$log = $log;
         $scope.id = $scope.$id;

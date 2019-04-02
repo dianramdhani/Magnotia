@@ -7,16 +7,16 @@
     // 
 
     window.app
-        .component('tenantUserNewAppSuiteModal', {
-            template: require('./tenant-user-new-app-suite-modal.html'),
-            controller: tenantUserNewAppSuiteModalController,
+        .component('tenantUserApplicationSuiteModalNewApplicationSuite', {
+            template: require('./modal-new-application-suite.html'),
+            controller: tenantUserApplicationSuiteModalNewApplicationSuiteController,
             bindings: {
                 idModal: '=',
             }
         });
 
-    tenantUserNewAppSuiteModalController.$inject = ['$scope'];
-    function tenantUserNewAppSuiteModalController($scope) {
+    tenantUserApplicationSuiteModalNewApplicationSuiteController.$inject = ['$scope'];
+    function tenantUserApplicationSuiteModalNewApplicationSuiteController($scope) {
         var $ctrl = this;
         $scope.id = $scope.$id;
 

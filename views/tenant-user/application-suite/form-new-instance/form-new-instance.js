@@ -7,14 +7,14 @@
     // 
 
     window.app
-        .component('tenantUserNewInstanceForm', {
-            template: require('./tenant-user-new-instance-form.html'),
-            controller: tenantUserNewInstanceFormController,
+        .component('tenantUserApplicationSuiteFormNewInstance', {
+            template: require('./form-new-instance.html'),
+            controller: tenantUserApplicationSuiteFormNewInstanceController,
         });
 
-    tenantUserNewInstanceFormController.$inject = ['$scope', 'applicationPoolService'];
+    tenantUserApplicationSuiteFormNewInstanceController.$inject = ['$scope', 'applicationPoolService'];
 
-    function tenantUserNewInstanceFormController($scope, applicationPoolService) {
+    function tenantUserApplicationSuiteFormNewInstanceController($scope, applicationPoolService) {
         var $ctrl = this;
 
         $ctrl.$onInit = function () {

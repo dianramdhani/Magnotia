@@ -7,7 +7,8 @@
                         Application Suite
                         <span>
                             <search filter="filterApplicationSuiteList" position="left"></search>
-                            <tenant-user-new-app-suite-modal></tenant-user-new-app-suite-modal>
+                            <tenant-user-application-suite-modal-new-application-suite>
+                            </tenant-user-application-suite-modal-new-application-suite>
                         </span>
                     </h6>
                     <div class="table-responsive">
@@ -33,7 +34,7 @@
                         <span>
                             <search filter="filterApplicationInstanceList" position="left"></search>
                             <i class="fas fa-plus"
-                                ui-sref="tenantUser.appSuiteNew({idApplicationSuite:applicationSuiteNow.id})"></i>
+                                ui-sref="tenantUser.applicationSuite.formNewInstance({idApplicationSuite:applicationSuiteNow.id})"></i>
                         </span>
                     </h5>
                     <div class="table-responsive">
@@ -67,9 +68,12 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td style="width: 90px;">
-                                        <i class="fas fa-cogs"></i>
-                                        <i class="far fa-eye" style="margin-left: 10px;"></i>
+                                    <td>
+                                        <div class="d-flex flex-row">
+                                            <i class="fas fa-cogs"></i>
+                                            <i class="fas fa-tasks" style="margin-left: 10px;"></i>
+                                            <i class="far fa-eye" style="margin-left: 10px;"></i>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>

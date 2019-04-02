@@ -20,8 +20,12 @@ window.app = angular.module('Magnotia', ['ui.router', 'angular-md5', 'ngCookies'
 })();
 
 // routes
+// app
 require('../routes/app.route');
+// app/tenant-user
 require('../routes/tenant-user.route');
+// app/tenant-user/application-suite
+require('../routes/application-suite.route');
 
 // services
 require('../services/auth.service');
@@ -31,8 +35,17 @@ require('../services/application-pool.service');
 require('../components/search/search');
 
 // views
+// login login
 require('../views/login/login');
-require('../views/tenant-user/tenant-user-container/tenant-user-container');
-require('../views/tenant-user/tenant-user-app-suite/tenant-user-app-suite');
-require('../views/tenant-user/tenant-user-new-instance-form/tenant-user-new-instance-form');
-require('../views/tenant-user/tenant-user-new-app-suite-modal/tenant-user-new-app-suite-modal');
+// tenantUserContainer tenant-user-container
+require('../views/tenant-user/container/container');
+// tenantUserApplicationSuiteContainer tenant-user-application-suite-container
+require('../views/tenant-user/application-suite/container/container');
+// tenantUserApplicationSuiteHome tenant-user-application-suite-home
+require('../views/tenant-user/application-suite/home/home');
+// tenantUserApplicationSuiteFormNewInstance tenant-user-application-suite-form-new-instance
+require('../views/tenant-user/application-suite/form-new-instance/form-new-instance');
+// tenantUserApplicationSuiteModalNewApplicationSuite tenant-user-application-suite-modal-new-application-suite
+require('../views/tenant-user/application-suite/modal-new-application-suite/modal-new-application-suite');
+// tenantUserApplicationSuiteFormUpdateApplicationInstance tenant-user-application-suite-form-update-application-instance
+require('../views/tenant-user/application-suite/form-update-application-instance/form-update-application-instance');
