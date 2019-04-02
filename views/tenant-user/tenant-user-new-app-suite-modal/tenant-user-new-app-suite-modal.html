@@ -1,0 +1,27 @@
+<i class="fas fa-plus" data-toggle="modal" data-target="#modal-{{id}}" ng-click="focusFirstInput()"></i>
+<form ng-submit="save(nameApplicationSuite)">
+    <div role="dialog" tabindex="-1" class="modal fade" ng-attr-id="{{'modal-'+id}}">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">New Application Suite</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex flex-column">
+                        <label>Application Suite Name</label>
+                        <input type="text" ng-attr-id="{{'first-input-'+id}}" placeholder="Application Suite Name"
+                            ng-model="nameApplicationSuite" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,6 +1,6 @@
 <span ng-if="$ctrl.position === 'left'" style="position: relative">
     <input type="text" ng-attr-id="{{'search-left-'+id}}" class="form-control-sm"
-        style="position: absolute; right: 35px; top: 50%; transform: translate(0, -50%); transition: width 1s ease;"
+        style="position: absolute; right: 35px; top: 50%; transform: translate(0, -50%); transition: width 0.3s ease;"
         ng-style="{width: showInput? '200px': 0, opacity: showInput? 1: 0}" ng-model="$ctrl.filter" />
     <i class="fas fa-search" style="margin-right: 10px;" ng-hide="showInput"
         ng-click="showInput=true; setFocusLeft()"></i>
@@ -13,6 +13,6 @@
     <i class="fas fa-times" style="margin-left: 10px;" ng-show="showInput"
         ng-click="showInput=false; $ctrl.filter=''"></i>
     <input type="text" ng-attr-id="{{'search-left-'+id}}" class="form-control-sm"
-        style="position: absolute; left: 35px; top: 50%; transform: translate(0, -50%); transition: width 1s ease;"
+        style="position: absolute; left: 35px; top: 50%; transform: translate(0, -50%); transition: width 0.3s ease;"
         ng-style="{width: showInput? '200px': 0, opacity: showInput? 1: 0}" ng-model="$ctrl.filter" />
 </span>

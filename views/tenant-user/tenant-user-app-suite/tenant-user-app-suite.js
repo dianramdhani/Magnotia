@@ -17,6 +17,7 @@
     function tenantUserDefaultController($scope, $log, $rootScope, applicationPoolService) {
         var $ctrl = this;
         $scope.$log = $log;
+        $scope.id = $scope.$id;
 
         $ctrl.$onInit = function () {
             applicationPoolService.getApplicationSuiteList($rootScope.globals.currentUser.tenant)
