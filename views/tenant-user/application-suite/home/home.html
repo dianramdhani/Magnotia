@@ -34,7 +34,7 @@
                         <span>
                             <search filter="filterApplicationInstanceList" position="left"></search>
                             <i class="fas fa-plus"
-                                ui-sref="tenantUser.applicationSuite.formNewInstance({idApplicationSuite:applicationSuiteNow.id})"></i>
+                                ui-sref="tenantUser.applicationSuite.formNewInstance({applicationSuiteId:applicationSuiteNow.id})"></i>
                         </span>
                     </h5>
                     <div class="table-responsive">
@@ -71,7 +71,7 @@
                                     <td>
                                         <div class="d-flex flex-row">
                                             <i class="fas fa-cogs"
-                                                ui-sref="tenantUser.applicationSuite.formUpdateInstance"></i>
+                                                ui-sref="tenantUser.applicationSuite.formUpdateInstance({applicationSuiteId: _applicationInstanceList.applicationSuiteId, applicationInstanceId: _applicationInstanceList.id})"></i>
                                             <i class="fas fa-tasks" style="margin-left: 10px;"></i>
                                             <i class="far fa-eye" style="margin-left: 10px;"></i>
                                         </div>

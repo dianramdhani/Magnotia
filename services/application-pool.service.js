@@ -12,6 +12,9 @@
         this.getOrchestratorServiceList = getOrchestratorServiceList;
         this.getApplication = getApplication;
         this.getApplicationList = getApplicationList;
+        // form update application instance
+        this.getApplicationInstance = getApplicationInstance;
+        this.getApplicationInstanceProperties = getApplicationInstanceProperties;
 
 
         const url = $rootScope.globals.config.apppool;
@@ -51,7 +54,13 @@
         function saveApplicationInstance(instance) { }
 
         // APPLICATION INSTANCE
-        function getApplicationInstance(applicationInstanceId) { }
+        function getApplicationInstance(applicationInstanceId) {
+            console.log({ applicationInstanceId });
+            let q = $q.defer(),
+                params = { applicationInstanceId };
+            $http.get(`${url}/applicationInstance/get`, { params }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
         function removeApplicationInstance(applicationInstanceId) { }
         function executeInstanceOperation(applicationInstanceId, orchestratorServiceId) {
             let q = $q.defer(),
@@ -60,7 +69,12 @@
             return q.promise;
         }
         function addApplicationInstanceProperties(applicationInstanceId, properties) { }
-        function getApplicationInstanceProperties(applicationInstanceId) { }
+        function getApplicationInstanceProperties(applicationInstanceId) {
+            let q = $q.defer(),
+                params = { applicationInstanceId };
+            $http.get(`${url}/applicationInstance/get_properties`, { params }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
         function removeApplicationInstanceProperty(applicationInstancePropertyId) { }
 
         // ORCHESTRATOR
