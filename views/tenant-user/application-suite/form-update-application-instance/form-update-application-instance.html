@@ -9,10 +9,17 @@
             <input class="form-control" type="text" placeholder="Instance Name">
             <label>Description</label>
             <input class="form-control" type="text" placeholder="Description">
-            <label>Input Directory</label>
-            <input class="form-control" type="text" placeholder="Input Directory">
-            <label>Output Directory</label>
-            <input class="form-control" type="text" placeholder="Output Directory">
+            <div ng-repeat="property in properties track by $index">
+                <label>{{property.propertyName}}</label>
+                <input class="form-control"
+                    ng-if="!property.propertyFormat || property.propertyFormat == 'text' || property.propertyFormat == 'password'"
+                    type="{{property.propertyFormat}}" placeholder="{{property.propertyName}}">
+                <textarea placeholder="{{property.propertyName}}"
+                    ng-if="!property.propertyFormat || property.propertyFormat == 'area'"></textarea>
+                <select class="form-control" ng-if="property.propertyFormat && property.propertyFormat == 'select'">
+                    <option ng-repeat="key in property.selection" ng-value="key">{{key}}</option>
+                </select>
+            </div>
             <div style="margin-top: 30px;">
                 <button class="btn btn-primary" type="button"
                     style="padding-right: 40px;padding-left: 40px;margin-right: 10px;">

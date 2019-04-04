@@ -62,7 +62,6 @@
 
         // APPLICATION INSTANCE
         function getApplicationInstance(applicationInstanceId) {
-            console.log({ applicationInstanceId });
             let q = $q.defer(),
                 params = { applicationInstanceId };
             $http.get(`${url}/applicationInstance/get`, { params }).then(res => q.resolve(res.data));

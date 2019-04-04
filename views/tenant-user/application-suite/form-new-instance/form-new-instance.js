@@ -60,7 +60,6 @@
                                         reference: reference
                                     };
                                 }
-
                             }
                         })).filter(_ => typeof (_) !== 'undefined');
                         console.log($scope.properties);
