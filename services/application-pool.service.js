@@ -15,6 +15,8 @@
         // form update application instance
         this.getApplicationInstance = getApplicationInstance;
         this.getApplicationInstanceProperties = getApplicationInstanceProperties;
+        // form new application instance
+        this.getApplicationProperties = getApplicationProperties;
 
 
         const url = $rootScope.globals.config.apppool;
@@ -42,7 +44,12 @@
         function executeApplication(applicationId, orchestratorServiceId) { }
         function executeApplicationCustom(applicationId, orchestratorServiceId, serviceName) { }
         function addApplicationProperties(applicationId, properties) { }
-        function getApplicationProperties(applicationId) { }
+        function getApplicationProperties(applicationId) {
+            let q = $q.defer(),
+                params = { applicationId };
+            $http.get(`${url}/application/get_properties`, { params }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
         function getApplicationTemplates(applicationId) { }
         function removeApplicationProperty(applicationPropertyId) { }
         function getApplicationInstanceList(applicationSuiteId) {
