@@ -17,7 +17,6 @@
         var $ctrl = this;
 
         $ctrl.$onInit = function () {
-            console.log($stateParams)
             $q.all([
                 applicationPoolService.getApplicationInstance($stateParams.applicationInstanceId),
                 applicationPoolService.getApplicationInstanceProperties($stateParams.applicationInstanceId)
@@ -25,9 +24,9 @@
                 .then(resAll => {
                     let resGetApplicationInstance = resAll[0],
                         resGetApplicationInstanceProperties = resAll[1];
+                    $scope.instance = resGetApplicationInstance;
                     applicationPoolService.getApplicationProperties(resGetApplicationInstance.applicationId)
                         .then(resGetApplicationProperties => {
-                            // console.log(resAll, resGetApplicationProperties);
                             $scope.properties = (resGetApplicationProperties.map(property => {
                                 if (property.configurable) {
                                     let type = 'text',
@@ -64,8 +63,9 @@
                                         };
                                     }
                                 }
-                            })).filter(_ => typeof (_) !== 'undefined');
-                        })
+                            })).filter(_ => typeof _ !== 'undefined');
+                            $scope.properties.forEach(property => property['propertyValue'] = (resGetApplicationInstanceProperties.find(_ => _.propertyName === property.propertyName)).propertyValue);
+                        });
                 });
         };
     }

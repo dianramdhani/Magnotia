@@ -28,7 +28,7 @@
             $scope.setApplicationSuiteNow = (applicationSuite) => $scope.applicationSuiteNow = applicationSuite;
 
             $scope.$watch('applicationSuiteNow', (nowVal) => {
-                if (typeof (nowVal) !== 'undefined') {
+                if (typeof nowVal !== 'undefined') {
                     applicationPoolService.getApplicationInstanceList(nowVal.id)
                         .then(resGetApplicationInstanceList => {
                             $scope.applicationInstanceList = resGetApplicationInstanceList;
