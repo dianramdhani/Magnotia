@@ -4,12 +4,12 @@
     window.app
         .service('AuthService', AuthService);
 
-    AuthService.$inject = ['$http', '$q', '$rootScope', '$cookies', '$state', 'md5'];
-    function AuthService($http, $q, $rootScope, $cookies, $state, md5) {
+    AuthService.$inject = ['$http', '$q', '$rootScope', '$cookies', '$state', 'md5', 'CONFIG'];
+    function AuthService($http, $q, $rootScope, $cookies, $state, md5, CONFIG) {
         this.login = login;
         this.logout = logout;
 
-        const url = $rootScope.globals.config.tenant;
+        const url = CONFIG.tenant;
 
         function login(username, password) {
             let q = $q.defer();

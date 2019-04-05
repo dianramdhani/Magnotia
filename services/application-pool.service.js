@@ -4,8 +4,8 @@
     window.app
         .service('applicationPoolService', applicationPoolService);
 
-    applicationPoolService.$inject = ['$http', '$q', '$rootScope'];
-    function applicationPoolService($http, $q, $rootScope) {
+    applicationPoolService.$inject = ['$http', '$q', 'CONFIG'];
+    function applicationPoolService($http, $q, CONFIG) {
         this.getApplicationSuiteList = getApplicationSuiteList;
         this.getApplicationInstanceList = getApplicationInstanceList;
         this.executeInstanceOperation = executeInstanceOperation;
@@ -19,7 +19,7 @@
         this.getApplicationProperties = getApplicationProperties;
 
 
-        const url = $rootScope.globals.config.apppool;
+        const url = CONFIG.apppool;
         const removeEmpty = (obj) => {
             Object.keys(obj).forEach((key) => (obj[key] == null) && delete obj[key]);
             return obj;

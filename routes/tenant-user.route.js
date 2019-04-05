@@ -7,7 +7,7 @@
     TenantUserRoute.$inject = ['$stateProvider'];
     function TenantUserRoute($stateProvider) {
         let states = [
-            { name: 'tenantUser.applicationSuite', url: '/application-suite', component: 'tenantUserApplicationSuiteContainer' },
+            { name: 'tenantUser.applicationSuite', component: 'tenantUserApplicationSuiteContainer' },
             { name: 'tenantUser.dataBrowser', url: '/browser', template: 'dataBrowser' },
             { name: 'tenantUser.dataVisualization', url: '/visual', template: 'dataVisualization' },
             { name: 'tenantUser.dataExplorer', url: '/explorer', template: 'dataExplorer' },

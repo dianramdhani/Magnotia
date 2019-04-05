@@ -1,6 +1,7 @@
-require('./config');
-
 window.app = angular.module('Magnotia', ['ui.router', 'angular-md5', 'ngCookies']);
+
+// config
+require('./config');
 
 (function () {
     'use strict';
@@ -11,7 +12,6 @@ window.app = angular.module('Magnotia', ['ui.router', 'angular-md5', 'ngCookies'
     Run.$inject = ['$rootScope', '$cookies', '$http'];
     function Run($rootScope, $cookies, $http) {
         $rootScope.globals = angular.fromJson($cookies.get('globals')) || {};
-        $rootScope.globals['config'] = window.config;
         if ($rootScope.globals.currentUser) {
             // $http.defaults.headers.common['token'] = $rootScope.globals.currentUser.token;
             $http.defaults.headers.common['token'] = '1234';
