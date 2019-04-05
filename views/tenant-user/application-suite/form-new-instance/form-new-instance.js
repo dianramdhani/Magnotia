@@ -44,7 +44,6 @@
                                 } else if (property.propertyFormat && property.propertyFormat.startsWith('duplicate=')) {
                                     duplicate = true;
                                     reference = property.propertyFormat.substring(10);
-                                    console.log({ reference });
                                 } else {
                                     type = 'text';
                                 }
