@@ -17,6 +17,9 @@
         var $ctrl = this;
 
         $ctrl.$onInit = function () {
+            applicationPoolService.getApplicationSuite($stateParams.applicationSuiteId)
+                .then(resGetApplicationSuite => $scope.applicationSuite = resGetApplicationSuite);
+
             $q.all([
                 applicationPoolService.getApplicationInstance($stateParams.applicationInstanceId),
                 applicationPoolService.getApplicationInstanceProperties($stateParams.applicationInstanceId)

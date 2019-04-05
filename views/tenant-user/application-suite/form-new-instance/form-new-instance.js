@@ -12,12 +12,15 @@
             controller: tenantUserApplicationSuiteFormNewInstanceController,
         });
 
-    tenantUserApplicationSuiteFormNewInstanceController.$inject = ['$scope', 'applicationPoolService'];
+    tenantUserApplicationSuiteFormNewInstanceController.$inject = ['$scope', '$stateParams', 'applicationPoolService'];
 
-    function tenantUserApplicationSuiteFormNewInstanceController($scope, applicationPoolService) {
+    function tenantUserApplicationSuiteFormNewInstanceController($scope, $stateParams, applicationPoolService) {
         var $ctrl = this;
 
         $ctrl.$onInit = function () {
+            applicationPoolService.getApplicationSuite($stateParams.applicationSuiteId)
+                .then(resGetApplicationSuite => $scope.applicationSuite = resGetApplicationSuite);
+
             applicationPoolService.getApplicationList()
                 .then(resGetApplicationList => $scope.applicationList = resGetApplicationList);
 

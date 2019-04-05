@@ -12,11 +12,10 @@
         this.getOrchestratorServiceList = getOrchestratorServiceList;
         this.getApplication = getApplication;
         this.getApplicationList = getApplicationList;
-        // form update application instance
         this.getApplicationInstance = getApplicationInstance;
         this.getApplicationInstanceProperties = getApplicationInstanceProperties;
-        // form new application instance
         this.getApplicationProperties = getApplicationProperties;
+        this.getApplicationSuite = getApplicationSuite;
 
 
         const url = CONFIG.apppool;
@@ -107,7 +106,12 @@
             return q.promise;
         }
         function saveApplicationSuite(applicationSuite) { }
-        function getApplicationSuite(applicationSuiteId) { }
+        function getApplicationSuite(applicationSuiteId) {
+            let q = $q.defer(),
+                params = { applicationSuiteId };
+            $http.get(`${url}/applicationSuite/get`, { params }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
         function removeApplicationSuite(applicationSuiteId) { }
 
         // EVENT SERVICE
