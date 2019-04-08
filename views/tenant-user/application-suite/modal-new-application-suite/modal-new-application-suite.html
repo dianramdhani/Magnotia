@@ -1,5 +1,6 @@
 <i class="fas fa-plus" data-toggle="modal" data-target="#modal-{{id}}" ng-click="focusFirstInput()"></i>
-<form ng-submit="save(nameApplicationSuite)">
+<form ng-submit="save(nameApplicationSuite)"
+    style="font-size: initial; font-weight: initial; line-height: initial; color: initial;">
     <div role="dialog" tabindex="-1" class="modal fade" ng-attr-id="{{'modal-'+id}}">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -12,8 +13,8 @@
                 <div class="modal-body">
                     <div class="d-flex flex-column">
                         <label>Application Suite Name</label>
-                        <input type="text" ng-attr-id="{{'first-input-'+id}}" placeholder="Application Suite Name"
-                            ng-model="nameApplicationSuite" />
+                        <input class="form-control" type="text" ng-attr-id="{{'first-input-'+id}}"
+                            placeholder="Application Suite Name" ng-model="nameApplicationSuite" />
                     </div>
                 </div>
                 <div class="modal-footer">

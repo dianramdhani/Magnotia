@@ -1,1 +1,37 @@
-modal-new-scheduler-application-instance
+<i class="fas fa-plus" data-toggle="modal" data-target="#modal-{{id}}" ng-click="focusFirstInput()"></i>
+<form style="font-size: initial; font-weight: initial; line-height: initial; color: initial;">
+    <div role="dialog" tabindex="-1" class="modal fade" ng-attr-id="{{'modal-'+id}}">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">New Schedule</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex flex-column">
+                        <label>Service Name</label>
+                        <select class="form-control" ng-attr-id="{{'first-input-'+id}}">
+                            <option ng-repeat="_services in services track by $index" ng-value="">
+                                {{_services.name}}
+                            </option>
+                        </select>
+                        <label>Type</label>
+                        <select class="form-control">
+                            <option ng-value="CRON">CRON</option>
+                            <option ng-value="INTERVAL">INTERVAL</option>
+                        </select>
+                        <label>Frequency</label>
+                        <input class="form-control" type="text" placeholder="Frequency" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
