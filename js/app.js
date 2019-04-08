@@ -54,3 +54,5 @@ require('../views/tenant-user/application-suite/modal-new-application-suite/moda
 require('../views/tenant-user/application-suite/form-update-application-instance/form-update-application-instance');
 // tenantUserApplicationSuiteListSchedulerApplicationInstance tenant-user-application-suite-list-scheduler-application-instance
 require('../views/tenant-user/application-suite/list-scheduler-application-instance/list-scheduler-application-instance');
+// tenantUserApplicationSuiteModalNewSchedulerApplicationInstance tenant-user-application-suite-modal-new-scheduler-application-instance
+require('../views/tenant-user/application-suite/modal-new-scheduler-application-instance/modal-new-scheduler-application-instance');
