@@ -52,3 +52,5 @@ require('../views/tenant-user/application-suite/form-new-instance/form-new-insta
 require('../views/tenant-user/application-suite/modal-new-application-suite/modal-new-application-suite');
 // tenantUserApplicationSuiteFormUpdateApplicationInstance tenant-user-application-suite-form-update-application-instance
 require('../views/tenant-user/application-suite/form-update-application-instance/form-update-application-instance');
+// tenantUserApplicationSuiteListSchedulerApplicationInstance tenant-user-application-suite-list-scheduler-application-instance
+require('../views/tenant-user/application-suite/list-scheduler-application-instance/list-scheduler-application-instance');
