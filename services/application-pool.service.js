@@ -16,7 +16,8 @@
         this.getApplicationInstanceProperties = getApplicationInstanceProperties;
         this.getApplicationProperties = getApplicationProperties;
         this.getApplicationSuite = getApplicationSuite;
-
+        this.getInstanceSchedulerList = getInstanceSchedulerList;
+        this.getOrchestratorService = getOrchestratorService;
 
         const url = CONFIG.apppool;
         const removeEmpty = (obj) => {
@@ -97,7 +98,12 @@
             return q.promise;
         }
         function saveOrchestratorService(orchestratorId, orchestratorService) { }
-        function getOrchestratorService(orchestratorServiceId) { }
+        function getOrchestratorService(orchestratorServiceId) {
+            let q = $q.defer(),
+                params = { orchestratorServiceId };
+            $http.get(`${url}/orchestratorService/get`, { params }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
         function removeOrchestratorService(orchestratorServiceId) { }
         function getApplicationSuiteList(tenant, applicationSuiteName = null) {
             let q = $q.defer(),
@@ -124,7 +130,12 @@
         function addServices(eventId, eventService) { }
 
         // INSTANCE SCHEDULER SERVICE
-        function getInstanceSchedulerList(applicationInstanceId) { }
+        function getInstanceSchedulerList(applicationInstanceId) {
+            let q = $q.defer(),
+                params = { applicationInstanceId };
+            $http.get(`${url}/instanceScheduler/list`, { params }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
         function getInstanceSchedule(scheduleId) { }
         function removeInstanceSchedule(scheduleId) { }
         function saveInstanceScheduler(instanceSchedule) { }
