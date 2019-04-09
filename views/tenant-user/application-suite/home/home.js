@@ -20,11 +20,14 @@
         $scope.id = $scope.$id;
 
         $ctrl.$onInit = function () {
-            applicationPoolService.getApplicationSuiteList($rootScope.globals.currentUser.tenant)
-                .then(resGetApplicationSuiteList => {
-                    $scope.applicationSuiteList = resGetApplicationSuiteList;
-                    $scope.applicationSuiteNow = $scope.applicationSuiteList[0];
-                });
+            $scope.refreshApplicationSuiteList = () => {
+                applicationPoolService.getApplicationSuiteList($rootScope.globals.currentUser.tenant)
+                    .then(resGetApplicationSuiteList => {
+                        $scope.applicationSuiteList = resGetApplicationSuiteList;
+                        $scope.applicationSuiteNow = $scope.applicationSuiteList[0];
+                    });
+            };
+            $scope.refreshApplicationSuiteList();
             $scope.setApplicationSuiteNow = (applicationSuite) => $scope.applicationSuiteNow = applicationSuite;
 
             $scope.$watch('applicationSuiteNow', (nowVal) => {
