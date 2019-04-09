@@ -18,9 +18,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="_applicationList in applicationList | filter: filterApplicationList || applicationNow track by $index"
+                        <tr style="cursor: pointer;"
+                            ng-repeat="_applicationList in applicationList | filter: filterApplicationList || applicationNow track by $index"
                             ng-class="{'bg-primary': applicationNow === _applicationList}"
-                            ng-click="setApplicationNow(_applicationList)">
+                            ng-click="setApplicationNow(_applicationList)"
+                            ng-style="{color: applicationNow === _applicationList? 'white': ''}">
                             <td>{{_applicationList.name}}</td>
                             <td>{{_applicationList.description}}</td>
                         </tr>

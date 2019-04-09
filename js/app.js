@@ -36,6 +36,8 @@ require('../services/application-pool.service');
 // components
 // search
 require('../components/search/search');
+// loading
+require('../components/loading/loading');
 
 // views
 // login login
