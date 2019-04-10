@@ -50,6 +50,10 @@
                         });
                 }
             });
+
+            $scope.onDeleteApplicationSuite = (applicationSuite) => {
+                console.log('ini di hapus boy', applicationSuite);
+            };
         };
     }
 })();

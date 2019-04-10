@@ -38,6 +38,8 @@ require('../services/application-pool.service');
 require('../components/search/search');
 // loading
 require('../components/loading/loading');
+// delete
+require('../components/delete/delete');
 
 // views
 // login login

@@ -22,7 +22,10 @@
                                         {{_applicationSuiteList.applicationSuiteName}}
                                     </td>
                                     <td class="text-right">
-                                        <i class="far fa-trash-alt"></i>
+                                        <delete header="Delete This Application Suite?"
+                                            body="Confirm if you are going to delete {{_applicationSuiteList.applicationSuiteName}} Application Suite."
+                                            on-delete="onDeleteApplicationSuite(_applicationSuiteList)">
+                                        </delete>
                                     </td>
                                 </tr>
                             </tbody>
