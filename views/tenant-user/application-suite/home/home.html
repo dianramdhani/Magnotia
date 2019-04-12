@@ -22,10 +22,8 @@
                                         {{_applicationSuiteList.applicationSuiteName}}
                                     </td>
                                     <td class="text-right">
-                                        <delete header="Delete This Application Suite?"
-                                            body="Confirm if you are going to delete {{_applicationSuiteList.applicationSuiteName}} Application Suite."
-                                            on-delete="onDeleteApplicationSuite(_applicationSuiteList)">
-                                        </delete>
+                                        <i class="far fa-trash-alt"
+                                            ng-click="deleteApplicationSuite(_applicationSuiteList)"></i>
                                     </td>
                                 </tr>
                             </tbody>

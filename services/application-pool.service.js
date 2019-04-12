@@ -18,8 +18,9 @@
         this.getApplicationSuite = getApplicationSuite;
         this.getInstanceSchedulerList = getInstanceSchedulerList;
         this.getOrchestratorService = getOrchestratorService;
-        // post application suite
         this.saveApplicationSuite = saveApplicationSuite;
+        // delete suite
+        this.removeApplicationSuite = removeApplicationSuite;
 
         const url = CONFIG.apppool;
         const removeEmpty = (obj) => {
@@ -124,7 +125,12 @@
             $http.get(`${url}/applicationSuite/get`, { params }).then(res => q.resolve(res.data));
             return q.promise;
         }
-        function removeApplicationSuite(applicationSuiteId) { }
+        function removeApplicationSuite(applicationSuiteId) {
+            let q = $q.defer(),
+                params = { applicationSuiteId };
+            $http.get(`${url}/applicationSuite/remove`, { params }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
 
         // EVENT SERVICE
         function getEventList(id, name, orchestratorId) { }

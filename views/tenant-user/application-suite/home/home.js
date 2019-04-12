@@ -12,9 +12,9 @@
             controller: tenantUserApplicationSuiteHomeController,
         });
 
-    tenantUserApplicationSuiteHomeController.$inject = ['$scope', '$log', '$rootScope', 'applicationPoolService'];
+    tenantUserApplicationSuiteHomeController.$inject = ['$scope', '$log', '$rootScope', '$element', '$compile', 'applicationPoolService'];
 
-    function tenantUserApplicationSuiteHomeController($scope, $log, $rootScope, applicationPoolService) {
+    function tenantUserApplicationSuiteHomeController($scope, $log, $rootScope, $element, $compile, applicationPoolService) {
         var $ctrl = this;
         $scope.$log = $log;
         $scope.id = $scope.$id;
@@ -51,8 +51,29 @@
                 }
             });
 
-            $scope.onDeleteApplicationSuite = (applicationSuite) => {
-                console.log('ini di hapus boy', applicationSuite);
+            $scope.deleteApplicationSuite = (applicationSuite) => {
+                applicationPoolService.getApplicationInstanceList(applicationSuite.id)
+                    .then(resGetApplicationInstanceList => {
+                        if (resGetApplicationInstanceList.length === 0) {
+                            $scope.onDelete = () => {
+                                applicationPoolService.removeApplicationSuite(applicationSuite.id)
+                                    .then(() => {
+                                        $element.append($compile(`<alert type="success" title="Delete success."></alert>`)($scope));
+                                        $scope.refreshApplicationSuiteList();
+                                    });
+                            };
+                            $element.append($compile(`
+                                <delete title="Delete This Application Suite?"
+                                    body="Confirm if you are going to delete <strong>${applicationSuite.applicationSuiteName}</strong> Application Suite."
+                                    on-delete="onDelete()">
+                                </delete> 
+                            `)($scope));
+                        } else {
+                            $element.append($compile(`
+                                <alert type="danger" title="Delete failed!" body="Application instance must be empty."></alert>
+                            `)($scope));
+                        }
+                    });
             };
         };
     }

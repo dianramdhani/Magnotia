@@ -40,6 +40,8 @@ require('../components/search/search');
 require('../components/loading/loading');
 // delete
 require('../components/delete/delete');
+// alert
+require('../components/alert/alert');
 
 // views
 // login login
