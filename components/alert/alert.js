@@ -14,6 +14,7 @@
                 type: '@',
                 title: '@',
                 body: '@',
+                onClose: '&'
             },
         });
 
@@ -27,7 +28,10 @@
             $timeout(() => {
                 alertElement = angular.element(`#alert-${$scope.id}`)
                 alertElement.modal('show');
-                alertElement.on('hidden.bs.modal', () => $element.remove());
+                alertElement.on('hidden.bs.modal', () => {
+                    $element.remove();
+                    $ctrl.onClose();
+                });
             });
         };
     }

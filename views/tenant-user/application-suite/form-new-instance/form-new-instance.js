@@ -12,9 +12,9 @@
             controller: tenantUserApplicationSuiteFormNewInstanceController,
         });
 
-    tenantUserApplicationSuiteFormNewInstanceController.$inject = ['$scope', '$stateParams', 'applicationPoolService'];
+    tenantUserApplicationSuiteFormNewInstanceController.$inject = ['$scope', '$stateParams', '$state', '$compile', '$element', 'applicationPoolService'];
 
-    function tenantUserApplicationSuiteFormNewInstanceController($scope, $stateParams, applicationPoolService) {
+    function tenantUserApplicationSuiteFormNewInstanceController($scope, $stateParams, $state, $compile, $element, applicationPoolService) {
         var $ctrl = this;
 
         $ctrl.$onInit = function () {
@@ -64,6 +64,26 @@
                                 }
                             }
                         })).filter(_ => typeof _ !== 'undefined');
+                    });
+            };
+
+            /**
+             * @todo
+             * check setiap parameter tidak boleh kosong. jika kosong alert error.
+             */
+            $scope.save = (applicationNow, instance, properties) => {
+                applicationPoolService.saveApplicationInstance(Object.assign({
+                    applicationId: applicationNow.id,
+                    applicationInstanceProperties: properties,
+                    applicationSuiteId: $stateParams.applicationSuiteId
+                }, instance))
+                    .then(() => {
+                        $scope.onClose = () => {
+                            $state.go('tenantUser.applicationSuite.home');
+                        };
+                        $element.append($compile(`
+                            <alert type="success" title="Add new application instance success." on-close="onClose()"></alert>
+                        `)($scope));
                     });
             };
         };

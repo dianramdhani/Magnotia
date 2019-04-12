@@ -15,18 +15,22 @@
             }
         });
 
-    tenantUserApplicationSuiteModalNewApplicationSuiteController.$inject = ['$scope', '$rootScope', 'applicationPoolService'];
-    function tenantUserApplicationSuiteModalNewApplicationSuiteController($scope, $rootScope, applicationPoolService) {
+    tenantUserApplicationSuiteModalNewApplicationSuiteController.$inject = ['$scope', '$rootScope', '$timeout', 'applicationPoolService'];
+    function tenantUserApplicationSuiteModalNewApplicationSuiteController($scope, $rootScope, $timeout, applicationPoolService) {
         var $ctrl = this;
         $scope.id = $scope.$id;
 
         $ctrl.$onInit = function () {
-            $scope.focusFirstInput = () => angular.element(`#modal-${$scope.id}`).on('shown.bs.modal', () => angular.element(`#first-input-${$scope.id}`).focus());
+            let modalElement;
+            $timeout(() => {
+                modalElement = angular.element(`#modal-${$scope.id}`);
+                modalElement.on('shown.bs.modal', () => angular.element(`#first-input-${$scope.id}`).focus());
+            });
             $scope.save = (applicationSuiteName) => {
                 applicationPoolService.saveApplicationSuite({ applicationSuiteName, tenant: $rootScope.globals.currentUser.tenant })
                     .then(() => $ctrl.refreshApplicationSuiteList());
                 $scope.applicationSuiteName = '';
-                angular.element(`#modal-${$scope.id}`).modal('hide');
+                modalElement.modal('hide');
             };
         };
     }
