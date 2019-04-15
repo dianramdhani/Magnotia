@@ -12,8 +12,8 @@
             controller: tenantUserApplicationSuiteFormUpdateApplicationInstanceController,
         });
 
-    tenantUserApplicationSuiteFormUpdateApplicationInstanceController.$inject = ['$scope', '$q', '$stateParams', 'applicationPoolService'];
-    function tenantUserApplicationSuiteFormUpdateApplicationInstanceController($scope, $q, $stateParams, applicationPoolService) {
+    tenantUserApplicationSuiteFormUpdateApplicationInstanceController.$inject = ['$scope', '$element', '$compile', '$q', '$stateParams', '$state', 'applicationPoolService'];
+    function tenantUserApplicationSuiteFormUpdateApplicationInstanceController($scope, $element, $compile, $q, $stateParams, $state, applicationPoolService) {
         var $ctrl = this;
 
         $ctrl.$onInit = function () {
@@ -69,6 +69,14 @@
                             $scope.properties.forEach(property => property['propertyValue'] = (resGetApplicationInstanceProperties.find(_ => _.propertyName === property.propertyName)).propertyValue);
                         });
                 });
+            $scope.update = (instance, properties) => {
+                instance.applicationInstanceProperties = properties;
+                applicationPoolService.saveApplicationInstance(instance)
+                    .then(() => {
+                        $scope.onClose = () => $state.go('tenantUser.applicationSuite.home');
+                        $element.append($compile(`<alert type="success" title="Update success." on-close="onClose()"></alert>`)($scope));
+                    });
+            };
         };
     }
 })();
