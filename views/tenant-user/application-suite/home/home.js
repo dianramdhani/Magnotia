@@ -82,7 +82,7 @@
             $scope.deleteApplicationInstance = (applicationInstance) => {
                 $scope.onDeleteApplicationInstance = () => {
                     applicationPoolService.removeApplicationInstance(applicationInstance.id)
-                        .then(() => {
+                        .finally(() => {
                             $element.append($compile(`<alert type="success" title="Delete success."></alert>`)($scope));
                             refreshApplicationInstanceList();
                         });

@@ -79,7 +79,7 @@
         function removeApplicationInstance(applicationInstanceId) {
             let q = $q.defer(),
                 params = { applicationInstanceId };
-            $http.get(`${url}/applicationInstance/remove`, { params }).then(res => q.resolve(res.data));
+            $http.get(`${url}/applicationInstance/remove`, { params }).then(res => q.resolve(res.data)).catch(err => q.reject(err));
             return q.promise;
         }
         function executeInstanceOperation(applicationInstanceId, orchestratorServiceId) {
