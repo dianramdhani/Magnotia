@@ -44,6 +44,8 @@
                                             applicationPoolService.executeInstanceOperation(_applicationInstanceList.id, resGetOrchestratorServiceList[0].id)
                                                 .then(resExecuteInstanceOperation => _applicationInstanceList['dataExecuteInstanceOperation'] = resExecuteInstanceOperation);
                                         });
+                                    applicationPoolService.getOrchestratorServiceList(resGetApplication.orchestratorId, null, true)
+                                        .then(resGetOrchestratorServiceList => _applicationInstanceList.dataGetApplication['dataServices'] = resGetOrchestratorServiceList);
                                 });
                         });
                     });
@@ -93,6 +95,21 @@
                         on-delete="onDeleteApplicationInstance()">
                     </delete> 
                 `)($scope));
+            };
+
+            $scope.execute = (applicationInstance, service) => {
+                applicationPoolService.executeInstanceOperation(applicationInstance.id, service.id)
+                    .then(() => {
+                        $element.append($compile(`
+                            <alert type="success" title="Execute command success."></alert>
+                        `)($scope));
+                        refreshApplicationInstanceList();
+                    })
+                    .catch(err => {
+                        $element.append($compile(`
+                            <alert type="danger" title="${err.message}"></alert>
+                        `)($scope));
+                    });
             };
         };
     }

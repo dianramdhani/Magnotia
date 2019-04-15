@@ -1,3 +1,10 @@
+<style>
+    @media (min-width: 768px) {
+        .dropdown-container {
+            overflow: visible;
+        }
+    }
+</style>
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-4 col-xl-4">
@@ -43,7 +50,7 @@
                                 ui-sref="tenantUser.applicationSuite.formNewInstance({applicationSuiteId:applicationSuiteNow.id})"></i>
                         </span>
                     </h5>
-                    <div class="table-responsive">
+                    <div class="table-responsive dropdown-container">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -68,15 +75,18 @@
                                                 Show Commands
                                             </button>
                                             <div class="dropdown-menu" role="menu">
-                                                <a class="dropdown-item" role="presentation" href="#">First Item</a>
-                                                <a class="dropdown-item" role="presentation" href="#">Second Item</a>
-                                                <a class="dropdown-item" role="presentation" href="#">Third Item</a>
+                                                <button class="dropdown-item" role="presentation"
+                                                    ng-repeat="service in _applicationInstanceList.dataGetApplication.dataServices track by $index"
+                                                    ng-click="execute(_applicationInstanceList, service)">
+                                                    {{service.name}}
+                                                </button>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="d-flex flex-row justify-content-end" style="width: 100%;">
-                                            <i class="far fa-trash-alt" ng-click="deleteApplicationInstance(_applicationInstanceList)"></i>
+                                            <i class="far fa-trash-alt"
+                                                ng-click="deleteApplicationInstance(_applicationInstanceList)"></i>
                                             <i class="fas fa-cogs" style="margin-left: 10px;"
                                                 ui-sref="tenantUser.applicationSuite.formUpdateInstance({applicationSuiteId: _applicationInstanceList.applicationSuiteId, applicationInstanceId: _applicationInstanceList.id})"></i>
                                             <i class="fas fa-tasks" style="margin-left: 10px;"

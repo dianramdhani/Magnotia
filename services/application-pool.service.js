@@ -79,13 +79,13 @@
         function removeApplicationInstance(applicationInstanceId) {
             let q = $q.defer(),
                 params = { applicationInstanceId };
-            $http.get(`${url}/applicationInstance/remove`, { params }).then(res => q.resolve(res.data)).catch(err => q.reject(err));
+            $http.get(`${url}/applicationInstance/remove`, { params }).then(res => q.resolve(res.data)).catch(err => q.reject(err.data));
             return q.promise;
         }
         function executeInstanceOperation(applicationInstanceId, orchestratorServiceId) {
             let q = $q.defer(),
                 params = { applicationInstanceId, orchestratorServiceId };
-            $http.get(`${url}/applicationInstance/execute`, { params }).then(res => q.resolve(res.data));
+            $http.get(`${url}/applicationInstance/execute`, { params }).then(res => q.resolve(res.data)).catch(err => q.reject(err.data));
             return q.promise;
         }
         function addApplicationInstanceProperties(applicationInstanceId, properties) { }
