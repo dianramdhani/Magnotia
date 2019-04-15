@@ -20,8 +20,9 @@
         this.getOrchestratorService = getOrchestratorService;
         this.saveApplicationSuite = saveApplicationSuite;
         this.removeApplicationSuite = removeApplicationSuite;
-        // save instance
         this.saveApplicationInstance = saveApplicationInstance;
+        // remove application instance
+        this.removeApplicationInstance = removeApplicationInstance;
 
         const url = CONFIG.apppool;
         const removeEmpty = (obj) => {
@@ -75,7 +76,12 @@
             $http.get(`${url}/applicationInstance/get`, { params }).then(res => q.resolve(res.data));
             return q.promise;
         }
-        function removeApplicationInstance(applicationInstanceId) { }
+        function removeApplicationInstance(applicationInstanceId) {
+            let q = $q.defer(),
+                params = { applicationInstanceId };
+            $http.get(`${url}/applicationInstance/remove`, { params }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
         function executeInstanceOperation(applicationInstanceId, orchestratorServiceId) {
             let q = $q.defer(),
                 params = { applicationInstanceId, orchestratorServiceId };

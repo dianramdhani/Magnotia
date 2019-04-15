@@ -76,7 +76,7 @@
                                     </td>
                                     <td>
                                         <div class="d-flex flex-row justify-content-end" style="width: 100%;">
-                                            <i class="far fa-trash-alt"></i>
+                                            <i class="far fa-trash-alt" ng-click="deleteApplicationInstance(_applicationInstanceList)"></i>
                                             <i class="fas fa-cogs" style="margin-left: 10px;"
                                                 ui-sref="tenantUser.applicationSuite.formUpdateInstance({applicationSuiteId: _applicationInstanceList.applicationSuiteId, applicationInstanceId: _applicationInstanceList.id})"></i>
                                             <i class="fas fa-tasks" style="margin-left: 10px;"
