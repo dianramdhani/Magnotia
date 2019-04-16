@@ -1,4 +1,6 @@
 <style>
+    .dropdown-container {}
+
     @media (min-width: 768px) {
         .dropdown-container {
             overflow: visible;
@@ -91,7 +93,8 @@
                                                 ui-sref="tenantUser.applicationSuite.formUpdateInstance({applicationSuiteId: _applicationInstanceList.applicationSuiteId, applicationInstanceId: _applicationInstanceList.id})"></i>
                                             <i class="fas fa-tasks" style="margin-left: 10px;"
                                                 ui-sref="tenantUser.applicationSuite.listSchedulerApplicationInstance({applicationSuiteId: _applicationInstanceList.applicationSuiteId, applicationInstanceId: _applicationInstanceList.id})"></i>
-                                            <i class="far fa-eye" style="margin-left: 10px;"></i>
+                                            <i class="far fa-folder-open" style="margin-left: 10px;"
+                                                ui-sref="tenantUser.applicationSuite.output({applicationSuiteId: _applicationInstanceList.applicationSuiteId, applicationInstanceId: _applicationInstanceList.id})"></i>
                                         </div>
                                     </td>
                                 </tr>

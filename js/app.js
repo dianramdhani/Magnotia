@@ -32,6 +32,8 @@ require('../routes/application-suite.route');
 require('../services/auth.service');
 // applicationPoolService
 require('../services/application-pool.service');
+// TenantUserService
+require('../services/tenant-user.service');
 
 // components
 // search
@@ -42,6 +44,8 @@ require('../components/loading/loading');
 require('../components/delete/delete');
 // alert
 require('../components/alert/alert');
+// file-browser
+require('../components/file-browser/file-browser');
 
 // views
 // login login
@@ -62,3 +66,7 @@ require('../views/tenant-user/application-suite/form-update-application-instance
 require('../views/tenant-user/application-suite/list-scheduler-application-instance/list-scheduler-application-instance');
 // tenantUserApplicationSuiteModalNewSchedulerApplicationInstance tenant-user-application-suite-modal-new-scheduler-application-instance
 require('../views/tenant-user/application-suite/modal-new-scheduler-application-instance/modal-new-scheduler-application-instance');
+// tenantUserApplicationSuiteOutputApplicationInstance tenant-user-application-suite-output-application-instance
+require('../views/tenant-user/application-suite/output-application-instance/output-application-instance');
+// tenantUserDataBrowser tenant-user-data-browser
+require('../views/tenant-user/data-browser/data-browser');
