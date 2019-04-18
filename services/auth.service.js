@@ -23,7 +23,7 @@
                 cookieExp.setDate(cookieExp.getDate() + 7);
                 $cookies.putObject('globals', $rootScope.globals, { expires: cookieExp });
                 q.resolve(currentUser);
-            });
+            }).catch(err => q.reject(err.data));
             return q.promise;
         }
 
