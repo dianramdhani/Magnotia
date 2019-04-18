@@ -17,6 +17,8 @@
         var $ctrl = this;
 
         $ctrl.$onInit = function () {
+            $scope.applicationSuiteId = $stateParams.applicationSuiteId;
+
             applicationPoolService.getApplicationSuite($stateParams.applicationSuiteId)
                 .then(resGetApplicationSuite => $scope.applicationSuite = resGetApplicationSuite);
 

@@ -12,9 +12,9 @@
             controller: tenantUserApplicationSuiteHomeController,
         });
 
-    tenantUserApplicationSuiteHomeController.$inject = ['$scope', '$log', '$rootScope', '$element', '$compile', '$state', 'applicationPoolService'];
+    tenantUserApplicationSuiteHomeController.$inject = ['$scope', '$log', '$rootScope', '$element', '$compile', '$state', '$stateParams', 'applicationPoolService'];
 
-    function tenantUserApplicationSuiteHomeController($scope, $log, $rootScope, $element, $compile, $state, applicationPoolService) {
+    function tenantUserApplicationSuiteHomeController($scope, $log, $rootScope, $element, $compile, $state, $stateParams, applicationPoolService) {
         var $ctrl = this;
         $scope.$log = $log;
         $scope.id = $scope.$id;
@@ -24,20 +24,20 @@
                 applicationPoolService.getApplicationSuiteList($rootScope.globals.currentUser.tenant)
                     .then(resGetApplicationSuiteList => {
                         $scope.applicationSuiteList = resGetApplicationSuiteList;
-                        /**
-                         * @todo
-                         * cek dari $state sebelumnya
-                         * jika belum ada maka $scope.applicationSuiteNow = $scope.applicationSuiteList[0]
-                         */
-                        // $scope.applicationSuiteNow = $scope.applicationSuiteList[0];
+                        if ($stateParams.applicationSuiteId) {
+                            $scope.applicationSuiteIdNow = $stateParams.applicationSuiteId;
+                        } else {
+                            $scope.applicationSuiteIdNow = $scope.applicationSuiteList[0].id;
+                        }
                     });
             };
             $scope.refreshApplicationSuiteList();
 
-            $scope.setApplicationSuiteNow = (applicationSuite) => $scope.applicationSuiteNow = applicationSuite;
-            $scope.$watch('applicationSuiteNow', (nowVal) => {
+            $scope.setApplicationSuiteIdNow = (applicationSuiteId) => $scope.applicationSuiteIdNow = applicationSuiteId;
+
+            $scope.$watch('applicationSuiteIdNow', (nowVal) => {
                 if (typeof nowVal !== 'undefined') {
-                    $state.go('tenantUser.applicationSuite.home.applicationInstance', { applicationSuiteId: $scope.applicationSuiteNow.id });
+                    $state.go('tenantUser.applicationSuite.home.applicationInstance', { applicationSuiteId: $scope.applicationSuiteIdNow });
                 }
             });
 

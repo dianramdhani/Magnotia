@@ -12,11 +12,13 @@
             controller: tenantUserApplicationSuiteOutputApplicationInstanceController
         });
 
-    tenantUserApplicationSuiteOutputApplicationInstanceController.$inject = ['$scope', '$stateParams', 'applicationPoolService'];
-    function tenantUserApplicationSuiteOutputApplicationInstanceController($scope, $stateParams, applicationPoolService) {
+    tenantUserApplicationSuiteOutputApplicationInstanceController.$inject = ['$scope', '$stateParams', '$state', 'applicationPoolService'];
+    function tenantUserApplicationSuiteOutputApplicationInstanceController($scope, $stateParams, $state, applicationPoolService) {
         var $ctrl = this;
 
         $ctrl.$onInit = function () {
+            $scope.applicationSuiteId = $stateParams.applicationSuiteId;
+
             applicationPoolService.getApplicationSuite($stateParams.applicationSuiteId)
                 .then(resGetApplicationSuite => $scope.applicationSuite = resGetApplicationSuite);
             applicationPoolService.getApplicationInstance($stateParams.applicationInstanceId)

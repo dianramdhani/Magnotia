@@ -24,15 +24,15 @@
                     <div class="table-responsive">
                         <table class="table table-hover table-sm" style="cursor: pointer;">
                             <tbody>
-                                <tr ng-repeat="_applicationSuiteList in applicationSuiteList | filter: filterApplicationSuiteList track by $index"
-                                    ng-class="{'bg-primary': applicationSuiteNow === _applicationSuiteList}"
-                                    ng-style="{color: applicationSuiteNow === _applicationSuiteList? 'white': ''}">
-                                    <td ng-click="setApplicationSuiteNow(_applicationSuiteList)">
-                                        {{_applicationSuiteList.applicationSuiteName}}
+                                <tr ng-repeat="applicationSuite in applicationSuiteList | filter: filterApplicationSuiteList track by $index"
+                                    ng-class="{'bg-primary': applicationSuite.id === applicationSuiteIdNow}"
+                                    ng-style="{color: applicationSuite.id === applicationSuiteIdNow? 'white': ''}">
+                                    <td ng-click="setApplicationSuiteIdNow(applicationSuite.id)">
+                                        {{applicationSuite.applicationSuiteName}}
                                     </td>
                                     <td class="text-right">
                                         <i class="far fa-trash-alt"
-                                            ng-click="deleteApplicationSuite(_applicationSuiteList)"></i>
+                                            ng-click="deleteApplicationSuite(applicationSuite)"></i>
                                     </td>
                                 </tr>
                             </tbody>
