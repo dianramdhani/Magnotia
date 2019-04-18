@@ -22,6 +22,7 @@
                 let cookieExp = new Date();
                 cookieExp.setDate(cookieExp.getDate() + 7);
                 $cookies.putObject('globals', $rootScope.globals, { expires: cookieExp });
+                $http.defaults.headers.common['token'] = '1234';
                 q.resolve(currentUser);
             }).catch(err => q.reject(err.data));
             return q.promise;

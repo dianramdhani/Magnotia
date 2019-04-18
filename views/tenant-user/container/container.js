@@ -17,10 +17,12 @@
         var $ctrl = this;
 
         $ctrl.$onInit = function () {
-            $scope.stateNow = 'tenantUser.applicationSuite.home';
-            $state.go('tenantUser.applicationSuite.home');
+            $timeout(() => {
+                $scope.stateNow = 'tenantUser.applicationSuite.home';
+                $state.go('tenantUser.applicationSuite.home');
+                $scope.username = $rootScope.globals.currentUser.username;
+            });
             $scope.logout = AuthService.logout;
-            $timeout(() => $scope.username = $rootScope.globals.currentUser.username);
         };
     }
 })();
