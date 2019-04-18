@@ -68,5 +68,7 @@ require('../views/tenant-user/application-suite/list-scheduler-application-insta
 require('../views/tenant-user/application-suite/modal-new-scheduler-application-instance/modal-new-scheduler-application-instance');
 // tenantUserApplicationSuiteOutputApplicationInstance tenant-user-application-suite-output-application-instance
 require('../views/tenant-user/application-suite/output-application-instance/output-application-instance');
+// tenantUserApplicationSuiteTableApplicationInstance tenant-user-application-suite-table-application-instance
+require('../views/tenant-user/application-suite/table-application-instance/table-application-instance');
 // tenantUserDataBrowser tenant-user-data-browser
 require('../views/tenant-user/data-browser/data-browser');

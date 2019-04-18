@@ -42,67 +42,8 @@
             </div>
         </div>
         <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="d-flex justify-content-between">
-                        Application Instance
-                        <span>
-                            <search filter="filterApplicationInstanceList" position="left"></search>
-                            <i class="fas fa-plus"
-                                ui-sref="tenantUser.applicationSuite.formNewInstance({applicationSuiteId:applicationSuiteNow.id})"></i>
-                        </span>
-                    </h5>
-                    <div class="table-responsive dropdown-container">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Instance Name</th>
-                                    <th>Description</th>
-                                    <th>Status</th>
-                                    <th>Commands</th>
-                                    <!-- sengaja kosong untuk icon -->
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr
-                                    ng-repeat="_applicationInstanceList in applicationInstanceList | filter: filterApplicationInstanceList track by $index">
-                                    <td>{{_applicationInstanceList.name}}</td>
-                                    <td>{{_applicationInstanceList.description}}</td>
-                                    <td>{{_applicationInstanceList.dataExecuteInstanceOperation.notes}}</td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button class="btn btn-primary btn-sm dropdown-toggle"
-                                                data-toggle="dropdown" aria-expanded="false" type="button">
-                                                Show Commands
-                                            </button>
-                                            <div class="dropdown-menu" role="menu">
-                                                <button class="dropdown-item" role="presentation"
-                                                    ng-repeat="service in _applicationInstanceList.dataGetApplication.dataServices track by $index"
-                                                    ng-click="execute(_applicationInstanceList, service)">
-                                                    {{service.name}}
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex flex-row justify-content-end" style="width: 100%;">
-                                            <i class="far fa-trash-alt"
-                                                ng-click="deleteApplicationInstance(_applicationInstanceList)"></i>
-                                            <i class="fas fa-cogs" style="margin-left: 10px;"
-                                                ui-sref="tenantUser.applicationSuite.formUpdateInstance({applicationSuiteId: _applicationInstanceList.applicationSuiteId, applicationInstanceId: _applicationInstanceList.id})"></i>
-                                            <i class="fas fa-tasks" style="margin-left: 10px;"
-                                                ui-sref="tenantUser.applicationSuite.listSchedulerApplicationInstance({applicationSuiteId: _applicationInstanceList.applicationSuiteId, applicationInstanceId: _applicationInstanceList.id})"></i>
-                                            <i class="far fa-folder-open" style="margin-left: 10px;"
-                                                ui-sref="tenantUser.applicationSuite.output({applicationSuiteId: _applicationInstanceList.applicationSuiteId, applicationInstanceId: _applicationInstanceList.id})"></i>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+            <!-- route: application-suite -->
+            <div ui-view></div>
         </div>
     </div>
 </div>
