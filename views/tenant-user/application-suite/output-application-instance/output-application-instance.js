@@ -22,7 +22,7 @@
             applicationPoolService.getApplicationInstance($stateParams.applicationInstanceId)
                 .then(resGetApplicationInstance => $scope.applicationInstance = resGetApplicationInstance);
             applicationPoolService.getApplicationInstanceProperties($stateParams.applicationInstanceId)
-                .then(resGetApplicationInstanceProperties => $scope.path = (resGetApplicationInstanceProperties.find(property => property.propertyName === 'Output Directory')).propertyValue);
+                .then(resGetApplicationInstanceProperties => $scope.dir = (resGetApplicationInstanceProperties.find(property => property.propertyName === 'Output Directory')).propertyValue);
         };
     }
 })();

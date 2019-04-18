@@ -1,4 +1,4 @@
-<div class="table-responsive">
+<div class="table-responsive" ng-cloak>
     <table class="table table-hover">
         <thead>
             <tr>
@@ -12,7 +12,20 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="fileDetail in dataBrowseDirectory.fileDetails track by $index">
+            <tr ng-if="dataBrowseDirectory.currentDir !== $ctrl.rootDir" ng-click="upDir()">
+                <td><i class="fas fa-arrow-up"></i></td>
+                <td colspan="6">
+                    <strong>..{{dataBrowseDirectory.currentDir}}</strong>
+                </td>
+            </tr>
+            <tr ng-if="dataBrowseDirectory.currentDir === $ctrl.rootDir">
+                <td></td>
+                <td colspan="6">
+                    <strong>.{{dataBrowseDirectory.currentDir}}</strong>
+                </td>
+            </tr>
+            <tr ng-repeat="fileDetail in dataBrowseDirectory.fileDetails track by $index"
+                ng-click="onClick(fileDetail)">
                 <td>
                     <i class="far fa-file" ng-if="fileDetail.type === 'FILE'"></i>
                     <i class="far fa-folder" ng-if="fileDetail.type === 'DIRECTORY'"></i>
