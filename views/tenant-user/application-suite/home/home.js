@@ -82,19 +82,25 @@
             };
 
             $scope.deleteApplicationInstance = (applicationInstance) => {
-                $scope.onDeleteApplicationInstance = () => {
-                    applicationPoolService.removeApplicationInstance(applicationInstance.id)
-                        .finally(() => {
-                            $element.append($compile(`<alert type="success" title="Delete success."></alert>`)($scope));
-                            refreshApplicationInstanceList();
-                        });
-                };
-                $element.append($compile(`
-                    <delete title="Delete This Application Instance?"
-                        body="Confirm if you are going to delete <strong>${applicationInstance.name}</strong> Application Instance."
-                        on-delete="onDeleteApplicationInstance()">
-                    </delete> 
-                `)($scope));
+                if (/Process group|STOPPED/.test(applicationInstance.dataExecuteInstanceOperation.notes)) {
+                    $scope.onDeleteApplicationInstance = () => {
+                        applicationPoolService.removeApplicationInstance(applicationInstance.id)
+                            .finally(() => {
+                                $element.append($compile(`<alert type="success" title="Delete success."></alert>`)($scope));
+                                refreshApplicationInstanceList();
+                            });
+                    };
+                    $element.append($compile(`
+                        <delete title="Delete This Application Instance?"
+                            body="Confirm if you are going to delete <strong>${applicationInstance.name}</strong> Application Instance."
+                            on-delete="onDeleteApplicationInstance()">
+                        </delete> 
+                    `)($scope));
+                } else {
+                    $element.append($compile(`
+                        <alert type="danger" title="Delete failed!" body="Please stop or delete flow this application instance before."></alert>
+                    `)($scope));
+                }
             };
 
             $scope.execute = (applicationInstance, service) => {
