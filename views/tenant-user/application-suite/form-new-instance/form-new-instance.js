@@ -18,6 +18,8 @@
         var $ctrl = this;
 
         $ctrl.$onInit = function () {
+            $scope.applicationSuiteId = $stateParams.applicationSuiteId;
+
             applicationPoolService.getApplicationSuite($stateParams.applicationSuiteId)
                 .then(resGetApplicationSuite => $scope.applicationSuite = resGetApplicationSuite);
 
@@ -78,9 +80,7 @@
                     applicationSuiteId: $stateParams.applicationSuiteId
                 }, instance))
                     .then(() => {
-                        $scope.onClose = () => {
-                            $state.go('tenantUser.applicationSuite.home');
-                        };
+                        $scope.onClose = () => $state.go('tenantUser.applicationSuite.home.applicationInstance', { applicationSuiteId: $scope.applicationSuiteId });
                         $element.append($compile(`
                             <alert type="success" title="Add new application instance success." on-close="onClose()"></alert>
                         `)($scope));

@@ -12,18 +12,29 @@
                 <div class="modal-body">
                     <div class="d-flex flex-column">
                         <label>Service Name</label>
-                        <select class="form-control" ng-attr-id="{{'first-input-'+id}}">
-                            <option ng-repeat="_services in services track by $index" ng-value="">
+                        <select class="form-control" ng-attr-id="{{'first-input-'+id}}"
+                            ng-model="schedule.orchestratorServiceId">
+                            <option value="">---Please select---</option>
+                            <option ng-repeat="_services in services track by $index" ng-value="_services.id">
                                 {{_services.name}}
                             </option>
                         </select>
                         <label>Type</label>
-                        <select class="form-control">
-                            <option ng-value="CRON">CRON</option>
-                            <option ng-value="INTERVAL">INTERVAL</option>
+                        <select class="form-control" ng-model="schedule.scheduleType">
+                            <option value="">---Please select---</option>
+                            <option value="CRON">CRON</option>
+                            <option value="INTERVAL">INTERVAL</option>
                         </select>
-                        <label>Frequency</label>
-                        <input class="form-control" type="text" placeholder="Frequency" />
+                        <div ng-switch on="schedule.scheduleType">
+                            <span ng-switch-when="CRON">
+                                <label>Command</label>
+                                <input class="form-control" type="text" placeholder="Command" />
+                            </span>
+                            <span ng-switch-when="INTERVAL">
+                                <label>Period</label>
+                                <input class="form-control" type="text" placeholder="Period" />
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

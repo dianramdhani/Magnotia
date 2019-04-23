@@ -75,7 +75,7 @@
                 instance.applicationInstanceProperties = properties;
                 applicationPoolService.saveApplicationInstance(instance)
                     .then(() => {
-                        $scope.onClose = () => $state.go('tenantUser.applicationSuite.home');
+                        $scope.onClose = () => $state.go('tenantUser.applicationSuite.home.applicationInstance', { applicationSuiteId: $scope.applicationSuiteId });
                         $element.append($compile(`<alert type="success" title="Update success." on-close="onClose()"></alert>`)($scope));
                     });
             };
