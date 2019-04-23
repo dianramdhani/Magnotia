@@ -8,29 +8,41 @@
         <h6 class="text-muted card-subtitle mb-4" style="padding-left: 50px">
             {{applicationSuite.applicationSuiteName}}
         </h6>
-        <form>
-            <label>Instance Name</label>
-            <input class="form-control" type="text" placeholder="Instance Name" ng-model="instance.name">
-            <label>Description</label>
-            <input class="form-control" type="text" placeholder="Description" ng-model="instance.description">
+        <form name="formUpdateApplicationInstance" ng-submit="update(instance, properties)">
+            <label for="instanceName">Instance Name</label>
+            <input id="instanceName" name="instanceName" class="form-control"
+                ng-class="{'is-valid':formUpdateApplicationInstance.instanceName.$valid}" type="text"
+                placeholder="Instance Name" ng-model="instance.name" required>
+            <label for="description">Description</label>
+            <input id="description" name="description" class="form-control"
+                ng-class="{'is-valid':formUpdateApplicationInstance.description.$valid}" type="text"
+                placeholder="Description" ng-model="instance.description" required>
             <div ng-repeat="property in properties track by $index">
-                <label>{{property.propertyName}}</label>
-                <input class="form-control"
+                <label ng-attr-for="{{property.propertyName}}">{{property.propertyName}}</label>
+                <input ng-attr-id="{{property.propertyName}}" ng-attr-name="{{property.propertyName}}"
+                    class="form-control"
+                    ng-class="{'is-valid':formUpdateApplicationInstance[property.propertyName].$valid}"
                     ng-if="!property.propertyFormat || property.propertyFormat == 'text' || property.propertyFormat == 'password'"
                     type="{{property.propertyFormat}}" placeholder="{{property.propertyName}}"
-                    ng-model="property.propertyValue">
-                <textarea placeholder="{{property.propertyName}}"
+                    ng-model="property.propertyValue" required>
+                <textarea ng-attr-id="{{property.propertyName}}" ng-attr-name="{{property.propertyName}}"
+                    class="form-control"
+                    ng-class="{'is-valid':formUpdateApplicationInstance[property.propertyName].$valid}"
+                    placeholder="{{property.propertyName}}"
                     ng-if="!property.propertyFormat || property.propertyFormat == 'area'"
-                    ng-model="property.propertyValue"></textarea>
-                <select class="form-control" ng-if="property.propertyFormat && property.propertyFormat == 'select'"
-                    ng-model="property.propertyValue">
+                    ng-model="property.propertyValue" required></textarea>
+                <select ng-attr-id="{{property.propertyName}}" ng-attr-name="{{property.propertyName}}"
+                    class="form-control"
+                    ng-class="{'is-valid':formUpdateApplicationInstance[property.propertyName].$valid}"
+                    ng-if="property.propertyFormat && property.propertyFormat == 'select'"
+                    ng-model="property.propertyValue" required>
                     <option ng-repeat="key in property.selection" ng-value="key">{{key}}</option>
                 </select>
             </div>
             <div style="margin-top: 30px;">
-                <button class="btn btn-primary" type="button"
+                <button class="btn btn-primary" type="submit"
                     style="padding-right: 40px;padding-left: 40px;margin-right: 10px;"
-                    ng-click="update(instance, properties)">
+                    ng-disabled="formUpdateApplicationInstance.$invalid">
                     Update
                 </button>
             </div>
