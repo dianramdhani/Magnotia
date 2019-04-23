@@ -12,12 +12,16 @@
             controller: tenantUserApplicationSuiteOutputApplicationInstanceController
         });
 
-    tenantUserApplicationSuiteOutputApplicationInstanceController.$inject = ['$scope', '$stateParams', '$state', 'applicationPoolService'];
-    function tenantUserApplicationSuiteOutputApplicationInstanceController($scope, $stateParams, $state, applicationPoolService) {
+    tenantUserApplicationSuiteOutputApplicationInstanceController.$inject = ['$scope', '$stateParams', '$state', '$element', '$compile', 'applicationPoolService'];
+    function tenantUserApplicationSuiteOutputApplicationInstanceController($scope, $stateParams, $state, $element, $compile, applicationPoolService) {
         var $ctrl = this;
 
         $ctrl.$onInit = function () {
             $scope.applicationSuiteId = $stateParams.applicationSuiteId;
+            $scope.onError = (err) => {
+                $scope.onClose = () => $state.go('tenantUser.applicationSuite.home.applicationInstance', { applicationSuiteId: $scope.applicationSuiteId });
+                $element.append($compile(`<alert type="danger" title="${err.status}" body="${err.message}" on-close="onClose()"></alert>`)($scope));
+            };
 
             applicationPoolService.getApplicationSuite($stateParams.applicationSuiteId)
                 .then(resGetApplicationSuite => $scope.applicationSuite = resGetApplicationSuite);

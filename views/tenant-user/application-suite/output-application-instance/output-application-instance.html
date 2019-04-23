@@ -9,6 +9,6 @@
             <h6 style="margin-bottom: 0;">{{applicationSuite.applicationSuiteName}}</h6>
             {{applicationInstance.name}}
         </div>
-        <file-browser root-dir="dir"></file-browser>
+        <file-browser root-dir="dir" on-error="onError(err)"></file-browser>
     </div>
 </div>

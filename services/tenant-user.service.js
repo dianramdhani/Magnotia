@@ -19,7 +19,7 @@
                     token: $rootScope.globals.currentUser.token,
                     username: $rootScope.globals.currentUser.username
                 }
-            }).then(res => q.resolve(res.data));
+            }).then(res => q.resolve(res.data)).catch(err => q.reject(err.data));
             return q.promise;
         }
     }
