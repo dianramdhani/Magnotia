@@ -9,6 +9,7 @@
                 <th>Owner</th>
                 <th>Group</th>
                 <th>Permission</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -20,22 +21,25 @@
             </tr>
             <tr ng-if="dataBrowseDirectory.currentDir === $ctrl.rootDir">
                 <td></td>
-                <td colspan="6">
+                <td colspan="7">
                     <strong>.{{dataBrowseDirectory.currentDir}}</strong>
                 </td>
             </tr>
-            <tr ng-repeat="fileDetail in dataBrowseDirectory.fileDetails track by $index"
-                ng-click="onClick(fileDetail)">
-                <td>
+            <tr ng-repeat="fileDetail in dataBrowseDirectory.fileDetails track by $index">
+                <td ng-click="onClick(fileDetail)">
                     <i class="far fa-file" ng-if="fileDetail.type === 'FILE'"></i>
                     <i class="far fa-folder" ng-if="fileDetail.type === 'DIRECTORY'"></i>
                 </td>
-                <td>{{fileDetail.fileName}}</td>
-                <td><span ng-if="fileDetail.byteSize !== 0">{{fileDetail.byteSize}}</span></td>
-                <td>{{fileDetail.lastModified}}</td>
-                <td>{{fileDetail.owner}}</td>
-                <td>{{fileDetail.group}}</td>
-                <td>{{fileDetail.permission}}</td>
+                <td ng-click="onClick(fileDetail)">{{fileDetail.fileName}}</td>
+                <td ng-click="onClick(fileDetail)"><span
+                        ng-if="fileDetail.byteSize !== 0">{{fileDetail.byteSize}}</span></td>
+                <td ng-click="onClick(fileDetail)">{{fileDetail.lastModified}}</td>
+                <td ng-click="onClick(fileDetail)">{{fileDetail.owner}}</td>
+                <td ng-click="onClick(fileDetail)">{{fileDetail.group}}</td>
+                <td ng-click="onClick(fileDetail)">{{fileDetail.permission}}</td>
+                <td class="text-right">
+                    <i class="fas fa-download" ng-if="fileDetail.type === 'FILE'" ng-click="download(fileDetail)"></i>
+                </td>
             </tr>
         </tbody>
     </table>
