@@ -23,14 +23,17 @@
                 .then(resGetApplicationSuite => $scope.applicationSuite = resGetApplicationSuite);
             applicationPoolService.getApplicationInstance($stateParams.applicationInstanceId)
                 .then(resGetApplicationInstance => $scope.applicationInstance = resGetApplicationInstance);
-            applicationPoolService.getInstanceSchedulerList($stateParams.applicationInstanceId)
-                .then(resGetInstanceSchedulerList => {
-                    $scope.instanceSchedulerList = resGetInstanceSchedulerList;
-                    $scope.instanceSchedulerList.forEach(_resGetInstanceSchedulerList => {
-                        applicationPoolService.getOrchestratorService(_resGetInstanceSchedulerList.orchestratorServiceId)
-                            .then(resApplicationPoolService => _resGetInstanceSchedulerList['dataApplicationPoolService'] = resApplicationPoolService);
+            $scope.refreshInstanceSchedulerList = () => {
+                applicationPoolService.getInstanceSchedulerList($stateParams.applicationInstanceId)
+                    .then(resGetInstanceSchedulerList => {
+                        $scope.instanceSchedulerList = resGetInstanceSchedulerList;
+                        $scope.instanceSchedulerList.forEach(_resGetInstanceSchedulerList => {
+                            applicationPoolService.getOrchestratorService(_resGetInstanceSchedulerList.orchestratorServiceId)
+                                .then(resApplicationPoolService => _resGetInstanceSchedulerList['dataApplicationPoolService'] = resApplicationPoolService);
+                        });
                     });
-                });
+            }
+            $scope.refreshInstanceSchedulerList();
         };
     }
 })();

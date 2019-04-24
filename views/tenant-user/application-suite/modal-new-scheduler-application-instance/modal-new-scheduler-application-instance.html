@@ -1,5 +1,6 @@
 <i class="fas fa-plus" data-toggle="modal" data-target="#modal-{{id}}" ng-click="focusFirstInput()"></i>
-<form style="font-size: initial; font-weight: initial; line-height: initial; color: initial;">
+<form name="formModalNewSchedulerApplicationInstance"
+    style="font-size: initial; font-weight: initial; line-height: initial; color: initial;" ng-submit="save(schedule)">
     <div role="dialog" tabindex="-1" class="modal fade" ng-attr-id="{{'modal-'+id}}">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -11,28 +12,36 @@
                 </div>
                 <div class="modal-body">
                     <div class="d-flex flex-column">
-                        <label>Service Name</label>
-                        <select class="form-control" ng-attr-id="{{'first-input-'+id}}"
-                            ng-model="schedule.orchestratorServiceId">
+                        <label for="{{'first-input-'+id}}">Service Name</label>
+                        <select class="form-control"
+                            ng-class="{'is-valid': formModalNewSchedulerApplicationInstance['first-input-'+id].$valid}"
+                            ng-attr-id="{{'first-input-'+id}}" ng-attr-name="{{'first-input-'+id}}"
+                            ng-model="schedule.orchestratorServiceId" required>
                             <option value="">---Please select---</option>
                             <option ng-repeat="_services in services track by $index" ng-value="_services.id">
                                 {{_services.name}}
                             </option>
                         </select>
-                        <label>Type</label>
-                        <select class="form-control" ng-model="schedule.scheduleType">
+                        <label for="type">Type</label>
+                        <select id="type" name="type" class="form-control"
+                            ng-class="{'is-valid': formModalNewSchedulerApplicationInstance.type.$valid}"
+                            ng-model="schedule.scheduleType" ng-change="schedule.frequency=null" required>
                             <option value="">---Please select---</option>
                             <option value="CRON">CRON</option>
                             <option value="INTERVAL">INTERVAL</option>
                         </select>
                         <div ng-switch on="schedule.scheduleType">
                             <span ng-switch-when="CRON">
-                                <label>Command</label>
-                                <input class="form-control" type="text" placeholder="Command" />
+                                <label for="command">Command</label>
+                                <input id="command" name="command" class="form-control"
+                                    ng-class="{'is-valid': formModalNewSchedulerApplicationInstance.command.$valid}"
+                                    type="text" placeholder="Command" ng-model="schedule.frequency" required>
                             </span>
                             <span ng-switch-when="INTERVAL">
-                                <label>Period</label>
-                                <input class="form-control" type="text" placeholder="Period" />
+                                <label for="period">Period (ms)</label>
+                                <input id="period" name="period" class="form-control"
+                                    ng-class="{'is-valid': formModalNewSchedulerApplicationInstance.period.$valid}"
+                                    type="text" placeholder="Period (ms)" ng-model="schedule.frequency" required>
                             </span>
                         </div>
                     </div>
