@@ -22,8 +22,9 @@
         this.removeApplicationSuite = removeApplicationSuite;
         this.saveApplicationInstance = saveApplicationInstance;
         this.removeApplicationInstance = removeApplicationInstance;
-        // add schedule
         this.saveInstanceScheduler = saveInstanceScheduler;
+        // remove schedule
+        this.removeInstanceSchedule = removeInstanceSchedule;
 
         const url = CONFIG.apppool;
         const removeEmpty = (obj) => {
@@ -161,7 +162,12 @@
             return q.promise;
         }
         function getInstanceSchedule(scheduleId) { }
-        function removeInstanceSchedule(scheduleId) { }
+        function removeInstanceSchedule(scheduleId) {
+            let q = $q.defer(),
+                params = { scheduleId };
+            $http.get(`${url}/instanceScheduler/remove`, { params }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
         function saveInstanceScheduler(instanceSchedule) {
             let q = $q.defer();
             $http.post(`${url}/instanceScheduler/save`, instanceSchedule).then(res => q.resolve(res.data));

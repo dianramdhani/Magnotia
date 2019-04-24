@@ -12,8 +12,8 @@
             controller: tenantUserApplicationSuiteListSchedulerApplicationInstanceController
         });
 
-    tenantUserApplicationSuiteListSchedulerApplicationInstanceController.$inject = ['$scope', '$q', '$stateParams', 'applicationPoolService'];
-    function tenantUserApplicationSuiteListSchedulerApplicationInstanceController($scope, $q, $stateParams, applicationPoolService) {
+    tenantUserApplicationSuiteListSchedulerApplicationInstanceController.$inject = ['$scope', '$stateParams', '$element', '$compile', 'applicationPoolService'];
+    function tenantUserApplicationSuiteListSchedulerApplicationInstanceController($scope, $stateParams, $element, $compile, applicationPoolService) {
         var $ctrl = this;
 
         $ctrl.$onInit = function () {
@@ -34,6 +34,21 @@
                     });
             }
             $scope.refreshInstanceSchedulerList();
+            $scope.deleteSchedule = (scheduleId) => {
+                $scope.onDeleteSchedule = () => {
+                    applicationPoolService.removeInstanceSchedule(scheduleId)
+                        .then(() => {
+                            $element.append($compile(`<alert type="success" title="Delete success."></alert>`)($scope));
+                            $scope.refreshInstanceSchedulerList();
+                        });
+                };
+                $element.append($compile(`
+                    <delete title="Delete This Schedule?"
+                        body="Confirm if you are going to delete this schedule."
+                        on-delete="onDeleteSchedule()">
+                    </delete> 
+                `)($scope));
+            };
         };
     }
 })();
