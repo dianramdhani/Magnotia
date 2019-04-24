@@ -36,7 +36,7 @@
                         <td>{{_instanceSchedulerList.frequency}}</td>
                         <td>
                             <div class="d-flex flex-row justify-content-end" style="width: 100%;">
-                                <i class="fas fa-play"></i>
+                                <i class="fas fa-play" ng-click="startSchedule(_instanceSchedulerList.id)"></i>
                                 <i class="fas fa-trash-alt" style="margin-left: 10px;" ng-click="deleteSchedule(_instanceSchedulerList.id)"></i>
                             </div>
                         </td>

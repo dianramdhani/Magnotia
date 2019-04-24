@@ -49,6 +49,19 @@
                     </delete> 
                 `)($scope));
             };
+            $scope.startSchedule = (scheduleId) => {
+                applicationPoolService.startInstanceScheduler(scheduleId)
+                    .then((resStartInstanceScheduler) => {
+                        switch (resStartInstanceScheduler.status) {
+                            case 'OK':
+                                $element.append($compile(`<alert type="success" title="Starting instance service schedule success."></alert>`)($scope));
+                                break;
+                            case 'FAILED':
+                                $element.append($compile(`<alert type="danger" title="Instance service schedule is already running!"></alert>`)($scope));
+                                break;
+                        }
+                    });
+            };
         };
     }
 })();
