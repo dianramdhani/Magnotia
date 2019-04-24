@@ -1,5 +1,5 @@
 <i class="fas fa-plus" data-toggle="modal" data-target="#modal-{{id}}"></i>
-<form ng-submit="save(applicationSuiteName)"
+<form name="formModalNewApplicaitonSuite" ng-submit="save(applicationSuiteName)"
     style="font-size: initial; font-weight: initial; line-height: initial; color: initial;">
     <div role="dialog" tabindex="-1" class="modal fade" ng-attr-id="{{'modal-'+id}}">
         <div class="modal-dialog" role="document">
@@ -12,13 +12,15 @@
                 </div>
                 <div class="modal-body">
                     <div class="d-flex flex-column">
-                        <label>Application Suite Name</label>
-                        <input class="form-control" type="text" ng-attr-id="{{'first-input-'+id}}"
-                            placeholder="Application Suite Name" ng-model="applicationSuiteName" />
+                        <label ng-attr-for="{{'first-input-'+id}}">Application Suite Name</label>
+                        <input name="applicationSuiteName" class="form-control"
+                            ng-class="{'is-valid': formModalNewApplicaitonSuite.applicationSuiteName.$valid}"
+                            type="text" ng-attr-id="{{'first-input-'+id}}" placeholder="Application Suite Name"
+                            ng-model="applicationSuiteName" required>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" type="submit">
+                    <button class="btn btn-primary" type="submit" ng-disabled="formModalNewApplicaitonSuite.$invalid">
                         Save
                     </button>
                 </div>
