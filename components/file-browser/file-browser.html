@@ -15,14 +15,20 @@
         <tbody>
             <tr ng-if="dataBrowseDirectory.currentDir !== $ctrl.rootDir" ng-click="upDir()">
                 <td><i class="fas fa-arrow-up"></i></td>
-                <td colspan="6">
+                <td colspan="7">
                     <strong>..{{dataBrowseDirectory.currentDir}}</strong>
                 </td>
             </tr>
-            <tr ng-if="dataBrowseDirectory.currentDir === $ctrl.rootDir">
+            <tr ng-if="(dataBrowseDirectory.currentDir === $ctrl.rootDir) && !$ctrl.backRootStatus">
                 <td></td>
                 <td colspan="7">
                     <strong>.{{dataBrowseDirectory.currentDir}}</strong>
+                </td>
+            </tr>
+            <tr ng-if="(dataBrowseDirectory.currentDir === $ctrl.rootDir) && $ctrl.backRootStatus" ng-click="$ctrl.onBackRoot()">
+                <td><i class="fas fa-arrow-up"></i></td>
+                <td colspan="7">
+                    <strong>..{{dataBrowseDirectory.currentDir}}</strong>
                 </td>
             </tr>
             <tr ng-repeat="fileDetail in dataBrowseDirectory.fileDetails track by $index">

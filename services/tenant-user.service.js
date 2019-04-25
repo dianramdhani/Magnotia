@@ -8,6 +8,7 @@
     function TenantUserService($http, $q, $rootScope, CONFIG) {
         this.browseDirectory = browseDirectory;
         this.downloadFile = downloadFile;
+        this.diskUsage = diskUsage;
 
         const url = CONFIG.tenant;
 
@@ -65,7 +66,18 @@
             return q.promise;
         }
         function uploadFile(path, file) { }
-        function diskUsage(path, isDetail) { }
+        function diskUsage(path, isDetail) {
+            let q = $q.defer(),
+                params = { path, isDetail };
+            $http.get(`${url}/fileBrowserService/diskUsage`, {
+                params,
+                headers: {
+                    token: $rootScope.globals.currentUser.token,
+                    username: $rootScope.globals.currentUser.username
+                }
+            }).then(res => q.resolve(res.data)).catch(err => q.reject(err.data));
+            return q.promise;
+        }
         function createConfig() { }
         // CLUSTERS AND HOST
         function findClusters() { }

@@ -1,43 +1,37 @@
-<!-- <div class="container-fluid">
-    <div class="card">
-        <div class="card-body">
-            <h5 class="d-flex justify-content-between">
-                Application Instance
-                <span>
-                    <i class="fas fa-plus"></i>
-                </span>
-            </h5>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Size</th>
-                            <th>Last Modified</th>
-                            <th>Owner</th>
-                            <th>Group</th>
-                            <th>Permission</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <i class="far fa-trash-alt"></i> dada
-                            </td>
-                            <td>2gb</td>
-                            <td>time 2</td>
-                            <td>dian</td>
-                            <td>dian group</td>
-                            <td>rw-r---</td>
-                            <td>
-                                <i class="far fa-trash-alt"></i>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+<div class="card" style="margin-right: 15px;margin-left: 15px;">
+    <div class="card-body">
+        <h4 class="card-title">
+            Data Browser
+        </h4>
+        <div class="table-responsive" ng-show="dir === null">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 30px;"></th>
+                        <th>Name</th>
+                        <th>Size</th>
+                        <th>Last Modified</th>
+                        <th>Owner</th>
+                        <th>Group</th>
+                        <th>Permission</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="directory in directories track by $index" ng-click="open(directory.filePath)">
+                        <td>
+                            <i class="far fa-folder"></i>
+                        </td>
+                        <td>{{directory.fileName}}</td>
+                        <td>{{directory.byteSize}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+        <file-browser ng-hide="dir === null" root-dir="dir" back-root-status="true" on-back-root="onBackRoot()">
+        </file-browser>
     </div>
-</div> -->
-<file-browser></file-browser>
+</div>

@@ -12,7 +12,9 @@
             controller: fileBrowserController,
             bindings: {
                 rootDir: '<',
-                onError: '&'
+                onError: '&',
+                backRootStatus: '<',
+                onBackRoot: '&'
             },
         });
 
@@ -39,9 +41,11 @@
         };
         $ctrl.$onChanges = function (e) {
             if (typeof e.rootDir.currentValue !== 'undefined') {
-                TenantUserService.browseDirectory($ctrl.rootDir)
-                    .then(resBrowseDirectory => $scope.dataBrowseDirectory = resBrowseDirectory)
-                    .catch(err => $ctrl.onError({ err }));
+                if ($ctrl.rootDir) {
+                    TenantUserService.browseDirectory($ctrl.rootDir)
+                        .then(resBrowseDirectory => $scope.dataBrowseDirectory = resBrowseDirectory)
+                        .catch(err => $ctrl.onError({ err }));
+                }
             }
         };
     }
