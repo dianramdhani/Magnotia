@@ -57,7 +57,7 @@
                     `)($scope));
                 } else {
                     $element.append($compile(`
-                        <alert type="danger" title="Delete failed!" body="Please stop or delete flow this application instance before."></alert>
+                        <alert type="danger" title="Delete failed!" body="Please stop or delete flow on this application instance before."></alert>
                     `)($scope));
                 }
             };

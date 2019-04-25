@@ -36,10 +36,13 @@
             $scope.refreshInstanceSchedulerList();
             $scope.deleteSchedule = (scheduleId) => {
                 $scope.onDeleteSchedule = () => {
-                    applicationPoolService.removeInstanceSchedule(scheduleId)
+                    applicationPoolService.stopInstanceScheduler(scheduleId)
                         .then(() => {
-                            $element.append($compile(`<alert type="success" title="Delete success."></alert>`)($scope));
-                            $scope.refreshInstanceSchedulerList();
+                            applicationPoolService.removeInstanceSchedule(scheduleId)
+                                .then(() => {
+                                    $element.append($compile(`<alert type="success" title="Delete success."></alert>`)($scope));
+                                    $scope.refreshInstanceSchedulerList();
+                                });
                         });
                 };
                 $element.append($compile(`
