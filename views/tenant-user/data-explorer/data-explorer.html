@@ -1,2 +1,55 @@
-<button ng-click="openFileOrFolder('FILE')">open file</button>
-<button ng-click="openFileOrFolder('DIRECTORY')">open folder</button>
+<div class="card" style="margin-right: 15px;margin-left: 15px;">
+    <div class="card-body">
+        <h4 class="card-title d-flex justify-content-between">
+            Data Explorer
+            <span>
+                <div class="dropdown">
+                    <i class="fas fa-plus" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
+                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+                        <button class="dropdown-item" role="presentation" ng-click="openFileOrFolder('FILE')">
+                            Open File
+                        </button>
+                        <button class="dropdown-item" role="presentation" ng-click="openFileOrFolder('DIRECTORY')">
+                            Open Folder
+                        </button>
+                    </div>
+                </div>
+            </span>
+        </h4>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Directory</th>
+                        <th>Format</th>
+                        <th>Table Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="_data in data track by $index">
+                        <td>{{_data.path}}</td>
+                        <td>
+                            <select class="form-control" ng-model="_data['format']">
+                                <option value="">---Please select---</option>
+                                <option value="json">JSON</option>
+                                <option value="csv">CSV</option>
+                                <option value="parquet">Parquet</option>
+                                <option value="orc">ORC</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" ng-model="_data['tableName']">
+                        </td>
+                        <td>
+                            <i class="far fa-trash-alt" ng-click="delete($index)"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="text-right">
+            <button class="btn btn-primary" type="button" ng-click="loadAll(data)">Load All</button>
+        </div>
+    </div>
+</div>

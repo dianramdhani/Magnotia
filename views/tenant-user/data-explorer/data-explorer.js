@@ -12,14 +12,14 @@
             controller: tenantUserDataExplorerController
         });
 
-    tenantUserDataExplorerController.$inject = ['$scope', '$element', '$compile'];
-    function tenantUserDataExplorerController($scope, $element, $compile) {
+    tenantUserDataExplorerController.$inject = ['$scope', '$element', '$compile', '$log'];
+    function tenantUserDataExplorerController($scope, $element, $compile, $log) {
         var $ctrl = this;
+        $scope.$log = $log;
 
         $ctrl.$onInit = function () {
-            $scope.onOpen = (path) => {
-                console.log('ini path', path);
-            };
+            $scope.data = [];
+            $scope.onOpen = (path) => $scope.data.push({ path });
             $scope.openFileOrFolder = (type) => {
                 switch (type) {
                     case 'FILE':
@@ -33,7 +33,10 @@
                         `)($scope));
                         break;
                 }
-
+            };
+            $scope.delete = (index) => $scope.data.splice(index, 1);
+            $scope.loadAll = (data) => {
+                console.log(data);
             };
         };
     }
