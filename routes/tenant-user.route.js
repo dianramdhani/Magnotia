@@ -10,7 +10,7 @@
             { name: 'tenantUser.applicationSuite', component: 'tenantUserApplicationSuiteContainer' },
             { name: 'tenantUser.dataBrowser', url: '/browser', component: 'tenantUserDataBrowser' },
             { name: 'tenantUser.dataVisualization', url: '/visual', template: 'dataVisualization' },
-            { name: 'tenantUser.dataExplorer', url: '/explorer', template: 'dataExplorer' },
+            { name: 'tenantUser.dataExplorer', url: '/explorer', component: 'tenantUserDataExplorer' },
             { name: 'tenantUser.userManagement', url: '/user', template: 'userManagement' },
         ];
         states.forEach(state => $stateProvider.state(state));

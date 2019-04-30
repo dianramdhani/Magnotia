@@ -27,7 +27,7 @@
                 deleteFn = angular.noop;
             $timeout(() => {
                 angular.element(`#model-body-${$scope.id}`).append($compile(`<span>${$ctrl.body}</span>`)($scope));
-                modalElement = angular.element(`#modal-${$scope.id}`)
+                modalElement = angular.element(`#modal-${$scope.id}`);
                 modalElement.modal('show');
                 modalElement.on('hidden.bs.modal', () => {
                     $element.remove();

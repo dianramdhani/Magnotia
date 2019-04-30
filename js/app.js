@@ -46,6 +46,8 @@ require('../components/delete/delete');
 require('../components/alert/alert');
 // file-browser
 require('../components/file-browser/file-browser');
+// modal-select-file-or-directory
+require('../components/modal-select-file-or-directory/modal-select-file-or-directory')
 
 // views
 // login login
@@ -72,3 +74,5 @@ require('../views/tenant-user/application-suite/output-application-instance/outp
 require('../views/tenant-user/application-suite/table-application-instance/table-application-instance');
 // tenantUserDataBrowser tenant-user-data-browser
 require('../views/tenant-user/data-browser/data-browser');
+// tenantUserDataExplorer tenant-user-data-explorer
+require('../views/tenant-user/data-explorer/data-explorer')

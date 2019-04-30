@@ -1,0 +1,64 @@
+<div role="dialog" tabindex="-1" class="modal fade" ng-attr-id="{{'modal-'+id}}">
+    <div class="modal-dialog mw-100 w-75" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    Select
+                    <span ng-show="$ctrl.getDirectory">Folder</span><span ng-hide="$ctrl.getDirectory">File</span>
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width: 30px;"></th>
+                                <th>Name</th>
+                                <th>Size</th>
+                                <th>Last Modified</th>
+                                <th>Owner</th>
+                                <th>Group</th>
+                                <th>Permission</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-hide="nowRootPath" ng-click="upDir()">
+                                <td><i class="fas fa-arrow-up"></i></td>
+                                <td colspan="6">
+                                    <strong>..{{dataBrowseDirectory.currentDir}}</strong>
+                                </td>
+                            </tr>
+                            <tr ng-repeat="fileDetail in dataBrowseDirectory.fileDetails track by $index"
+                                ng-click="onClick(fileDetail)">
+                                <td>
+                                    <i class="far fa-file" ng-if="fileDetail.type === 'FILE'"></i>
+                                    <i class="far fa-folder" ng-if="fileDetail.type === 'DIRECTORY'"></i>
+                                </td>
+                                <td>{{fileDetail.fileName}}</td>
+                                <td><span ng-if="fileDetail.byteSize !== 0">{{fileDetail.byteSize}}</span></td>
+                                <td>{{fileDetail.lastModified}}</td>
+                                <td>{{fileDetail.owner}}</td>
+                                <td>{{fileDetail.group}}</td>
+                                <td>{{fileDetail.permission}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="mr-auto">
+                    <strong>
+                        <span ng-show="$ctrl.getDirectory">Folder</span><span ng-hide="$ctrl.getDirectory">File</span>
+                        location:
+                    </strong>
+                    {{pathToOpen}}
+                </div>
+                <button class="btn btn-primary" ng-disabled="!pathToOpen" ng-click="open()">Open</button>
+                <button class="btn" type="button" data-dismiss="modal" aria-label="Close">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
