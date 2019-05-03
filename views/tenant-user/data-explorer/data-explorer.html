@@ -32,6 +32,7 @@
                             <td>{{_data.path}}</td>
                             <td>
                                 <select class="form-control" ng-attr-name="fileType-{{$index}}"
+                                    ng-class="{'is-valid':formDataExplorer['fileType-'+$index].$valid}"
                                     ng-model="_data['fileType']" required>
                                     <option value="">---Please select---</option>
                                     <option value="json">JSON</option>
@@ -42,9 +43,10 @@
                             </td>
                             <td>
                                 <input type="text" class="form-control" ng-attr-name="tableName-{{$index}}"
+                                    ng-class="{'is-valid':formDataExplorer['tableName-'+$index].$valid}"
                                     ng-model="_data['tableName']" required>
                             </td>
-                            <td>
+                            <td class="text-right">
                                 <i class="far fa-trash-alt" ng-click="delete($index)"></i>
                             </td>
                         </tr>
@@ -55,10 +57,34 @@
                 <button class="btn btn-primary" type="submit" ng-hide="data.length === 0">Load All</button>
             </div>
         </form>
+    </div>
+</div>
+<div class="card mt-3" style="margin-right: 15px;margin-left: 15px;" ng-show="canQuery">
+    <div class="card-body">
+        <h4 class="card-title">Input Query</h4>
         <form name="formQueryExplorer" ng-submit="runQuery(query)">
-            <input type="text" name="query" placeholder="Query. Example = 'select * from table1'" ng-model="query"
-                required>
-            <button type="submit">Run Query</button>
+            <input type="text" name="query" class="form-control mb-1"
+                ng-class="{'is-valid':formQueryExplorer.query.$valid}"
+                placeholder="Query. Example = 'select * from table1'" ng-model="query" required>
+            <button class="btn btn-primary" type="submit">Run Query</button>
+            <button class="btn btn-danger" type="reset" ng-click="dataOutput=null">Reset</button>
         </form>
+        <div class="mt-5" ng-show="dataOutput">
+            <h5>Result</h5>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th ng-repeat="(key, value) in dataOutput[0] track by $index">{{value}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="tr in dataOutput track by $index" ng-show="$index>0">
+                            <td ng-repeat="(key, value) in tr track by $index">{{value}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>

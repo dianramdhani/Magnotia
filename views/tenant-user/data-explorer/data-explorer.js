@@ -59,6 +59,7 @@
                                         $element.append($compile(`
                                             <alert type="success" title="Add tables success."></alert>
                                         `)($scope));
+                                        $scope.canQuery = true;
                                     }
                                 });
                         });
@@ -77,7 +78,8 @@
                                                 if (resGetStatement.progress === 1) {
                                                     LivyService.getVarAsJson(sessionId, resExecuteQuery.varName)
                                                         .then(resGetVarAsJson => {
-                                                            console.log({ resGetVarAsJson });
+                                                            $scope.dataOutput = resGetVarAsJson;
+                                                            console.log($scope.dataOutput)
                                                         });
                                                 } else {
                                                     getStatement();
