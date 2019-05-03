@@ -11,6 +11,13 @@
         this.diskUsage = diskUsage;
 
         const url = CONFIG.tenant;
+        let headers = {};
+        if ($rootScope.globals.currentUser) {
+            headers = {
+                token: $rootScope.globals.currentUser.token,
+                username: $rootScope.globals.currentUser.username
+            };
+        }
 
         // LOGIN
         function isLoggedIn() { }
@@ -38,13 +45,7 @@
         function browseDirectory(path) {
             let q = $q.defer(),
                 params = { path };
-            $http.get(`${url}/fileBrowserService/browseDirectory`, {
-                params,
-                headers: {
-                    token: $rootScope.globals.currentUser.token,
-                    username: $rootScope.globals.currentUser.username
-                }
-            }).then(res => q.resolve(res.data)).catch(err => q.reject(err.data));
+            $http.get(`${url}/fileBrowserService/browseDirectory`, { params, headers }).then(res => q.resolve(res.data)).catch(err => q.reject(err.data));
             return q.promise;
         }
         function makeDirectory(path, directory) { }
@@ -55,27 +56,14 @@
         function downloadFile(path) {
             let q = $q.defer(),
                 params = { path };
-            $http.get(`${url}/fileBrowserService/downloadFile`, {
-                params,
-                headers: {
-                    token: $rootScope.globals.currentUser.token,
-                    username: $rootScope.globals.currentUser.username
-                },
-                responseType: 'blob'
-            }).then(res => q.resolve(res.data)).catch(err => q.reject(err.data));
+            $http.get(`${url}/fileBrowserService/downloadFile`, { params, headers, responseType: 'blob' }).then(res => q.resolve(res.data)).catch(err => q.reject(err.data));
             return q.promise;
         }
         function uploadFile(path, file) { }
         function diskUsage(path, isDetail) {
             let q = $q.defer(),
                 params = { path, isDetail };
-            $http.get(`${url}/fileBrowserService/diskUsage`, {
-                params,
-                headers: {
-                    token: $rootScope.globals.currentUser.token,
-                    username: $rootScope.globals.currentUser.username
-                }
-            }).then(res => q.resolve(res.data)).catch(err => q.reject(err.data));
+            $http.get(`${url}/fileBrowserService/diskUsage`, { params, headers }).then(res => q.resolve(res.data)).catch(err => q.reject(err.data));
             return q.promise;
         }
         function createConfig() { }

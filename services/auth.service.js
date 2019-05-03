@@ -18,11 +18,10 @@
                 encryptPassword: md5.createHash(password)
             }).then(res => {
                 let currentUser = res.data;
-                $rootScope.globals = { currentUser };
+                $rootScope['globals'] = { currentUser };
                 let cookieExp = new Date();
                 cookieExp.setDate(cookieExp.getDate() + 7);
                 $cookies.putObject('globals', $rootScope.globals, { expires: cookieExp });
-                $http.defaults.headers.common['token'] = '1234';
                 q.resolve(currentUser);
             }).catch(err => q.reject(err.data));
             return q.promise;
@@ -31,7 +30,6 @@
         function logout() {
             $rootScope.globals = {};
             $cookies.remove('globals');
-            $http.defaults.headers.common['token'] = '';
             $state.go('login');
         }
     }

@@ -4,8 +4,8 @@
     window.app
         .service('applicationPoolService', applicationPoolService);
 
-    applicationPoolService.$inject = ['$http', '$q', 'CONFIG'];
-    function applicationPoolService($http, $q, CONFIG) {
+    applicationPoolService.$inject = ['$http', '$q', '$rootScope', 'CONFIG'];
+    function applicationPoolService($http, $q, $rootScope, CONFIG) {
         this.getApplicationSuiteList = getApplicationSuiteList;
         this.getApplicationInstanceList = getApplicationInstanceList;
         this.executeInstanceOperation = executeInstanceOperation;
@@ -27,17 +27,20 @@
         this.startInstanceScheduler = startInstanceScheduler;
         this.stopInstanceScheduler = stopInstanceScheduler;
 
-        const url = CONFIG.apppool;
-        const removeEmpty = (obj) => {
+        const url = CONFIG.apppool, removeEmpty = (obj) => {
             Object.keys(obj).forEach((key) => (obj[key] == null) && delete obj[key]);
             return obj;
+        }
+        let headers = {};
+        if ($rootScope.globals.currentUser) {
+            headers['token'] = '1234';
         }
 
         // APPLICATION
         function getApplicationList(id = null, name = null, description = null, orchestratorId = null) {
             let q = $q.defer(),
                 params = removeEmpty({ id, name, description, orchestratorId });
-            $http.get(`${url}/application/list`, { params }).then(res => q.resolve(res.data));
+            $http.get(`${url}/application/list`, { params, headers }).then(res => q.resolve(res.data));
             return q.promise;
         }
         function getListByOrchestrator(orchestratorId) { }
@@ -45,7 +48,7 @@
         function getApplication(applicationId) {
             let q = $q.defer(),
                 params = { applicationId };
-            $http.get(`${url}/application/get`, { params }).then(res => q.resolve(res.data));
+            $http.get(`${url}/application/get`, { params, headers }).then(res => q.resolve(res.data));
             return q.promise;
         }
         function removeApplication(applicationId) { }
@@ -55,7 +58,7 @@
         function getApplicationProperties(applicationId) {
             let q = $q.defer(),
                 params = { applicationId };
-            $http.get(`${url}/application/get_properties`, { params }).then(res => q.resolve(res.data));
+            $http.get(`${url}/application/get_properties`, { params, headers }).then(res => q.resolve(res.data));
             return q.promise;
         }
         function getApplicationTemplates(applicationId) { }
@@ -63,12 +66,12 @@
         function getApplicationInstanceList(applicationSuiteId) {
             let q = $q.defer(),
                 params = { applicationSuiteId };
-            $http.get(`${url}/applicationInstance/list`, { params }).then(res => q.resolve(res.data));
+            $http.get(`${url}/applicationInstance/list`, { params, headers }).then(res => q.resolve(res.data));
             return q.promise;
         }
         function saveApplicationInstance(instance) {
             let q = $q.defer();
-            $http.post(`${url}/applicationInstance/save`, instance).then(res => q.resolve(res.data));
+            $http.post(`${url}/applicationInstance/save`, instance, { headers }).then(res => q.resolve(res.data));
             return q.promise;
         }
 
@@ -76,26 +79,26 @@
         function getApplicationInstance(applicationInstanceId) {
             let q = $q.defer(),
                 params = { applicationInstanceId };
-            $http.get(`${url}/applicationInstance/get`, { params }).then(res => q.resolve(res.data));
+            $http.get(`${url}/applicationInstance/get`, { params, headers }).then(res => q.resolve(res.data));
             return q.promise;
         }
         function removeApplicationInstance(applicationInstanceId) {
             let q = $q.defer(),
                 params = { applicationInstanceId };
-            $http.get(`${url}/applicationInstance/remove`, { params }).then(res => q.resolve(res.data)).catch(err => q.reject(err.data));
+            $http.get(`${url}/applicationInstance/remove`, { params, headers }).then(res => q.resolve(res.data)).catch(err => q.reject(err.data));
             return q.promise;
         }
         function executeInstanceOperation(applicationInstanceId, orchestratorServiceId) {
             let q = $q.defer(),
                 params = { applicationInstanceId, orchestratorServiceId };
-            $http.get(`${url}/applicationInstance/execute`, { params }).then(res => q.resolve(res.data)).catch(err => q.reject(err.data));
+            $http.get(`${url}/applicationInstance/execute`, { params, headers }).then(res => q.resolve(res.data)).catch(err => q.reject(err.data));
             return q.promise;
         }
         function addApplicationInstanceProperties(applicationInstanceId, properties) { }
         function getApplicationInstanceProperties(applicationInstanceId) {
             let q = $q.defer(),
                 params = { applicationInstanceId };
-            $http.get(`${url}/applicationInstance/get_properties`, { params }).then(res => q.resolve(res.data));
+            $http.get(`${url}/applicationInstance/get_properties`, { params, headers }).then(res => q.resolve(res.data));
             return q.promise;
         }
         function removeApplicationInstanceProperty(applicationInstancePropertyId) { }
@@ -111,38 +114,38 @@
         function getOrchestratorServiceList(orchestratorId, applicationService = null, instanceService = null, name = null) {
             let q = $q.defer(),
                 params = removeEmpty({ orchestratorId, applicationService, instanceService, name });
-            $http.get(`${url}/orchestratorService/list`, { params }).then(res => q.resolve(res.data));
+            $http.get(`${url}/orchestratorService/list`, { params, headers }).then(res => q.resolve(res.data));
             return q.promise;
         }
         function saveOrchestratorService(orchestratorId, orchestratorService) { }
         function getOrchestratorService(orchestratorServiceId) {
             let q = $q.defer(),
                 params = { orchestratorServiceId };
-            $http.get(`${url}/orchestratorService/get`, { params }).then(res => q.resolve(res.data));
+            $http.get(`${url}/orchestratorService/get`, { params, headers }).then(res => q.resolve(res.data));
             return q.promise;
         }
         function removeOrchestratorService(orchestratorServiceId) { }
         function getApplicationSuiteList(tenant, applicationSuiteName = null) {
             let q = $q.defer(),
                 params = removeEmpty({ tenant, applicationSuiteName });
-            $http.get(`${url}/applicationSuite/list`, { params }).then(res => q.resolve(res.data));
+            $http.get(`${url}/applicationSuite/list`, { params, headers }).then(res => q.resolve(res.data));
             return q.promise;
         }
         function saveApplicationSuite(applicationSuite) {
             let q = $q.defer();
-            $http.post(`${url}/applicationSuite/save`, applicationSuite).then(res => q.resolve(res.data));
+            $http.post(`${url}/applicationSuite/save`, applicationSuite, { headers }).then(res => q.resolve(res.data));
             return q.promise;
         }
         function getApplicationSuite(applicationSuiteId) {
             let q = $q.defer(),
                 params = { applicationSuiteId };
-            $http.get(`${url}/applicationSuite/get`, { params }).then(res => q.resolve(res.data));
+            $http.get(`${url}/applicationSuite/get`, { params, headers }).then(res => q.resolve(res.data));
             return q.promise;
         }
         function removeApplicationSuite(applicationSuiteId) {
             let q = $q.defer(),
                 params = { applicationSuiteId };
-            $http.get(`${url}/applicationSuite/remove`, { params }).then(res => q.resolve(res.data));
+            $http.get(`${url}/applicationSuite/remove`, { params, headers }).then(res => q.resolve(res.data));
             return q.promise;
         }
 
@@ -159,31 +162,31 @@
         function getInstanceSchedulerList(applicationInstanceId) {
             let q = $q.defer(),
                 params = { applicationInstanceId };
-            $http.get(`${url}/instanceScheduler/list`, { params }).then(res => q.resolve(res.data));
+            $http.get(`${url}/instanceScheduler/list`, { params, headers }).then(res => q.resolve(res.data));
             return q.promise;
         }
         function getInstanceSchedule(scheduleId) { }
         function removeInstanceSchedule(scheduleId) {
             let q = $q.defer(),
                 params = { scheduleId };
-            $http.get(`${url}/instanceScheduler/remove`, { params }).then(res => q.resolve(res.data));
+            $http.get(`${url}/instanceScheduler/remove`, { params, headers }).then(res => q.resolve(res.data));
             return q.promise;
         }
         function saveInstanceScheduler(instanceSchedule) {
             let q = $q.defer();
-            $http.post(`${url}/instanceScheduler/save`, instanceSchedule).then(res => q.resolve(res.data));
+            $http.post(`${url}/instanceScheduler/save`, instanceSchedule, { headers }).then(res => q.resolve(res.data));
             return q.promise;
         }
         function startInstanceScheduler(scheduleId) {
             let q = $q.defer(),
                 params = { scheduleId };
-            $http.get(`${url}/instanceScheduler/start`, { params }).then(res => q.resolve(res.data));
+            $http.get(`${url}/instanceScheduler/start`, { params, headers }).then(res => q.resolve(res.data));
             return q.promise;
         }
         function stopInstanceScheduler(scheduleId) {
             let q = $q.defer(),
                 params = { scheduleId };
-            $http.get(`${url}/instanceScheduler/stop`, { params }).then(res => q.resolve(res.data));
+            $http.get(`${url}/instanceScheduler/stop`, { params, headers }).then(res => q.resolve(res.data));
             return q.promise;
         }
         function isInstanceSchedulerRunning(scheduleId) { }

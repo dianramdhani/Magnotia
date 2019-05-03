@@ -16,40 +16,49 @@
                 </div>
             </span>
         </h4>
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Directory</th>
-                        <th>Format</th>
-                        <th>Table Name</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="_data in data track by $index">
-                        <td>{{_data.path}}</td>
-                        <td>
-                            <select class="form-control" ng-model="_data['format']">
-                                <option value="">---Please select---</option>
-                                <option value="json">JSON</option>
-                                <option value="csv">CSV</option>
-                                <option value="parquet">Parquet</option>
-                                <option value="orc">ORC</option>
-                            </select>
-                        </td>
-                        <td>
-                            <input type="text" class="form-control" ng-model="_data['tableName']">
-                        </td>
-                        <td>
-                            <i class="far fa-trash-alt" ng-click="delete($index)"></i>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="text-right">
-            <button class="btn btn-primary" type="button" ng-click="loadAll(data)">Load All</button>
-        </div>
+        <form name="formDataExplorer" ng-submit="loadAll(data)">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Directory</th>
+                            <th>Format</th>
+                            <th>Table Name</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="_data in data track by $index">
+                            <td>{{_data.path}}</td>
+                            <td>
+                                <select class="form-control" ng-attr-name="fileType-{{$index}}"
+                                    ng-model="_data['fileType']" required>
+                                    <option value="">---Please select---</option>
+                                    <option value="json">JSON</option>
+                                    <option value="csv">CSV</option>
+                                    <option value="parquet">Parquet</option>
+                                    <option value="orc">ORC</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" ng-attr-name="tableName-{{$index}}"
+                                    ng-model="_data['tableName']" required>
+                            </td>
+                            <td>
+                                <i class="far fa-trash-alt" ng-click="delete($index)"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-right">
+                <button class="btn btn-primary" type="submit" ng-hide="data.length === 0">Load All</button>
+            </div>
+        </form>
+        <form name="formQueryExplorer" ng-submit="runQuery(query)">
+            <input type="text" name="query" placeholder="Query. Example = 'select * from table1'" ng-model="query"
+                required>
+            <button type="submit">Run Query</button>
+        </form>
     </div>
 </div>

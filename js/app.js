@@ -9,12 +9,11 @@ require('./config');
     window.app
         .run(Run);
 
-    Run.$inject = ['$rootScope', '$cookies', '$http'];
-    function Run($rootScope, $cookies, $http) {
+    Run.$inject = ['$rootScope', '$cookies', '$state'];
+    function Run($rootScope, $cookies, $state) {
         $rootScope.globals = angular.fromJson($cookies.get('globals')) || {};
-        if ($rootScope.globals.currentUser) {
-            // $http.defaults.headers.common['token'] = $rootScope.globals.currentUser.token;
-            $http.defaults.headers.common['token'] = '1234';
+        if (typeof $rootScope.globals.currentUser === 'undefined') {
+            $state.go('login');
         }
     }
 })();
@@ -34,6 +33,8 @@ require('../services/auth.service');
 require('../services/application-pool.service');
 // TenantUserService
 require('../services/tenant-user.service');
+// LivyService
+require('../services/livy.service');
 
 // components
 // search
