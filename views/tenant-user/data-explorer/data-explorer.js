@@ -83,6 +83,13 @@
                                                         .then(resGetVarAsJson => {
                                                             $scope.dataOutput = resGetVarAsJson;
                                                             $scope.showLoading = false;
+                                                        })
+                                                        .catch(e => {
+                                                            $scope.showLoading = false;
+                                                            $element.append($compile(`
+                                                                <alert type="danger" title="Input query failed."></alert>
+                                                            `)($scope));
+                                                            console.log(e);
                                                         });
                                                 } else {
                                                     getStatement();

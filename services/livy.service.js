@@ -59,7 +59,7 @@
         }
         function getVarAsJson(sessionId, varName) {
             let q = $q.defer();
-            $http.get(`${url}/get-var-as-json/${sessionId}/${varName}`).then(res => q.resolve(res.data));
+            $http.get(`${url}/get-var-as-json/${sessionId}/${varName}`).then(res => q.resolve(res.data)).catch(err => q.reject(err.data));
             return q.promise;
         }
         function deleteSession(sessionId) {
