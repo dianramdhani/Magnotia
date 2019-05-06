@@ -30,7 +30,7 @@
                         },
                         {
                             fileName: 'User Storage',
-                            filePath: `/tenant/${$rootScope.globals.currentUser.username}`,
+                            filePath: `/user/${$rootScope.globals.currentUser.username}`,
                             byteSize: resAll[1].details[0].humanSize,
                         }
                     ];
