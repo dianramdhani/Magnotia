@@ -36,6 +36,7 @@
             };
             $scope.delete = (index) => $scope.data.splice(index, 1);
             $scope.loadAll = (data) => {
+                $scope.showLoading = true;
                 LivyService.getSession()
                     .then(resGetSession => {
                         data.forEach((_data, index) => {
@@ -61,11 +62,13 @@
                                         `)($scope));
                                         $scope.canQuery = true;
                                     }
+                                    $scope.showLoading = false;
                                 });
                         });
                     });
             };
             $scope.runQuery = (query) => {
+                $scope.showLoading = true;
                 let sessionId = $rootScope.globals.sessionDataExplorer.id;
                 LivyService.checkSession(sessionId)
                     .then(resCheckSession => {
@@ -79,7 +82,7 @@
                                                     LivyService.getVarAsJson(sessionId, resExecuteQuery.varName)
                                                         .then(resGetVarAsJson => {
                                                             $scope.dataOutput = resGetVarAsJson;
-                                                            console.log($scope.dataOutput)
+                                                            $scope.showLoading = false;
                                                         });
                                                 } else {
                                                     getStatement();

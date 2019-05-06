@@ -61,6 +61,7 @@
                 getRootData();
                 modalElement.on('hidden.bs.modal', () => $element.remove());
             });
+            let lastSelected = {};
             $scope.onClick = (fileDetail) => {
                 if (fileDetail.type === 'DIRECTORY') {
                     TenantUserService.browseDirectory(fileDetail.filePath)
@@ -75,6 +76,13 @@
                 } else if (fileDetail.type === 'FILE') {
                     $scope.pathToOpen = fileDetail.filePath;
                 }
+
+                // change background tr table when selected
+                if (typeof lastSelected.selected !== 'undefined') {
+                    lastSelected.selected = false;
+                }
+                fileDetail['selected'] = true;
+                lastSelected = fileDetail;
             };
             $scope.upDir = () => {
                 const removeLastDir = (dir) => dir.substring(0, dir.lastIndexOf('/'));

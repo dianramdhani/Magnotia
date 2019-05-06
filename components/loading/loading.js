@@ -15,14 +15,21 @@
             },
         });
 
-    loadingController.$inject = ['$timeout'];
-    function loadingController($timeout) {
+    loadingController.$inject = ['$timeout', '$scope', '$element', '$compile'];
+    function loadingController($timeout, $scope, $element, $compile) {
         var $ctrl = this;
 
         $ctrl.$onInit = function () { };
         $ctrl.$onChanges = function (e) {
             if ($ctrl.show) {
-                $timeout(() => $ctrl.show = false, 10000);
+                $timeout(() => {
+                    if ($ctrl.show === true) {
+                        $element.append($compile(`
+                            <alert type="danger" title="The request has timed out."></alert>
+                        `)($scope));
+                        $ctrl.show = false;
+                    }
+                }, 120000);
             }
         };
     }
