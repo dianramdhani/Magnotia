@@ -9,6 +9,8 @@
         this.browseDirectory = browseDirectory;
         this.downloadFile = downloadFile;
         this.diskUsage = diskUsage;
+        // add folder
+        this.makeDirectory = makeDirectory;
 
         const url = CONFIG.tenant;
         let headers = {};
@@ -48,7 +50,12 @@
             $http.get(`${url}/fileBrowserService/browseDirectory`, { params, headers }).then(res => q.resolve(res.data)).catch(err => q.reject(err.data));
             return q.promise;
         }
-        function makeDirectory(path, directory) { }
+        function makeDirectory(path, directory) {
+            let q = $q.defer(),
+                params = { path, directory };
+            $http.post(`${url}/fileBrowserService/makeDirectory`, {}, { params, headers }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
         function copyFile(source, destination) { }
         function moveFile(source, destination) { }
         function renameFile(source, newFileName) { }

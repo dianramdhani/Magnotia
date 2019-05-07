@@ -19,8 +19,8 @@
             },
         });
 
-    fileBrowserController.$inject = ['$scope', '$log', '$timeout', 'TenantUserService'];
-    function fileBrowserController($scope, $log, $timeout, TenantUserService) {
+    fileBrowserController.$inject = ['$scope', '$log', '$timeout', '$element', '$compile', 'TenantUserService'];
+    function fileBrowserController($scope, $log, $timeout, $element, $compile, TenantUserService) {
         var $ctrl = this;
         $scope.$log = $log;
         $scope.id = $scope.$id;
@@ -44,7 +44,25 @@
                 $timeout(() => angular.element(`#first-input-${$scope.id}`).focus());
             };
             $scope.saveFolder = (folderName) => {
-                console.log('folder disimpan', folderName);
+                let checkSameFolderName = typeof $scope.dataBrowseDirectory.fileDetails.find(fileDetail => fileDetail.type === 'DIRECTORY' && fileDetail.fileName === folderName) === 'undefined';
+                if (checkSameFolderName) {
+                    TenantUserService.makeDirectory($scope.dataBrowseDirectory.currentDir, folderName)
+                        .then(() => {
+                            $scope.folderName = '';
+                            $scope.formAddFolderShow = false;
+                            TenantUserService.browseDirectory($scope.dataBrowseDirectory.currentDir)
+                                .then(resBrowseDirectory => {
+                                    $scope.dataBrowseDirectory = resBrowseDirectory;
+                                    $element.append($compile(`
+                                        <alert type="success" title="Create folder '${folderName}' has been success."></alert>
+                                    `)($scope));
+                                });
+                        });
+                } else {
+                    $element.append($compile(`
+                        <alert type="danger" title="This destination already contains a folder named '${folderName}'!" body="Please change a folder name."></alert>
+                    `)($scope));
+                }
             };
         };
         $ctrl.$onChanges = function (e) {
