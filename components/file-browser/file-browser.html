@@ -9,7 +9,11 @@
                 <th>Owner</th>
                 <th>Group</th>
                 <th>Permission</th>
-                <th></th>
+                <th class="text-right" ng-show="$ctrl.addFileOrNewFolderStatus">
+                    <i class="material-icons">file_upload</i>
+                    <i class="material-icons" ng-click="addFolder()">create_new_folder</i>
+                </th>
+                <th ng-hide="$ctrl.addFileOrNewFolderStatus"></th>
             </tr>
         </thead>
         <tbody>
@@ -25,10 +29,27 @@
                     <strong>.{{dataBrowseDirectory.currentDir}}</strong>
                 </td>
             </tr>
-            <tr ng-if="(dataBrowseDirectory.currentDir === $ctrl.rootDir) && $ctrl.backRootStatus" ng-click="$ctrl.onBackRoot()">
+            <tr ng-if="(dataBrowseDirectory.currentDir === $ctrl.rootDir) && $ctrl.backRootStatus"
+                ng-click="$ctrl.onBackRoot()">
                 <td><i class="fas fa-arrow-up"></i></td>
                 <td colspan="7">
                     <strong>..{{dataBrowseDirectory.currentDir}}</strong>
+                </td>
+            </tr>
+            <tr ng-show="formAddFolderShow">
+                <td>
+                    <i class="far fa-folder"></i>
+                </td>
+                <td colspan="7">
+                    <form name="formNewFolder" class="input-group input-group-sm" ng-submit="saveFolder(folderName)">
+                        <input type="text" name="folderName" ng-attr-id="{{'first-input-'+id}}" class="form-control"
+                            placeholder="Folder Name" ng-model="folderName" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">Save</button>
+                            <button class="btn btn-danger" type="reset"
+                                ng-click="formAddFolderShow=false">Cancel</button>
+                        </div>
+                    </form>
                 </td>
             </tr>
             <tr ng-repeat="fileDetail in dataBrowseDirectory.fileDetails track by $index">
@@ -44,7 +65,8 @@
                 <td ng-click="onClick(fileDetail)">{{fileDetail.group}}</td>
                 <td ng-click="onClick(fileDetail)">{{fileDetail.permission}}</td>
                 <td class="text-right">
-                    <i class="fas fa-download" ng-if="fileDetail.type === 'FILE'" ng-click="download(fileDetail)"></i>
+                    <i class="material-icons" ng-if="fileDetail.type === 'FILE'"
+                        ng-click="download(fileDetail)">file_download</i>
                 </td>
             </tr>
         </tbody>

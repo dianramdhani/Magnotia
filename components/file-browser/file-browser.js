@@ -11,17 +11,19 @@
             template: require('./file-browser.html'),
             controller: fileBrowserController,
             bindings: {
-                rootDir: '<',
+                rootDir: '<',                   // Type string. String of root path.
                 onError: '&',
-                backRootStatus: '<',
-                onBackRoot: '&'
+                backRootStatus: '<',            // Type boolean. Optional if can back on root.
+                onBackRoot: '&',
+                addFileOrNewFolderStatus: '='   // Type boolean. Optional if can add file or create new folder.
             },
         });
 
-    fileBrowserController.$inject = ['$scope', '$log', 'TenantUserService'];
-    function fileBrowserController($scope, $log, TenantUserService) {
+    fileBrowserController.$inject = ['$scope', '$log', '$timeout', 'TenantUserService'];
+    function fileBrowserController($scope, $log, $timeout, TenantUserService) {
         var $ctrl = this;
         $scope.$log = $log;
+        $scope.id = $scope.$id;
 
         $ctrl.$onInit = function () {
             $scope.onClick = (fileDetail) => {
@@ -37,7 +39,13 @@
             };
             $scope.download = (fileDetail) => TenantUserService.downloadFile(fileDetail.filePath)
                 .then(resDownloadFile => saveAs(resDownloadFile, fileDetail.fileName));
-
+            $scope.addFolder = () => {
+                $scope.formAddFolderShow = true;
+                $timeout(() => angular.element(`#first-input-${$scope.id}`).focus());
+            };
+            $scope.saveFolder = (folderName) => {
+                console.log('folder disimpan', folderName);
+            };
         };
         $ctrl.$onChanges = function (e) {
             if (typeof e.rootDir.currentValue !== 'undefined') {
