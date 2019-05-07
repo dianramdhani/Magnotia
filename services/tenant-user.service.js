@@ -9,8 +9,9 @@
         this.browseDirectory = browseDirectory;
         this.downloadFile = downloadFile;
         this.diskUsage = diskUsage;
-        // add folder
         this.makeDirectory = makeDirectory;
+        // delete folder/file
+        this.removeFile = removeFile;
 
         const url = CONFIG.tenant;
         let headers = {};
@@ -59,7 +60,12 @@
         function copyFile(source, destination) { }
         function moveFile(source, destination) { }
         function renameFile(source, newFileName) { }
-        function removeFile(path) { }
+        function removeFile(path) {
+            let q = $q.defer(),
+                params = { path };
+            $http.put(`${url}/fileBrowserService/removeFile`, {}, { params, headers }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
         function downloadFile(path) {
             let q = $q.defer(),
                 params = { path };

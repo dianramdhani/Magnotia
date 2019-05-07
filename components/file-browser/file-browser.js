@@ -26,6 +26,13 @@
         $scope.id = $scope.$id;
 
         $ctrl.$onInit = function () {
+            let refresh = (callback) => {
+                TenantUserService.browseDirectory($scope.dataBrowseDirectory.currentDir)
+                    .then(resBrowseDirectory => {
+                        $scope.dataBrowseDirectory = resBrowseDirectory;
+                        callback();
+                    });
+            };
             $scope.onClick = (fileDetail) => {
                 if (fileDetail.type === 'DIRECTORY') {
                     TenantUserService.browseDirectory(fileDetail.filePath)
@@ -50,13 +57,11 @@
                         .then(() => {
                             $scope.folderName = '';
                             $scope.formAddFolderShow = false;
-                            TenantUserService.browseDirectory($scope.dataBrowseDirectory.currentDir)
-                                .then(resBrowseDirectory => {
-                                    $scope.dataBrowseDirectory = resBrowseDirectory;
-                                    $element.append($compile(`
-                                        <alert type="success" title="Create folder '${folderName}' has been success."></alert>
-                                    `)($scope));
-                                });
+                            refresh(() => {
+                                $element.append($compile(`
+                                    <alert type="success" title="Create folder '${folderName}' has been success."></alert>
+                                `)($scope));
+                            });
                         });
                 } else {
                     $element.append($compile(`
@@ -64,6 +69,24 @@
                     `)($scope));
                 }
             };
+            $scope.delete = (fileDetail) => {
+                $scope.onDeleteFileOrFolder = () => {
+                    TenantUserService.removeFile(fileDetail.filePath)
+                        .then(() => {
+                            refresh(() => {
+                                $element.append($compile(`
+                                    <alert type="success" title="Delete success."></alert>
+                                `)($scope));
+                            });
+                        });
+                };
+                $element.append($compile(`
+                    <delete title="Delete This File/Folder?"
+                        body="Confirm if you are going to delete <strong>${fileDetail.fileName}</strong>."
+                        on-delete="onDeleteFileOrFolder()">
+                    </delete> 
+                `)($scope));
+            }
         };
         $ctrl.$onChanges = function (e) {
             if (typeof e.rootDir.currentValue !== 'undefined') {

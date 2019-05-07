@@ -10,8 +10,10 @@
                 <th>Group</th>
                 <th>Permission</th>
                 <th class="text-right" ng-show="$ctrl.addFileOrNewFolderStatus">
-                    <i class="material-icons">file_upload</i>
-                    <i class="material-icons" ng-click="addFolder()">create_new_folder</i>
+                    <div class="d-flex flex-row justify-content-end" style="width: 100%;">
+                        <i class="material-icons">file_upload</i>
+                        <i class="material-icons" ng-click="addFolder()">create_new_folder</i>
+                    </div>
                 </th>
                 <th ng-hide="$ctrl.addFileOrNewFolderStatus"></th>
             </tr>
@@ -64,9 +66,12 @@
                 <td ng-click="onClick(fileDetail)">{{fileDetail.owner}}</td>
                 <td ng-click="onClick(fileDetail)">{{fileDetail.group}}</td>
                 <td ng-click="onClick(fileDetail)">{{fileDetail.permission}}</td>
-                <td class="text-right">
-                    <i class="material-icons" ng-if="fileDetail.type === 'FILE'"
-                        ng-click="download(fileDetail)">file_download</i>
+                <td>
+                    <div class="d-flex flex-row justify-content-end align-items-center" style="width: 100%;">
+                        <i class="material-icons" ng-if="fileDetail.type === 'FILE'"
+                            ng-click="download(fileDetail)">file_download</i>
+                        <i class="far fa-trash-alt" style="margin-left: 10px" ng-click="delete(fileDetail)"></i>
+                    </div>
                 </td>
             </tr>
         </tbody>
