@@ -12,9 +12,9 @@
             controller: tenantUserApplicationSuiteFormNewInstanceController,
         });
 
-    tenantUserApplicationSuiteFormNewInstanceController.$inject = ['$scope', '$stateParams', '$state', '$compile', '$element', 'applicationPoolService'];
+    tenantUserApplicationSuiteFormNewInstanceController.$inject = ['$scope', '$stateParams', '$state', '$compile', '$element', '$timeout', 'applicationPoolService'];
 
-    function tenantUserApplicationSuiteFormNewInstanceController($scope, $stateParams, $state, $compile, $element, applicationPoolService) {
+    function tenantUserApplicationSuiteFormNewInstanceController($scope, $stateParams, $state, $compile, $element, $timeout, applicationPoolService) {
         var $ctrl = this;
 
         $ctrl.$onInit = function () {
@@ -68,11 +68,6 @@
                         })).filter(_ => typeof _ !== 'undefined');
                     });
             };
-
-            /**
-             * @todo
-             * check setiap parameter tidak boleh kosong. jika kosong alert error.
-             */
             $scope.save = (applicationNow, instance, properties) => {
                 applicationPoolService.saveApplicationInstance(Object.assign({
                     applicationId: applicationNow.id,
@@ -85,6 +80,12 @@
                             <alert type="success" title="Add new application instance success." on-close="onClose()"></alert>
                         `)($scope));
                     });
+            };
+            $scope.selectFolder = (indexOfProperty) => {
+                $scope.onOpen = (path) => $scope.properties[indexOfProperty].propertyValue = path;
+                $element.append($compile(`
+                    <modal-select-file-or-directory get-directory="true" can-add-folder="true" on-open="onOpen(path)"></modal-select-file-or-directory>
+                `)($scope));
             };
         };
     }
