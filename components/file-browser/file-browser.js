@@ -11,11 +11,11 @@
             template: require('./file-browser.html'),
             controller: fileBrowserController,
             bindings: {
-                rootDir: '<',                   // Type string. String of root path.
+                rootDir: '<',           // Type string. String of root path.
                 onError: '&',
-                backRootStatus: '<',            // Type boolean. Optional if can back on root.
+                backRootStatus: '<',    // Type boolean. Optional if can back on root.
                 onBackRoot: '&',
-                addFileOrNewFolderStatus: '='   // Type boolean. Optional if can add file or create new folder.
+                editable: '='           // Type boolean. Optional if can add file, create new folder, and delete file or folder.
             },
         });
 

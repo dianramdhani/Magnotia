@@ -9,7 +9,7 @@
                 <th>Owner</th>
                 <th>Group</th>
                 <th>Permission</th>
-                <th class="text-right" ng-show="$ctrl.addFileOrNewFolderStatus">
+                <th class="text-right" ng-show="$ctrl.editable">
                     <div class="d-flex flex-row justify-content-end" style="width: 100%;">
                         <i class="material-icons"
                             onclick="document.getElementById('input-file').click()">file_upload</i>
@@ -18,7 +18,7 @@
                         <i class="material-icons" ng-click="addFolder()">create_new_folder</i>
                     </div>
                 </th>
-                <th ng-hide="$ctrl.addFileOrNewFolderStatus"></th>
+                <th ng-hide="$ctrl.editable"></th>
             </tr>
         </thead>
         <tbody>
@@ -73,7 +73,8 @@
                     <div class="d-flex flex-row justify-content-end align-items-center" style="width: 100%;">
                         <i class="material-icons" ng-if="fileDetail.type === 'FILE'"
                             ng-click="download(fileDetail)">file_download</i>
-                        <i class="far fa-trash-alt" style="margin-left: 10px" ng-click="delete(fileDetail)"></i>
+                        <i class="far fa-trash-alt" style="margin-left: 10px" ng-show="$ctrl.editable"
+                            ng-click="delete(fileDetail)"></i>
                     </div>
                 </td>
             </tr>
