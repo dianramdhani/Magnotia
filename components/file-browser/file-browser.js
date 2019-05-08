@@ -19,8 +19,8 @@
             },
         });
 
-    fileBrowserController.$inject = ['$scope', '$log', '$timeout', '$element', '$compile', 'TenantUserService'];
-    function fileBrowserController($scope, $log, $timeout, $element, $compile, TenantUserService) {
+    fileBrowserController.$inject = ['$scope', '$log', '$timeout', '$element', '$compile', '$window', 'TenantUserService'];
+    function fileBrowserController($scope, $log, $timeout, $element, $compile, $window, TenantUserService) {
         var $ctrl = this;
         $scope.$log = $log;
         $scope.id = $scope.$id;
@@ -87,6 +87,25 @@
                     </delete> 
                 `)($scope));
             }
+            $scope.uploadFile = (file) => {
+                if (typeof file !== 'undefined') {
+                    let checkSameFileName = typeof $scope.dataBrowseDirectory.fileDetails.find(fileDetail => fileDetail.type === 'FILE' && fileDetail.fileName === file.name) === 'undefined';
+                    if (checkSameFileName) {
+                        TenantUserService.uploadFile($scope.dataBrowseDirectory.currentDir, file)
+                            .then(() => {
+                                refresh(() => {
+                                    $element.append($compile(`
+                                        <alert type="success" title="Upload file success."></alert>
+                                    `)($scope));
+                                });
+                            });
+                    } else {
+                        $element.append($compile(`
+                            <alert type="danger" title="This destination already contains a file named '${file.name}'!" body="Please change the name of file before upload."></alert>
+                        `)($scope));
+                    }
+                }
+            };
         };
         $ctrl.$onChanges = function (e) {
             if (typeof e.rootDir.currentValue !== 'undefined') {

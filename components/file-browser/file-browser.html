@@ -11,7 +11,10 @@
                 <th>Permission</th>
                 <th class="text-right" ng-show="$ctrl.addFileOrNewFolderStatus">
                     <div class="d-flex flex-row justify-content-end" style="width: 100%;">
-                        <i class="material-icons">file_upload</i>
+                        <i class="material-icons"
+                            onclick="document.getElementById('input-file').click()">file_upload</i>
+                        <input type="file" id="input-file" style="display: none"
+                            onchange="let $scope = angular.element(event.target).scope(); $scope.uploadFile(this.files[0]);">
                         <i class="material-icons" ng-click="addFolder()">create_new_folder</i>
                     </div>
                 </th>

@@ -10,8 +10,9 @@
         this.downloadFile = downloadFile;
         this.diskUsage = diskUsage;
         this.makeDirectory = makeDirectory;
-        // delete folder/file
         this.removeFile = removeFile;
+        // upload file
+        this.uploadFile = uploadFile;
 
         const url = CONFIG.tenant;
         let headers = {};
@@ -72,7 +73,21 @@
             $http.get(`${url}/fileBrowserService/downloadFile`, { params, headers, responseType: 'blob' }).then(res => q.resolve(res.data)).catch(err => q.reject(err.data));
             return q.promise;
         }
-        function uploadFile(path, file) { }
+        function uploadFile(path, file) {
+            let q = $q.defer(),
+                data = new FormData();
+            data.append('file', file, file.name);
+            data.append('path', path);
+            $http({
+                url: `${url}/fileBrowserService/uploadFile`,
+                method: 'POST',
+                data,
+                headers: Object.assign({ 'Content-Type': undefined }, headers)
+            })
+                .then(res => q.resolve(res.data))
+                .catch(err => q.reject(err.data));
+            return q.promise;
+        }
         function diskUsage(path, isDetail) {
             let q = $q.defer(),
                 params = { path, isDetail };
