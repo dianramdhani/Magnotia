@@ -55,6 +55,13 @@
                     if ($ctrl.getDirectory === true) {
                         model.fileDetails = model.fileDetails.filter(({ type }) => type === 'DIRECTORY');
                     }
+                },
+                refresh = (callback) => {
+                    TenantUserService.browseDirectory($scope.dataBrowseDirectory.currentDir)
+                        .then(resBrowseDirectory => {
+                            $scope.dataBrowseDirectory = resBrowseDirectory;
+                            callback();
+                        });
                 };
             $timeout(() => {
                 modalElement = angular.element(`#modal-${$scope.id}`);
@@ -113,20 +120,37 @@
                         .then(() => {
                             $scope.folderName = '';
                             $scope.formAddFolderShow = false;
-                            TenantUserService.browseDirectory($scope.dataBrowseDirectory.currentDir)
-                                .then(resBrowseDirectory => {
-                                    $scope.dataBrowseDirectory = resBrowseDirectory;
-                                    filterDirectory($scope.dataBrowseDirectory);
-                                    $element.append($compile(`
-                                        <alert type="success" title="Create folder '${folderName}' has been success."></alert>
-                                    `)($scope));
-                                });
+                            refresh(() => {
+                                filterDirectory($scope.dataBrowseDirectory);
+                                $element.append($compile(`
+                                    <alert type="success" title="Create folder '${folderName}' has been success."></alert>
+                                `)($scope));
+                            });
                         });
                 } else {
                     $element.append($compile(`
                         <alert type="danger" title="This destination already contains a folder named '${folderName}'!" body="Please change a folder name."></alert>
                     `)($scope));
                 }
+            };
+            $scope.deleteFolder = (fileDetail) => {
+                $scope.onDeleteFolder = () => {
+                    TenantUserService.removeFile(fileDetail.filePath)
+                        .then(() => {
+                            refresh(() => {
+                                filterDirectory($scope.dataBrowseDirectory);
+                                $element.append($compile(`
+                                    <alert type="success" title="Delete success."></alert>
+                                `)($scope));
+                            });
+                        });
+                };
+                $element.append($compile(`
+                    <delete title="Delete This Folder?"
+                        body="Confirm if you are going to delete <strong>${fileDetail.fileName}</strong>."
+                        on-delete="onDeleteFolder()">
+                    </delete> 
+                `)($scope));
             };
         };
     }

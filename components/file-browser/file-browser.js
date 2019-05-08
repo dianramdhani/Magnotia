@@ -86,7 +86,7 @@
                         on-delete="onDeleteFileOrFolder()">
                     </delete> 
                 `)($scope));
-            }
+            };
             $scope.uploadFile = (file) => {
                 if (typeof file !== 'undefined') {
                     let checkSameFileName = typeof $scope.dataBrowseDirectory.fileDetails.find(fileDetail => fileDetail.type === 'FILE' && fileDetail.fileName === file.name) === 'undefined';
