@@ -19,25 +19,39 @@
                 placeholder="Description" ng-model="instance.description" required>
             <div ng-repeat="property in properties track by $index">
                 <label ng-attr-for="{{property.propertyName}}">{{property.propertyName}}</label>
-                <input ng-attr-id="{{property.propertyName}}" ng-attr-name="{{property.propertyName}}"
-                    class="form-control"
-                    ng-class="{'is-valid':formUpdateApplicationInstance[property.propertyName].$valid}"
-                    ng-if="!property.propertyFormat || property.propertyFormat == 'text' || property.propertyFormat == 'password'"
-                    type="{{property.propertyFormat}}" placeholder="{{property.propertyName}}"
-                    ng-model="property.propertyValue" required>
-                <textarea ng-attr-id="{{property.propertyName}}" ng-attr-name="{{property.propertyName}}"
-                    class="form-control"
-                    ng-class="{'is-valid':formUpdateApplicationInstance[property.propertyName].$valid}"
-                    placeholder="{{property.propertyName}}"
-                    ng-if="!property.propertyFormat || property.propertyFormat == 'area'"
-                    ng-model="property.propertyValue" required></textarea>
-                <select ng-attr-id="{{property.propertyName}}" ng-attr-name="{{property.propertyName}}"
-                    class="form-control"
-                    ng-class="{'is-valid':formUpdateApplicationInstance[property.propertyName].$valid}"
-                    ng-if="property.propertyFormat && property.propertyFormat == 'select'"
-                    ng-model="property.propertyValue" required>
-                    <option ng-repeat="key in property.selection" ng-value="key">{{key}}</option>
-                </select>
+                <span ng-if="property.propertyName !== 'Output Directory'">
+                    <input ng-attr-id="{{property.propertyName}}" ng-attr-name="{{property.propertyName}}"
+                        class="form-control"
+                        ng-class="{'is-valid':formUpdateApplicationInstance[property.propertyName].$valid}"
+                        ng-if="!property.propertyFormat || property.propertyFormat == 'text' || property.propertyFormat == 'password'"
+                        type="{{property.propertyFormat}}" placeholder="{{property.propertyName}}"
+                        ng-model="property.propertyValue" required>
+                    <textarea ng-attr-id="{{property.propertyName}}" ng-attr-name="{{property.propertyName}}"
+                        class="form-control"
+                        ng-class="{'is-valid':formUpdateApplicationInstance[property.propertyName].$valid}"
+                        placeholder="{{property.propertyName}}"
+                        ng-if="!property.propertyFormat || property.propertyFormat == 'area'"
+                        ng-model="property.propertyValue" required></textarea>
+                    <select ng-attr-id="{{property.propertyName}}" ng-attr-name="{{property.propertyName}}"
+                        class="form-control"
+                        ng-class="{'is-valid':formUpdateApplicationInstance[property.propertyName].$valid}"
+                        ng-if="property.propertyFormat && property.propertyFormat == 'select'"
+                        ng-model="property.propertyValue" required>
+                        <option ng-repeat="key in property.selection" ng-value="key">{{key}}</option>
+                    </select>
+                </span>
+                <div class="input-group" ng-if="property.propertyName === 'Output Directory'">
+                    <input ng-attr-id="{{property.propertyName}}" ng-attr-name="{{property.propertyName}}"
+                        class="form-control"
+                        ng-class="{'is-valid':formUpdateApplicationInstance[property.propertyName].$valid}"
+                        ng-if="!property.propertyFormat || property.propertyFormat == 'text' || property.propertyFormat == 'password'"
+                        type="{{property.propertyFormat}}" placeholder="{{property.propertyName}}"
+                        ng-model="property.propertyValue" required>
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button" ng-click="selectFolder($index)">Select
+                            Folder</button>
+                    </div>
+                </div>
             </div>
             <div style="margin-top: 30px;">
                 <button class="btn btn-primary" type="submit"

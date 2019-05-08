@@ -79,6 +79,12 @@
                         $element.append($compile(`<alert type="success" title="Update success." on-close="onClose()"></alert>`)($scope));
                     });
             };
+            $scope.selectFolder = (indexOfProperty) => {
+                $scope.onOpen = (path) => $scope.properties[indexOfProperty].propertyValue = path;
+                $element.append($compile(`
+                    <modal-select-file-or-directory get-directory="true" can-add-folder="true" on-open="onOpen(path)"></modal-select-file-or-directory>
+                `)($scope));
+            };
         };
     }
 })();
