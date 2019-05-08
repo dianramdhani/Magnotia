@@ -12,12 +12,13 @@
             controller: modalSelectFileOrFolderController,
             bindings: {
                 getDirectory: '<',
-                onOpen: '&'
+                onOpen: '&',
+                canAddFolder: '='   // Type boolean. Optional if can add folder.
             }
         });
 
-    modalSelectFileOrFolderController.$inject = ['$scope', '$timeout', '$q', '$rootScope', '$element', 'TenantUserService'];
-    function modalSelectFileOrFolderController($scope, $timeout, $q, $rootScope, $element, TenantUserService) {
+    modalSelectFileOrFolderController.$inject = ['$scope', '$timeout', '$q', '$rootScope', '$element', '$compile', 'TenantUserService'];
+    function modalSelectFileOrFolderController($scope, $timeout, $q, $rootScope, $element, $compile, TenantUserService) {
         var $ctrl = this;
         $scope.id = $scope.$id;
 
@@ -100,6 +101,32 @@
             $scope.open = () => {
                 $ctrl.onOpen({ path: $scope.pathToOpen });
                 modalElement.modal('hide');
+            };
+            $scope.addFolder = () => {
+                $scope.formAddFolderShow = true;
+                $timeout(() => angular.element(`#first-input-${$scope.id}`).focus());
+            };
+            $scope.saveFolder = (folderName) => {
+                let checkSameFolderName = typeof $scope.dataBrowseDirectory.fileDetails.find(fileDetail => fileDetail.type === 'DIRECTORY' && fileDetail.fileName === folderName) === 'undefined';
+                if (checkSameFolderName) {
+                    TenantUserService.makeDirectory($scope.dataBrowseDirectory.currentDir, folderName)
+                        .then(() => {
+                            $scope.folderName = '';
+                            $scope.formAddFolderShow = false;
+                            TenantUserService.browseDirectory($scope.dataBrowseDirectory.currentDir)
+                                .then(resBrowseDirectory => {
+                                    $scope.dataBrowseDirectory = resBrowseDirectory;
+                                    filterDirectory($scope.dataBrowseDirectory);
+                                    $element.append($compile(`
+                                        <alert type="success" title="Create folder '${folderName}' has been success."></alert>
+                                    `)($scope));
+                                });
+                        });
+                } else {
+                    $element.append($compile(`
+                        <alert type="danger" title="This destination already contains a folder named '${folderName}'!" body="Please change a folder name."></alert>
+                    `)($scope));
+                }
             };
         };
     }
