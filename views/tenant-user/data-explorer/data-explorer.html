@@ -71,19 +71,40 @@
         </form>
         <div class="mt-5" ng-show="dataOutput">
             <h5>Result</h5>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th ng-repeat="(key, value) in dataOutput[0] track by $index">{{value}}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="tr in dataOutput track by $index" ng-show="$index>0">
-                            <td ng-repeat="(key, value) in tr track by $index">{{value}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div>
+                <button ng-click="dataOutputType = 'table'">tampil tabel</button>
+                <button ng-click="dataOutputType = 'line'">tampil grafik</button>
+                <button ng-click="dataOutputType = 'column'">tampil bar data</button>
+            </div>
+            <div ng-show="dataOutputType === 'table'">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th ng-repeat="(key, value) in dataOutput[0] track by $index">{{value}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="tr in dataOutput track by $index" ng-show="$index>0">
+                                <td ng-repeat="(key, value) in tr track by $index">{{value}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div ng-hide="dataOutputType === 'table'">
+                xAxis =
+                <select ng-model="indexKey" ng-change="createChart(dataOutput, indexKey, dataOutputType)">
+                    <option ng-repeat="(_indexKey, _keyName) in dataOutput[0]" ng-value="_indexKey">
+                        {{_keyName}}
+                    </option>
+                </select>
+                <div ng-show="dataOutputType === 'column'">
+                    <div ng-attr-id="{{'highcharts-column-'+id}}"></div>
+                </div>
+                <div ng-show="dataOutputType === 'line'">
+                    <div ng-attr-id="{{'highcharts-line-'+id}}"></div>
+                </div>
             </div>
         </div>
     </div>
