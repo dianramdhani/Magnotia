@@ -93,18 +93,8 @@
                 </div>
             </div>
             <div ng-hide="dataOutputType === 'table'">
-                xAxis =
-                <select ng-model="indexKey" ng-change="createChart(dataOutput, indexKey, dataOutputType)">
-                    <option ng-repeat="(_indexKey, _keyName) in dataOutput[0]" ng-value="_indexKey">
-                        {{_keyName}}
-                    </option>
-                </select>
-                <div ng-show="dataOutputType === 'column'">
-                    <div ng-attr-id="{{'highcharts-column-'+id}}"></div>
-                </div>
-                <div ng-show="dataOutputType === 'line'">
-                    <div ng-attr-id="{{'highcharts-line-'+id}}"></div>
-                </div>
+                <chart data="dataOutput" chart-type="line" ng-show="dataOutputType === 'line'"></chart>
+                <chart data="dataOutput" chart-type="column" ng-show="dataOutputType === 'column'"></chart>
             </div>
         </div>
     </div>

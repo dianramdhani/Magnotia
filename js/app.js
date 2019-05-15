@@ -48,7 +48,9 @@ require('../components/alert/alert');
 // file-browser
 require('../components/file-browser/file-browser');
 // modal-select-file-or-directory
-require('../components/modal-select-file-or-directory/modal-select-file-or-directory')
+require('../components/modal-select-file-or-directory/modal-select-file-or-directory');
+// chart
+require('../components/chart/chart');
 
 // views
 // login login
