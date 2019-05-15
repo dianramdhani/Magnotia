@@ -103,41 +103,6 @@
                         }
                     });
             };
-            $scope.createChart = (dataOutput, indexKey, dataOutputType) => {
-                const
-                    arrayColumn = (array, key) => array.map(currentValue => {
-                        const isNumberic = (strVal) => /^\d+(\.\d+)*$/.test(strVal);
-                        return isNumberic(currentValue[key]) ? Number(currentValue[key]) : currentValue[key];
-                    }),
-                    getSeries = () => {
-                        let dataNoXAxis = dataOutput.map(currentValue => {
-                            let temp = angular.copy(currentValue);
-                            delete temp[indexKey];
-                            return temp;
-                        }), temp = [];
-                        for (const key of Object.keys(dataNoXAxis[0])) {
-                            temp.push(arrayColumn(dataNoXAxis, key));
-                        }
-                        return temp.map(currentValue => ({
-                            name: currentValue.shift(),
-                            data: currentValue
-                        }));
-                    };
-                let tempXAxis = arrayColumn(dataOutput, indexKey);
-                tempXAxis.splice(0, 1);
-                let xAxis = {
-                    categories: tempXAxis
-                }, series = getSeries();
-                console.log({ xAxis }, { series }, { dataOutputType });
-                $timeout(() => {
-                    Highcharts.chart(`highcharts-${dataOutputType}-${$scope.id}`, {
-                        chart: { type: dataOutputType },
-                        title: { style: { display: 'none' } },
-                        xAxis,
-                        series
-                    });
-                });
-            };
         };
     }
 })();
