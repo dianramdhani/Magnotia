@@ -1,7 +1,9 @@
-xAxis =
-<select ng-model="indexKey" ng-change="createChart(indexKey)">
-    <option ng-repeat="(_indexKey, _keyName) in $ctrl.data[0]" ng-value="_indexKey">
-        {{_keyName}}
-    </option>
-</select>
+<form class="form-inline mb-2">
+    <label for="xAxis" class="mr-sm-2">xAxis:</label>
+    <select id="xAxis" class="form-control" ng-model="indexKey" ng-change="createChart(indexKey)">
+        <option ng-repeat="(_indexKey, _keyName) in $ctrl.data[0]" ng-value="_indexKey">
+            {{_keyName}}
+        </option>
+    </select>
+</form>
 <div ng-attr-id="{{'highcharts-'+id}}"></div>

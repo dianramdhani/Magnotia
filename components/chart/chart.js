@@ -19,13 +19,29 @@
     chartController.$inject = ['$scope', '$timeout'];
     function chartController($scope, $timeout) {
         var $ctrl = this;
-        $scope.id = $scope.$id;
+        $ctrl.$onInit = () => {
+            $scope.id = $scope.$id;
+        };
+        $ctrl.$onChanges = () => {
+            if (typeof $ctrl.data !== 'undefined') {
+                if (Array.isArray($ctrl.data)) {
+                    if ($ctrl.data.length > 0) {
+                        $scope.indexKey = Object.keys($ctrl.data[0])[0];
+                        $scope.createChart($scope.indexKey);
+                    }
+                }
+            }
+        };
+
         $scope.createChart = (indexKey) => {
             const
-                arrayColumn = (array, key) => array.map(currentValue => {
-                    const isNumberic = (strVal) => /^\d+(\.\d+)*$/.test(strVal);
-                    return isNumberic(currentValue[key]) ? Number(currentValue[key]) : currentValue[key];
-                }),
+                arrayColumn = (array, key) => {
+                    let res = array.map(currentValue => {
+                        const isNumberic = (strVal) => /^\d+(\.\d+)*$/.test(strVal);
+                        return isNumberic(currentValue[key]) ? Number(currentValue[key]) : currentValue[key];
+                    });
+                    return res;
+                },
                 getSeries = () => {
                     let dataNoXAxis = $ctrl.data.map(currentValue => {
                         let temp = angular.copy(currentValue);
@@ -40,28 +56,16 @@
                         data: currentValue
                     }));
                 };
-            let tempXAxis = arrayColumn($ctrl.data, indexKey);
-            tempXAxis.splice(0, 1);
-            let xAxis = {
-                categories: tempXAxis
-            }, series = getSeries();
+            let categories = arrayColumn($ctrl.data, indexKey);
+            categories.splice(0, 1);
             $timeout(() => {
                 Highcharts.chart(`highcharts-${$scope.id}`, {
                     chart: { type: $ctrl.chartType },
                     title: { style: { display: 'none' } },
-                    xAxis,
-                    series
+                    xAxis: { categories },
+                    series: getSeries()
                 });
             });
-        };
-
-        $ctrl.$onChanges = function (e) {
-            if (typeof e.data !== 'undefined') {
-                if ($ctrl.data) {
-                    $scope.indexKey = Object.keys($ctrl.data[0])[0];
-                    $scope.createChart($scope.indexKey);
-                }
-            }
         };
     }
 })();

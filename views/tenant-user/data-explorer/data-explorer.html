@@ -69,13 +69,22 @@
             <button class="btn btn-primary" type="submit">Run Query</button>
             <button class="btn btn-danger" type="reset" ng-click="dataOutput=null">Reset</button>
         </form>
-        <div class="mt-5" ng-show="dataOutput">
+        <div class="mt-3" ng-show="dataOutput">
             <h5>Result</h5>
-            <div>
-                <button ng-click="dataOutputType = 'table'">tampil tabel</button>
-                <button ng-click="dataOutputType = 'line'">tampil grafik</button>
-                <button ng-click="dataOutputType = 'column'">tampil bar data</button>
-            </div>
+            <ul class="nav nav-tabs mb-3">
+                <li class="nav-item">
+                    <i class="fas fa-table nav-link" ng-class="{active: dataOutputType === 'table'}"
+                        ng-click="dataOutputType = 'table'"></i>
+                </li>
+                <li class="nav-item">
+                    <i class="fas fa-chart-line nav-link" ng-class="{active: dataOutputType === 'line'}"
+                        ng-click="dataOutputType = 'line'"></i>
+                </li>
+                <li class="nav-item">
+                    <i class="fas fa-chart-bar nav-link" ng-class="{active: dataOutputType === 'column'}"
+                        ng-click="dataOutputType = 'column'"></i>
+                </li>
+            </ul>
             <div ng-show="dataOutputType === 'table'">
                 <div class="table-responsive">
                     <table class="table">
