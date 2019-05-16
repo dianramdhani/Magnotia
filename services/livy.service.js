@@ -44,7 +44,7 @@
         }
         function getStatement(sessionId, statementId) {
             let q = $q.defer();
-            $http.get(`${url}/get-statement/${sessionId}/${statementId}`).then(res => q.resolve(res.data));
+            $http.get(`${url}/get-statement/${sessionId}/${statementId}`).then(res => q.resolve(res.data)).catch(err => q.reject(err.data));
             return q.promise;
         }
         function createTableFromFile(sessionId, path, tableName, fileType, options) {
@@ -54,7 +54,7 @@
         }
         function executeQuery(sessionId, query) {
             let q = $q.defer();
-            $http.post(`${url}/execute-query/${sessionId}`, { query }).then(res => q.resolve(res.data));
+            $http.post(`${url}/execute-query/${sessionId}`, { query }).then(res => q.resolve(res.data)).catch(err => q.reject(err.data));
             return q.promise;
         }
         function getVarAsJson(sessionId, varName) {

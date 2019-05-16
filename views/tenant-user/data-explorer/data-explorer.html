@@ -59,7 +59,7 @@
         </form>
     </div>
 </div>
-<div class="card mt-3" style="margin-right: 15px;margin-left: 15px;" ng-show="canQuery">
+<div ng-attr-id="{{'data-output-container-'+id}}" class="card mt-3" style="margin-right: 15px;margin-left: 15px;" ng-show="canQuery">
     <div class="card-body">
         <h4 class="card-title">Input Query</h4>
         <form name="formQueryExplorer" ng-submit="runQuery(query)">
@@ -69,7 +69,7 @@
             <button class="btn btn-primary" type="submit">Run Query</button>
             <button class="btn btn-danger" type="reset" ng-click="dataOutput=null">Reset</button>
         </form>
-        <div class="mt-3" ng-show="dataOutput">
+        <div ng-attr-id="{{'data-output-menu-'+id}}" class="mt-5" ng-show="dataOutput">
             <h5>Result</h5>
             <ul class="nav nav-tabs mb-3">
                 <li class="nav-item">
