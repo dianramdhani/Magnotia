@@ -51,6 +51,8 @@ require('../components/file-browser/file-browser');
 require('../components/modal-select-file-or-directory/modal-select-file-or-directory');
 // chart
 require('../components/chart/chart');
+// modal-chart
+require('../components/modal-chart/modal-chart');
 
 // views
 // login login

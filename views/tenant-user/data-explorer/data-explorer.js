@@ -116,5 +116,11 @@
                 })
                 .catch(() => queryInvalid());
         };
+        $scope.showPieChart = (index) => {
+            console.log({ index });
+            $element.append($compile(`
+                <modal-chart title="hallo indonesia" chart-type="pie"></modal-chart>
+            `)($scope));
+        };
     }
 })();

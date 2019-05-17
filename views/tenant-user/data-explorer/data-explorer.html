@@ -59,7 +59,8 @@
         </form>
     </div>
 </div>
-<div ng-attr-id="{{'data-output-container-'+id}}" class="card mt-3" style="margin-right: 15px;margin-left: 15px;" ng-show="canQuery">
+<div ng-attr-id="{{'data-output-container-'+id}}" class="card mt-3" style="margin-right: 15px;margin-left: 15px;"
+    ng-show="canQuery">
     <div class="card-body">
         <h4 class="card-title">Input Query</h4>
         <form name="formQueryExplorer" ng-submit="runQuery(query)">
@@ -91,11 +92,15 @@
                         <thead>
                             <tr>
                                 <th ng-repeat="(key, value) in dataOutput[0] track by $index">{{value}}</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="tr in dataOutput track by $index" ng-show="$index>0">
+                            <tr ng-repeat="tr in dataOutput track by $index" ng-show="$index > 0">
                                 <td ng-repeat="(key, value) in tr track by $index">{{value}}</td>
+                                <td>
+                                    <button ng-click="showPieChart(dataOutput, $index)">show pie chart</button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
