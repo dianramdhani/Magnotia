@@ -98,8 +98,8 @@
                         <tbody>
                             <tr ng-repeat="tr in dataOutput track by $index" ng-show="$index > 0">
                                 <td ng-repeat="(key, value) in tr track by $index">{{value}}</td>
-                                <td>
-                                    <button ng-click="showPieChart($index)">show pie chart</button>
+                                <td class="text-right">
+                                    <i class="fas fa-chart-pie" ng-click="showPieChart($index)"></i>
                                 </td>
                             </tr>
                         </tbody>

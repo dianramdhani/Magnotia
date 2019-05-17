@@ -117,9 +117,8 @@
                 .catch(() => queryInvalid());
         };
         $scope.showPieChart = (index) => {
-            console.log({ index });
             $element.append($compile(`
-                <modal-chart title="hallo indonesia" chart-type="pie"></modal-chart>
+                <modal-chart chart-type="pie" data="dataOutput" index-data="${index}"></modal-chart>
             `)($scope));
         };
     }
