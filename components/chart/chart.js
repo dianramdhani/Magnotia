@@ -34,38 +34,40 @@
         };
 
         $scope.createChart = (indexKey) => {
-            const
-                arrayColumn = (array, key) => {
-                    let res = array.map(currentValue => {
-                        const isNumberic = (strVal) => /^\d+(\.\d+)*$/.test(strVal);
-                        return isNumberic(currentValue[key]) ? Number(currentValue[key]) : currentValue[key];
+            if ($ctrl.data != undefined) {
+                const
+                    arrayColumn = (array, key) => {
+                        let res = array.map(currentValue => {
+                            const isNumberic = (strVal) => /^\d+(\.\d+)*$/.test(strVal);
+                            return isNumberic(currentValue[key]) ? Number(currentValue[key]) : currentValue[key];
+                        });
+                        return res;
+                    },
+                    getSeries = () => {
+                        let dataNoXAxis = $ctrl.data.map(currentValue => {
+                            let temp = angular.copy(currentValue);
+                            delete temp[indexKey];
+                            return temp;
+                        }), temp = [];
+                        for (const key of Object.keys(dataNoXAxis[0])) {
+                            temp.push(arrayColumn(dataNoXAxis, key));
+                        }
+                        return temp.map(currentValue => ({
+                            name: currentValue.shift(),
+                            data: currentValue
+                        }));
+                    };
+                let categories = arrayColumn($ctrl.data, indexKey);
+                categories.splice(0, 1);
+                $timeout(() => {
+                    Highcharts.chart(`highcharts-${$scope.id}`, {
+                        chart: { type: $ctrl.chartType },
+                        title: { style: { display: 'none' } },
+                        xAxis: { categories },
+                        series: getSeries()
                     });
-                    return res;
-                },
-                getSeries = () => {
-                    let dataNoXAxis = $ctrl.data.map(currentValue => {
-                        let temp = angular.copy(currentValue);
-                        delete temp[indexKey];
-                        return temp;
-                    }), temp = [];
-                    for (const key of Object.keys(dataNoXAxis[0])) {
-                        temp.push(arrayColumn(dataNoXAxis, key));
-                    }
-                    return temp.map(currentValue => ({
-                        name: currentValue.shift(),
-                        data: currentValue
-                    }));
-                };
-            let categories = arrayColumn($ctrl.data, indexKey);
-            categories.splice(0, 1);
-            $timeout(() => {
-                Highcharts.chart(`highcharts-${$scope.id}`, {
-                    chart: { type: $ctrl.chartType },
-                    title: { style: { display: 'none' } },
-                    xAxis: { categories },
-                    series: getSeries()
                 });
-            });
+            }
         };
     }
 })();

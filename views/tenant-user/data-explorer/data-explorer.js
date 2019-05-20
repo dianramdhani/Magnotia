@@ -29,13 +29,13 @@
             switch (type) {
                 case 'FILE':
                     $element.append($compile(`
-                            <modal-select-file-or-directory on-open="onOpen(path)"></modal-select-file-or-directory>
-                        `)($scope));
+                        <modal-select-file-or-directory on-open="onOpen(path)"></modal-select-file-or-directory>
+                    `)($scope));
                     break;
                 case 'DIRECTORY':
                     $element.append($compile(`
-                            <modal-select-file-or-directory get-directory="true" on-open="onOpen(path)"></modal-select-file-or-directory>
-                        `)($scope));
+                        <modal-select-file-or-directory get-directory="true" on-open="onOpen(path)"></modal-select-file-or-directory>
+                    `)($scope));
                     break;
             }
         };
@@ -44,34 +44,39 @@
             $scope.showLoading = true;
             LivyService.getSession()
                 .then(resGetSession => {
-                    data.forEach((_data, index) => {
-                        let options = {};
-                        if (_data.fileType === 'csv') {
-                            options = {
-                                header: 'true',
-                                inferSchema: 'true',
-                                quoteMode: 'MINIMAL',
-                                mode: 'PERMISSIVE',
-                                ignoreLeadingWhiteSpace: 'true',
-                                ignoreTrailingWhiteSpace: 'true',
-                                parserLib: 'UNIVOCITY',
-                                wholeFile: 'true',
-                                escape: '\\n'
-                            };
+                    (async () => {
+                        for (const i in data) {
+                            let options = {};
+                            if (data[i].fileType === 'csv') {
+                                options = {
+                                    header: 'true',
+                                    inferSchema: 'true',
+                                    quoteMode: 'MINIMAL',
+                                    mode: 'PERMISSIVE',
+                                    ignoreLeadingWhiteSpace: 'true',
+                                    ignoreTrailingWhiteSpace: 'true',
+                                    parserLib: 'UNIVOCITY',
+                                    wholeFile: 'true',
+                                    escape: '\\n'
+                                };
+                            }
+                            await LivyService.createTableFromFile(resGetSession.id, data[i].path, data[i].tableName, data[i].fileType, options)
+                                .then(() => {
+                                    if (i == data.length - 1) {
+                                        $timeout(() => {
+                                            scrollIntoView(`#data-output-container-${$scope.id}`);
+                                            $element.append($compile(`
+                                                <alert type="success" title="Add tables success."></alert>
+                                            `)($scope));
+                                            $scope.canQuery = true;
+                                            $scope.query = '';
+                                            $scope.dataOutput = undefined;
+                                            $scope.showLoading = false;
+                                        });
+                                    }
+                                });
                         }
-                        LivyService.createTableFromFile(resGetSession.id, _data.path, _data.tableName, _data.fileType, options)
-                            .then(() => {
-                                if (index === data.length - 1) {
-                                    scrollIntoView(`#data-output-container-${$scope.id}`);
-                                    $element.append($compile(`
-                                        <alert type="success" title="Add tables success."></alert>
-                                    `)($scope));
-                                    $scope.canQuery = true;
-                                    $scope.query = '';
-                                }
-                                $scope.showLoading = false;
-                            });
-                    });
+                    })();
                 });
         };
         $scope.runQuery = (query) => {
