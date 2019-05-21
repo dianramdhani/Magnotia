@@ -14,6 +14,7 @@
         this.uploadFile = uploadFile;
         this.getInternalUser = getInternalUser;
         this.createInternalUser = createInternalUser;
+        this.deleteInternalUser = deleteInternalUser;
 
         const url = CONFIG.tenant;
         let headers = {};
@@ -56,7 +57,12 @@
             return q.promise;
         }
         function updateInternalUser(user) { }
-        function deleteInternalUser(username) { }
+        function deleteInternalUser(username) {
+            let q = $q.defer(),
+                params = { username };
+            $http.delete(`${url}/tenantUserService/deleteInternalUser`, { params, headers }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
         // HDFS RANGER POLICY
         function getHdfsRangerPolicyByTenant() { }
         function createHdfsRangerPolicy(policy) { }
