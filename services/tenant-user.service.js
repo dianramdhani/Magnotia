@@ -15,6 +15,7 @@
         this.getInternalUser = getInternalUser;
         this.createInternalUser = createInternalUser;
         this.deleteInternalUser = deleteInternalUser;
+        this.getInternalUserByUsername = getInternalUserByUsername;
 
         const url = CONFIG.tenant;
         let headers = {};
@@ -43,7 +44,12 @@
             $http.get(`${url}/tenantUserService/getInternalUser`, { params, headers }).then(res => q.resolve(res.data));
             return q.promise;
         }
-        function getInternalUserByUsername(username) { }
+        function getInternalUserByUsername(username) {
+            let q = $q.defer(),
+                params = { username };
+            $http.get(`${url}/tenantUserService/getInternalUserByUsername`, { params, headers }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
         function createInternalUser(password, username, email) {
             let q = $q.defer(),
                 params = {

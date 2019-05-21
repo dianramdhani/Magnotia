@@ -1,0 +1,28 @@
+<div class="card" style="margin-right: 15px;margin-left: 15px;">
+    <div class="card-body">
+        <h4 class="card-title">
+            <i class="fas fa-arrow-left" style="margin-right: 20px;" ui-sref="tenantUser.userManagement.home"></i>
+            Update User
+        </h4>
+        <form name="formNewUser" ng-submit="update(user)">
+            <label for="username">Username</label>
+            <input id="username" name="username" class="form-control"
+                ng-class="{'is-valid':formNewUser.username.$valid}" type="text" placeholder="Username"
+                ng-model="user.username" disabled required>
+            <label for="password">Password</label>
+            <input id="password" name="password" class="form-control"
+                ng-class="{'is-valid':formNewUser.password.$valid}" type="password" placeholder="Password"
+                ng-model="user.password" disabled required>
+            <label for="email">Email</label>
+            <input id="email" name="email" class="form-control" ng-class="{'is-valid':formNewUser.email.$valid}"
+                type="email" placeholder="Email" ng-model="user.email" required>
+            <div style="margin-top: 30px;">
+                <button class="btn btn-primary" type="submit"
+                    style="padding-right: 40px;padding-left: 40px;margin-right: 10px;">
+                    Update
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<loading show="showLoading"></loading>

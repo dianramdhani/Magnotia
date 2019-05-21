@@ -15,7 +15,7 @@
     tenantUserUserManagementFormNewUserController.$inject = ['$scope', '$rootScope', '$element', '$compile', '$state', 'TenantUserService'];
     function tenantUserUserManagementFormNewUserController($scope, $rootScope, $element, $compile, $state, TenantUserService) {
         let $ctrl = this;
-        $ctrl.$onInit = function () {
+        $ctrl.$onInit = () => {
             $scope.id = $scope.$id;
             $scope.user = {
                 prefixUsername: `${$rootScope.globals.currentUser.tenant}_`

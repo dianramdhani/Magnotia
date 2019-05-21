@@ -22,7 +22,8 @@
                         <td>
                             <div class="d-flex flex-row justify-content-end" style="width: 100%;">
                                 <i class="far fa-trash-alt" ng-click="delete(user.username)"></i>
-                                <i class="fas fa-cogs" style="margin-left: 10px;"></i>
+                                <i class="fas fa-cogs" style="margin-left: 10px;"
+                                    ui-sref="tenantUser.userManagement.update({ username: user.username })"></i>
                             </div>
                         </td>
                     </tr>
