@@ -4,8 +4,8 @@
     window.app
         .service('TenantUserService', TenantUserService);
 
-    TenantUserService.$inject = ['$http', '$q', '$rootScope', 'CONFIG'];
-    function TenantUserService($http, $q, $rootScope, CONFIG) {
+    TenantUserService.$inject = ['$http', '$q', '$rootScope', 'md5', 'CONFIG'];
+    function TenantUserService($http, $q, $rootScope, md5, CONFIG) {
         this.browseDirectory = browseDirectory;
         this.downloadFile = downloadFile;
         this.diskUsage = diskUsage;
@@ -13,6 +13,7 @@
         this.removeFile = removeFile;
         this.uploadFile = uploadFile;
         this.getInternalUser = getInternalUser;
+        this.createInternalUser = createInternalUser;
 
         const url = CONFIG.tenant;
         let headers = {};
@@ -42,7 +43,18 @@
             return q.promise;
         }
         function getInternalUserByUsername(username) { }
-        function createInternalUser(password, username, email) { }
+        function createInternalUser(password, username, email) {
+            let q = $q.defer(),
+                params = {
+                    tenantName: $rootScope.globals.currentUser.tenant,
+                    user: {
+                        password: md5.createHash(password),
+                        username, email
+                    }
+                };
+            $http.post(`${url}/tenantUserService/createInternalUser`, params, { headers }).then(res => q.resolve(res.data)).catch(err => q.reject(err.data));
+            return q.promise;
+        }
         function updateInternalUser(user) { }
         function deleteInternalUser(username) { }
         // HDFS RANGER POLICY
