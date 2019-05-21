@@ -11,8 +11,8 @@
         this.diskUsage = diskUsage;
         this.makeDirectory = makeDirectory;
         this.removeFile = removeFile;
-        // upload file
         this.uploadFile = uploadFile;
+        this.getInternalUser = getInternalUser;
 
         const url = CONFIG.tenant;
         let headers = {};
@@ -35,7 +35,12 @@
         function changeTenantStatus(params) { }
         // TENANT USER
         function isUsernameAvailable(username) { }
-        function getInternalUser() { }
+        function getInternalUser() {
+            let q = $q.defer(),
+                params = { tenant: $rootScope.globals.currentUser.tenant };
+            $http.get(`${url}/tenantUserService/getInternalUser`, { params, headers }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
         function getInternalUserByUsername(username) { }
         function createInternalUser(password, username, email) { }
         function updateInternalUser(user) { }

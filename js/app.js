@@ -81,3 +81,5 @@ require('../views/tenant-user/application-suite/table-application-instance/table
 require('../views/tenant-user/data-browser/data-browser');
 // tenantUserDataExplorer tenant-user-data-explorer
 require('../views/tenant-user/data-explorer/data-explorer')
+// tenantUserUserManagement tenant-user-user-management
+require('../views/tenant-user/user-management/user-management');
