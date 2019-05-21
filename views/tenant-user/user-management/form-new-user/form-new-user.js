@@ -28,16 +28,20 @@
             let _user = angular.copy(user);
             _user.username = _user.prefixUsername + _user.username;
 
-            const onSuccess = () => {
-                $scope.showLoading = false;
-                $scope.onClose = () => $state.go('tenantUser.userManagement.home');
-                $element.append($compile(`
-                    <alert type="success" title="Add new user has been success." on-close="onClose()"></alert>
-                `)($scope));
-            };
+            $scope.onCloseAlert = () => $state.go('tenantUser.userManagement.home');
             TenantUserService.createInternalUser(_user.password, _user.username, _user.email)
-                .then(onSuccess)
-                .catch(onSuccess);
+                .then(() => {
+                    $scope.showLoading = false;
+                    $element.append($compile(`
+                        <alert type="success" title="Add new user has been success." on-close="onCloseAlert()"></alert>
+                    `)($scope));
+                })
+                .catch(err => {
+                    $scope.showLoading = false;
+                    $element.append($compile(`
+                        <alert type="danger" title="${err.status}" on-close="onCloseAlert()"></alert>
+                    `)($scope));
+                });
         };
     }
 })();
