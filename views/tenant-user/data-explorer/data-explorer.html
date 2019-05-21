@@ -4,7 +4,7 @@
             Data Explorer
             <span>
                 <div class="dropdown">
-                    <i class="fas fa-plus" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
+                    <i class="fas fa-plus dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
                     <div class="dropdown-menu dropdown-menu-right" role="menu">
                         <button class="dropdown-item" role="presentation" ng-click="openFileOrFolder('FILE')">
                             Open File
@@ -42,7 +42,8 @@
                                 </select>
                             </td>
                             <td>
-                                <input type="text" class="form-control" placeholder="Table Name" ng-attr-name="tableName-{{$index}}"
+                                <input type="text" class="form-control" placeholder="Table Name"
+                                    ng-attr-name="tableName-{{$index}}"
                                     ng-class="{'is-valid':formDataExplorer['tableName-'+$index].$valid}"
                                     ng-model="_data['tableName']" required>
                             </td>

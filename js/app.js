@@ -87,3 +87,5 @@ require('../views/tenant-user/data-explorer/data-explorer')
 require('../views/tenant-user/user-management/container/container');
 // tenantUserUserManagementHome tenant-user-user-management-home
 require('../views/tenant-user/user-management/home/home');
+// tenantUserUserManagementFormNewUser tenant-user-user-management-form-new-user
+require('../views/tenant-user/user-management/form-new-user/form-new-user');
