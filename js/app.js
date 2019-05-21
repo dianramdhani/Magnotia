@@ -25,6 +25,8 @@ require('../routes/app.route');
 require('../routes/tenant-user.route');
 // app/tenant-user/application-suite
 require('../routes/application-suite.route');
+// app/tenant-user/user-management
+require('../routes/user-management.route');
 
 // services
 // AuthService
@@ -81,5 +83,7 @@ require('../views/tenant-user/application-suite/table-application-instance/table
 require('../views/tenant-user/data-browser/data-browser');
 // tenantUserDataExplorer tenant-user-data-explorer
 require('../views/tenant-user/data-explorer/data-explorer')
-// tenantUserUserManagement tenant-user-user-management
-require('../views/tenant-user/user-management/user-management');
+// tenantUserUserManagementContainer tenant-user-user-management-container
+require('../views/tenant-user/user-management/container/container');
+// tenantUserUserManagementHome tenant-user-user-management-home
+require('../views/tenant-user/user-management/home/home');
