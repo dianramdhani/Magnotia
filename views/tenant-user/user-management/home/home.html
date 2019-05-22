@@ -1,0 +1,34 @@
+<div class="card" style="margin-right: 15px;margin-left: 15px;">
+    <div class="card-body">
+        <h4 class="card-title d-flex justify-content-between">
+            User Management
+            <i class="fas fa-plus" ui-sref="tenantUser.userManagement.new"></i>
+        </h4>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Status</th>
+                        <th>Email</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in users track by $index">
+                        <td>{{user.username}}</td>
+                        <td>{{user.status}}</td>
+                        <td>{{user.email}}</td>
+                        <td>
+                            <div class="d-flex flex-row justify-content-end" style="width: 100%;">
+                                <i class="far fa-trash-alt" ng-click="delete(user.username)"></i>
+                                <i class="fas fa-cogs" style="margin-left: 10px;"
+                                    ui-sref="tenantUser.userManagement.update({ username: user.username })"></i>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

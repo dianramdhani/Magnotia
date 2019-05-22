@@ -4,15 +4,19 @@
     window.app
         .service('TenantUserService', TenantUserService);
 
-    TenantUserService.$inject = ['$http', '$q', '$rootScope', 'CONFIG'];
-    function TenantUserService($http, $q, $rootScope, CONFIG) {
+    TenantUserService.$inject = ['$http', '$q', '$rootScope', 'md5', 'CONFIG'];
+    function TenantUserService($http, $q, $rootScope, md5, CONFIG) {
         this.browseDirectory = browseDirectory;
         this.downloadFile = downloadFile;
         this.diskUsage = diskUsage;
         this.makeDirectory = makeDirectory;
         this.removeFile = removeFile;
-        // upload file
         this.uploadFile = uploadFile;
+        this.getInternalUser = getInternalUser;
+        this.createInternalUser = createInternalUser;
+        this.deleteInternalUser = deleteInternalUser;
+        this.getInternalUserByUsername = getInternalUserByUsername;
+        this.updateInternalUser = updateInternalUser;
 
         const url = CONFIG.tenant;
         let headers = {};
@@ -35,11 +39,45 @@
         function changeTenantStatus(params) { }
         // TENANT USER
         function isUsernameAvailable(username) { }
-        function getInternalUser() { }
-        function getInternalUserByUsername(username) { }
-        function createInternalUser(password, username, email) { }
-        function updateInternalUser(user) { }
-        function deleteInternalUser(username) { }
+        function getInternalUser() {
+            let q = $q.defer(),
+                params = { tenant: $rootScope.globals.currentUser.tenant };
+            $http.get(`${url}/tenantUserService/getInternalUser`, { params, headers }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
+        function getInternalUserByUsername(username) {
+            let q = $q.defer(),
+                params = { username };
+            $http.get(`${url}/tenantUserService/getInternalUserByUsername`, { params, headers }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
+        function createInternalUser(password, username, email) {
+            let q = $q.defer(),
+                params = {
+                    tenantName: $rootScope.globals.currentUser.tenant,
+                    user: {
+                        password: md5.createHash(password),
+                        username, email
+                    }
+                };
+            $http.post(`${url}/tenantUserService/createInternalUser`, params, { headers }).then(res => q.resolve(res.data)).catch(err => q.reject(err.data));
+            return q.promise;
+        }
+        function updateInternalUser(user) {
+            let q = $q.defer(),
+                params = {
+                    tenantName: $rootScope.globals.currentUser.tenant,
+                    user
+                };
+            $http.put(`${url}/tenantUserService/updateInternalUser`, params, { headers }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
+        function deleteInternalUser(username) {
+            let q = $q.defer(),
+                params = { username };
+            $http.delete(`${url}/tenantUserService/deleteInternalUser`, { params, headers }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
         // HDFS RANGER POLICY
         function getHdfsRangerPolicyByTenant() { }
         function createHdfsRangerPolicy(policy) { }
