@@ -9,7 +9,7 @@
         let states = [
             { name: 'platformAdmin.dashboard', url: '/dashboard', template: 'dashboard' },
             { name: 'platformAdmin.orchestrator', url: '/orchestrator', template: 'orchestrator' },
-            { name: 'platformAdmin.tenant', url: '/tenant', template: 'tenant' }
+            { name: 'platformAdmin.tenant', url: '/tenant', component: 'platformAdminTenantHome' }
         ];
         states.forEach(state => $stateProvider.state(state));
     }

@@ -95,3 +95,7 @@ require('../views/tenant-user/user-management/form-new-user/form-new-user');
 require('../views/tenant-user/user-management/form-update-user/form-update-user');
 // platformAdminContainer platform-admin-container
 require('../views/platform-admin/container/container');
+// platformAdminTenantHome platform-admin-tenant-home
+require('../views/platform-admin/tenant/home/home');
+// platformAdminTenantModalNewTenant platform-admin-tenant-modal-new-tenant
+require('../views/platform-admin/tenant/modal-new-tenant/modal-new-tenant');

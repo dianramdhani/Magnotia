@@ -16,7 +16,6 @@
     function platformAdminContainerController($scope, $rootScope, $state, $timeout, AuthService) {
         let $ctrl = this;
         $ctrl.$onInit = () => {
-            console.log('terbuka');
             $timeout(() => {
                 $scope.stateNow = 'platformAdmin.dashboard';
                 $state.go('platformAdmin.dashboard');
