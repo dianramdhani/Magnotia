@@ -16,6 +16,10 @@
     function platformAdminTenantHomeController($scope, TenantUserService) {
         let $ctrl = this;
         $ctrl.$onInit = () => {
+            $scope.refreshTenants();
+        };
+
+        $scope.refreshTenants = () => {
             TenantUserService.getTenant(null, null)
                 .then(resGetTenant => $scope.tenants = resGetTenant);
         };
