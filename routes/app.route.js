@@ -10,7 +10,8 @@
         $urlRouterProvider.otherwise('/login');
         [
             { name: 'login', url: '/login', component: 'login' },
-            { name: 'tenantUser', component: 'tenantUserContainer' }
+            { name: 'tenantUser', component: 'tenantUserContainer' },
+            { name: 'platformAdmin', component: 'platformAdminContainer' }
         ]
             .forEach(state => $stateProvider.state(state));
     }

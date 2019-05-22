@@ -39,6 +39,9 @@
                     case 'TENANT_USER':
                         $state.go('tenantUser');
                         break;
+                    case 'PLATFORM_ADMIN':
+                        $state.go('platformAdmin');
+                        break;
                 }
             }
         };

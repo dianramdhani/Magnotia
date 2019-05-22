@@ -91,3 +91,5 @@ require('../views/tenant-user/user-management/home/home');
 require('../views/tenant-user/user-management/form-new-user/form-new-user');
 // tenantUserUserManagementFormUpdateUser tenant-user-user-management-form-update-user
 require('../views/tenant-user/user-management/form-update-user/form-update-user');
+// platformAdminContainer platform-admin-container
+require('../views/platform-admin/container/container');
