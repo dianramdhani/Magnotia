@@ -27,6 +27,8 @@ require('../routes/tenant-user.route');
 require('../routes/application-suite.route');
 // app/tenant-user/user-management
 require('../routes/user-management.route');
+// app/platform-admin
+require('../routes/platform-admin.route');
 
 // services
 // AuthService

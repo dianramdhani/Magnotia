@@ -12,9 +12,18 @@
             controller: platformAdminContainerController,
         });
 
-    platformAdminContainerController.$inject = [];
-    function platformAdminContainerController() {
+    platformAdminContainerController.$inject = ['$scope', '$rootScope', '$state', '$timeout', 'AuthService'];
+    function platformAdminContainerController($scope, $rootScope, $state, $timeout, AuthService) {
         let $ctrl = this;
-        $ctrl.$onInit = () => { };
+        $ctrl.$onInit = () => {
+            console.log('terbuka');
+            $timeout(() => {
+                $scope.stateNow = 'platformAdmin.dashboard';
+                $state.go('platformAdmin.dashboard');
+                $scope.username = $rootScope.globals.currentUser.username;
+            });
+        };
+
+        $scope.logout = AuthService.logout;
     }
 })();
