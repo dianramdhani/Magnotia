@@ -17,8 +17,12 @@
         this.deleteInternalUser = deleteInternalUser;
         this.getInternalUserByUsername = getInternalUserByUsername;
         this.updateInternalUser = updateInternalUser;
+        this.getTenant = getTenant;
 
-        const url = CONFIG.tenant;
+        const url = CONFIG.tenant, removeEmpty = (obj) => {
+            Object.keys(obj).forEach((key) => (obj[key] == null) && delete obj[key]);
+            return obj;
+        }
         let headers = {};
         if ($rootScope.globals.currentUser) {
             headers = {
@@ -34,7 +38,12 @@
         function resetPasswordToEmail() { }
         // TENANT
         function isTenantAvailable(name) { }
-        function getTenant(name, status) { }
+        function getTenant(name, status) {
+            let q = $q.defer(),
+                params = removeEmpty({ name, status });
+            $http.get(`${url}/tenantService/getTenant`, { params, headers }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
         function createTenant(name) { }
         function changeTenantStatus(params) { }
         // TENANT USER

@@ -12,9 +12,12 @@
             controller: platformAdminTenantHomeController
         });
 
-    platformAdminTenantHomeController.$inject = ['$scope'];
-    function platformAdminTenantHomeController($scope) {
+    platformAdminTenantHomeController.$inject = ['$scope', 'TenantUserService'];
+    function platformAdminTenantHomeController($scope, TenantUserService) {
         let $ctrl = this;
-        $ctrl.$onInit = () => { };
+        $ctrl.$onInit = () => {
+            TenantUserService.getTenant(null, null)
+                .then(resGetTenant => $scope.tenants = resGetTenant);
+        };
     }
 })();

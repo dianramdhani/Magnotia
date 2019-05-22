@@ -1,1 +1,28 @@
-testing ini home
+<div class="card" style="margin-right: 15px;margin-left: 15px;">
+    <div class="card-body">
+        <h4 class="card-title d-flex justify-content-between">
+            Tenant
+            <i class="fas fa-plus"></i>
+        </h4>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Tenant Name</th>
+                        <th>Status</th>
+                        <th>Creation Date</th>
+                        <th>Termination Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="tenant in tenants track by $index">
+                        <td>{{tenant.name}}</td>
+                        <td>{{tenant.status}}</td>
+                        <td>{{tenant.creationDate | date}}</td>
+                        <td>{{tenant.terminationDate | date}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
