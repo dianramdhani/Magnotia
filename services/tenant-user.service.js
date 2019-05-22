@@ -16,6 +16,7 @@
         this.createInternalUser = createInternalUser;
         this.deleteInternalUser = deleteInternalUser;
         this.getInternalUserByUsername = getInternalUserByUsername;
+        this.updateInternalUser = updateInternalUser;
 
         const url = CONFIG.tenant;
         let headers = {};
@@ -62,7 +63,15 @@
             $http.post(`${url}/tenantUserService/createInternalUser`, params, { headers }).then(res => q.resolve(res.data)).catch(err => q.reject(err.data));
             return q.promise;
         }
-        function updateInternalUser(user) { }
+        function updateInternalUser(user) {
+            let q = $q.defer(),
+                params = {
+                    tenantName: $rootScope.globals.currentUser.tenant,
+                    user
+                };
+            $http.put(`${url}/tenantUserService/updateInternalUser`, params, { headers }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
         function deleteInternalUser(username) {
             let q = $q.defer(),
                 params = { username };
