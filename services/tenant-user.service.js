@@ -17,8 +17,14 @@
         this.deleteInternalUser = deleteInternalUser;
         this.getInternalUserByUsername = getInternalUserByUsername;
         this.updateInternalUser = updateInternalUser;
+        this.getTenant = getTenant;
+        this.isTenantAvailable = isTenantAvailable;
+        this.createTenant = createTenant;
 
-        const url = CONFIG.tenant;
+        const url = CONFIG.tenant, removeEmpty = (obj) => {
+            Object.keys(obj).forEach((key) => (obj[key] == null) && delete obj[key]);
+            return obj;
+        }
         let headers = {};
         if ($rootScope.globals.currentUser) {
             headers = {
@@ -33,9 +39,24 @@
         function logout() { }
         function resetPasswordToEmail() { }
         // TENANT
-        function isTenantAvailable(name) { }
-        function getTenant(name, status) { }
-        function createTenant(name) { }
+        function isTenantAvailable(name) {
+            let q = $q.defer(),
+                params = { name };
+            $http.get(`${url}/tenantService/isTenantAvailable`, { params, headers }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
+        function getTenant(name, status) {
+            let q = $q.defer(),
+                params = removeEmpty({ name, status });
+            $http.get(`${url}/tenantService/getTenant`, { params, headers }).then(res => q.resolve(res.data));
+            return q.promise;
+        }
+        function createTenant(name) {
+            let q = $q.defer(),
+                params = { tenant: name };
+            $http.post(`${url}/tenantService/createTenant`, params, { headers }).then(res => q.resolve(res.data)).catch(err => q.reject(err.data));
+            return q.promise;
+        }
         function changeTenantStatus(params) { }
         // TENANT USER
         function isUsernameAvailable(username) { }

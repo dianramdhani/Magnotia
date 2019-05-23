@@ -1,0 +1,46 @@
+<nav class="navbar navbar-light navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand text-primary" href="/">Magnotia</a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navcol-1">
+            <ul class="nav navbar-nav">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" ui-sref="platformAdmin.dashboard"
+                        ng-class="{active: stateNow === 'platformAdmin.dashboard'}"
+                        ng-style="{textDecoration: stateNow === 'platformAdmin.dashboard'? 'underline': ''}"
+                        ng-click="stateNow='platformAdmin.dashboard'">Dashboard</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" ui-sref="platformAdmin.orchestrator"
+                        ng-class="{active: stateNow === 'platformAdmin.orchestrator'}"
+                        ng-style="{textDecoration: stateNow === 'platformAdmin.orchestrator'? 'underline': ''}"
+                        ng-click="stateNow='platformAdmin.orchestrator'">Orchestrator</a></li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" ui-sref="platformAdmin.tenant" style="cursor: pointer"
+                        ng-class="{active: stateNow === 'platformAdmin.tenant'}"
+                        ng-style="{textDecoration: stateNow === 'platformAdmin.tenant'? 'underline': ''}"
+                        ng-click="stateNow='platformAdmin.tenant'">Tenant</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li class="nav-item dropdown">
+                    <span class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false"
+                        style="cursor: pointer;">
+                        {{username}}
+                    </span>
+                    <div class="dropdown-menu" role="menu">
+                        <span class="dropdown-item" role="presentation" ng-click="logout()">
+                            Logout
+                        </span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- route: app/platform-admin -->
+<div ui-view></div>
