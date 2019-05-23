@@ -15,8 +15,8 @@
             },
         });
 
-    platformAdminTenantModalNewTenantController.$inject = ['$scope', '$timeout'];
-    function platformAdminTenantModalNewTenantController($scope, $timeout) {
+    platformAdminTenantModalNewTenantController.$inject = ['$scope', '$timeout', '$element', '$compile', 'TenantUserService'];
+    function platformAdminTenantModalNewTenantController($scope, $timeout, $element, $compile, TenantUserService) {
         let $ctrl = this,
             modalElement;
         $ctrl.$onInit = () => {
@@ -27,11 +27,53 @@
             });
         };
 
-        $scope.save = (tenantName) => {
-            console.log(tenantName);
-            $ctrl.refreshTenants();
-            $scope.tenantName = '';
-            modalElement.modal('hide');
+        $scope.save = async (tenantName) => {
+            const
+                close = () => {
+                    $timeout(() => {
+                        $scope.showLoading = false;
+                        $scope.tenantName = '';
+                        modalElement.modal('hide');
+                    });
+                },
+                isSuccess = (res) => {
+                    switch (res.status) {
+                        case 'INTERNAL_SERVER_ERROR':
+                            modalElement.on('hidden.bs.modal', () => {
+                                $element.append($compile(`
+                                    <alert type="danger" title="Failed!" body='${res.message}'></alert>
+                                `)($scope));
+                            });
+                            break;
+                    }
+                    $ctrl.refreshTenants();
+                    close();
+                },
+                isFailed = (message) => {
+                    modalElement.on('hidden.bs.modal', () => {
+                        $element.append($compile(`
+                            <alert type="danger" title="Failed!" body="${message}"></alert>
+                        `)($scope));
+                    });
+                    close();
+                };
+
+            $scope.showLoading = true;
+            let availability = await TenantUserService.isTenantAvailable(tenantName);
+            switch (availability.status) {
+                case 'SUCCESS':
+                    let res;
+                    try {
+                        res = await TenantUserService.createTenant(tenantName);
+                    } catch (err) {
+                        res = err;
+                    }
+                    isSuccess(res);
+                    break;
+                case 'FAILED':
+                    isFailed(availability.message);
+                    break;
+            }
         };
     }
 })();
